@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load staticfiles%}
+<html>
+<head lang="en">
+    <link type="text/css" rel="stylesheet" href="{% static 'polls/style.css' %}"/>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <div style="float:right">
+        <img src="{% static 'polls/images/background.gif' %}" alt="Logo" height="220" width="400">
+    </div>
+    <h1> Login to Poll Application </h1>
+    {% if TriedBefore %}
+        <h6 style="color:red">The email and password you entered don't match. </h6>
+    {% endif %}
+    <form id="login_form" method="post" action="{% url 'mealsOnWheels:login' %}">
+    {% csrf_token %}
+        Username: <input type="text" name="username" value="" size="50" />
+        <br />
+        Password: <input type="password" name="password" value="" size="50" />
+        <br />
+        <input type="submit" value="submit" />
+    </form>
+</body>
+</html>

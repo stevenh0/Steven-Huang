@@ -1,0 +1,28 @@
+/* Color pallet
+http://www.color-hex.com/color-palette/8015
+*/
+*{
+background-color : #fcf6e8;
+}
+
+#registPage{
+    float : left;
+    margin : auto;
+    border-radius : 50px;
+    text-align : center;
+    color:#cc6510;
+    border: 2px solid #e7ad20;
+    height: 60px;
+    width: 350px;
+    background-color:#e7d41a ;
+    font-family: Garamond, serif;
+}
+
+/*
+.headerimg{
+content : url("images/background.gif");
+alt : "Logo" ;
+height : 20 ;
+width : 30;
+}
+*/

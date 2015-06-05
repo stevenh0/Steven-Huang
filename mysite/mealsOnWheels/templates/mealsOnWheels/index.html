@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load staticfiles%}
+<html>
+    <head>
+        <link type="text/css" rel="stylesheet" href="{% static 'mealsOnWheels/style.css' %}"/>
+        <title> Homepage</title>
+    </head>
+<body>
+    <div style="float:right">
+        <img src="{% static 'mealsOnWheels/images/background.gif' %}" alt="Logo" height="220" width="400">
+    </div>
+    {% if user.is_authenticated%}
+    <h1 style="color:yellow ; background-color: black"> Hello {{user.username}}!! </h1>
+    <a href="/mealsOnWheels/logout/">Logout </a> <br/>
+    {% else %}
+    <h1 style="color:yellow ; background-color: black"> Hello Somebody!! </h1>
+    {% endif %}
+
+    <a href="{% url 'mealsOnWheels:register'%}">To answer to the mealsOnWheels, register here</a>
+    <p> List of questions: Each question is hyper-referenced to the mealsOnWheels/specific/question_id's page </p>
+    {% if latest_question_list %}
+    <ul>
+        {% for question in latest_question_list %}
+            <li><a href="{% url 'mealsOnWheels:detail' question.id %}">{{ question.question_text }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+         <p>No mealsOnWheels are available.</p>
+    {% endif %}
+
+    {% if not user.is_authenticated %}
+    <a href="{% url 'mealsOnWheels:login' %}">Log in</a>
+    {% endif %}
+</body>
+
+</html>
