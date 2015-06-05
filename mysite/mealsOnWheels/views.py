@@ -210,3 +210,7 @@ def user_logout(request):
     logout(request)
     # Take the user back to the index page
     return HttpResponseRedirect('/mealsOnWheels/')
+
+@login_required
+def render_map(request):
+    return render(request,'mealsOnWheels/map.html',{})
