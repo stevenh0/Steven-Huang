@@ -427,6 +427,10 @@
 			padding: 50px 0 0 50px;
 		}
 
+        #map-row, #map-tooltip-row {
+            padding: 20px 0 0 10px !important;
+        }
+
 		.row {
 			margin: -50px 0 -1px -50px;
 		}
@@ -1254,6 +1258,10 @@
 		margin-bottom: 2.5em;
 	}
 
+	#active-marker-details {
+	    margin-bottom: 0.7em;
+	}
+
 		section > :last-child, section:last-child, article > :last-child, article:last-child {
 			margin-bottom: 0;
 		}
@@ -1803,7 +1811,7 @@
 		/* Box */
 
 			.box {
-				padding: 2.75em 1.75em 2.75em 1.75em;
+				padding: 1.75em 1.75em 1.75em 1.75em;
 			}
 
 				.box .image.featured {
@@ -2548,8 +2556,8 @@
 /* Google Map */
 
     #map-canvas {
-        height: 500px;
-        width: 700px;
+        height: 550px;
+        width: 870px;
         margin: 0px;
         padding: 0px
     }

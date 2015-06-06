@@ -43,13 +43,19 @@
 							<section id="banner">
 								<header>
 									<h2>
-                                        {% if user.is_authenticated%}
+                                    {% if user.is_authenticated%}
                                         Hello {{user.username}}!
-                                        {% else %}
-                                        Find some food trucks today!
-                                        {% endif %}
+                                    {% else %}
+                                        Hello! Are you feeling hungry?
+                                    {% endif %}
                                     </h2>
-									<p>Welcome to a web app for searching food trucks</p>
+									<p>
+									{% if user.is_authenticated%}
+										Find some food trucks by searching on our map
+									{% else %}
+										Register now and find some food trucks today
+									{% endif %}
+									</p>
 								</header>
 							</section>
 
@@ -168,7 +174,7 @@
 								<!-- Copyright -->
 									<div id="copyright">
 										<ul class="links">
-											<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+											<li>&copy; Djanguars. All rights reserved.</li>
 										</ul>
 									</div>
 
