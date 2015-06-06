@@ -1655,16 +1655,16 @@
 /* Banner */
 
 	#banner {
-		background: #CCE8F4 url("../../images/pic01.jpg");
+		background: #CCE8F4 url("../images/foodtruckbanner.png");
 		background-position: center center;
-		background-size: auto 100%;
+		background-size: 100%;
 		background-repeat: no-repeat;
 		text-align: center;
 	}
 
 		#banner header {
 			background-color: #252122;
-			background-color: rgba(34, 30, 31, 0.98);
+			background-color: rgba(34, 30, 31, 0.9);
 		}
 
 			#banner header h2 {

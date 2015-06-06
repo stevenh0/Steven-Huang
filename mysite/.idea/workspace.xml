@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8366baa-6f7b-464c-a7f7-952dbcd670d6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/index.html" afterPath="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/login.html" afterPath="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/login.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mealsOnWheels/static/mealsOnWheels/css/main.css" afterPath="$PROJECT_DIR$/mealsOnWheels/static/mealsOnWheels/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/map.html" afterPath="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/map.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/register.html" afterPath="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/register.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mysite2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,27 +48,27 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.0588236">
+            <state vertical-scroll-proportion="0.5882353">
               <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="106" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mealsOnWheels/static/mealsOnWheels/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.851851">
-              <caret line="1951" column="38" selection-start-line="1951" selection-start-column="38" selection-end-line="1951" selection-end-column="38" />
+            <state vertical-scroll-proportion="0.6766917">
+              <caret line="1666" column="50" selection-start-line="1666" selection-start-column="50" selection-end-line="1666" selection-end-column="50" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="register.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="register.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/register.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5426357">
+            <state vertical-scroll-proportion="-6.7647057">
               <caret line="52" column="51" selection-start-line="52" selection-start-column="51" selection-end-line="52" selection-end-column="51" />
               <folding />
             </state>
@@ -136,8 +130,8 @@
         <option value="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/index.html" />
         <option value="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/map.html" />
         <option value="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/login.html" />
-        <option value="$PROJECT_DIR$/mealsOnWheels/static/mealsOnWheels/css/main.css" />
         <option value="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/register.html" />
+        <option value="$PROJECT_DIR$/mealsOnWheels/static/mealsOnWheels/css/main.css" />
       </list>
     </option>
   </component>
@@ -840,14 +834,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.0588236">
-          <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="106" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/map.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-15.882353">
@@ -866,18 +852,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mealsOnWheels/static/mealsOnWheels/css/main.css">
+    <entry file="file://$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/register.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.851851">
-          <caret line="1951" column="38" selection-start-line="1951" selection-start-column="38" selection-end-line="1951" selection-end-column="38" />
+        <state vertical-scroll-proportion="-6.7647057">
+          <caret line="52" column="51" selection-start-line="52" selection-start-column="51" selection-end-line="52" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/register.html">
+    <entry file="file://$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5426357">
-          <caret line="52" column="51" selection-start-line="52" selection-start-column="51" selection-end-line="52" selection-end-column="51" />
+        <state vertical-scroll-proportion="0.5882353">
+          <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="106" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mealsOnWheels/static/mealsOnWheels/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6766917">
+          <caret line="1666" column="50" selection-start-line="1666" selection-start-column="50" selection-end-line="1666" selection-end-column="50" />
           <folding />
         </state>
       </provider>
