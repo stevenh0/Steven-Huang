@@ -1,26 +1,179 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 {% load staticfiles%}
+<!--
+	Dopetrope by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
-<head lang="en">
-    <link type="text/css" rel="stylesheet" href="{% static 'mealsOnWheels/style.css' %}"/>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-    <div style="float:right">
-        <img src="{% static 'mealsOnWheels/images/background.gif' %}" alt="Logo" height="220" width="400">
-    </div>
-    <h1> Login to Poll Application </h1>
-    {% if TriedBefore %}
-        <h6 style="color:red">The email and password you entered don't match. </h6>
-    {% endif %}
-    <form id="login_form" method="post" action="{% url 'mealsOnWheels:login' %}">
-    {% csrf_token %}
-        Username: <input type="text" name="username" value="" size="50" />
-        <br />
-        Password: <input type="password" name="password" value="" size="50" />
-        <br />
-        <input type="submit" value="submit" />
-    </form>
-</body>
+	<head>
+		<title>Meals on Wheels | Login</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><link type="text/css" rel="stylesheet" href="{% static 'mealsOnWheels/js/ie/html5shiv.js' %}"/></script><![endif]-->
+		<link type="text/css" rel="stylesheet" href="{% static 'mealsOnWheels/css/main.css' %}"/>
+		<!--[if lte IE 8]><link type="text/css" rel="stylesheet" href="{% static 'mealsOnWheels/css/ie8.css' %}"/><![endif]-->
+	</head>
+	<body class="no-sidebar">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper">
+					<div id="header">
+
+						<!-- Logo -->
+							<h1><a href="index.html">Meals on Wheels</a></h1>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li><a href="{% url 'mealsOnWheels:index' %}">Home</a></li>
+									{% if user.is_authenticated%}
+                                    <li><a href="{% url 'mealsOnWheels:map' %}">Map</a></li>
+									<li><a href="{% url 'mealsOnWheels:map' %}">Profile</a></li>
+                                    <li><a href="/mealsOnWheels/logout/">Logout</a></li>
+                                    {% else %}
+                                    <li><a href="{% url 'mealsOnWheels:register' %}">Register</a></li>
+                                    <li class="current"><a href="{% url 'mealsOnWheels:login' %}">Login</a></li>
+                                    {% endif %}
+								</ul>
+							</nav>
+
+					</div>
+				</div>
+
+			<!-- Main -->
+				<div id="main-wrapper">
+					<div class="container">
+
+						<!-- Content -->
+							<article class="box post">
+								<header>
+									<h2>Login</h2>
+									<p>Search for food trucks by logging in</p>
+								</header>
+								<p>
+									<form id="login_form" method="post" action="{% url 'mealsOnWheels:login' %}">
+								    {% csrf_token %}
+								        Username: <input type="text" name="username" value="" size="50" />
+								        <br />
+								        Password: <input type="password" name="password" value="" size="50" />
+								        <br />
+								        <input type="submit" value="Login" />
+								    </form>
+									{% if TriedBefore %}
+                                    <p><h3 style="color:red">Invalid username or password.</h3></p>
+                                    {% endif %}
+								</p>
+								<section>
+									<header>
+										<h3>So in conclusion ...</h3>
+									</header>
+									<p>
+										Nunc diam iaculis massa, et aliquet nibh leo non nisl vitae porta lobortis, enim neque fringilla nunc,
+										eget faucibus lacus sem quis nunc suspendisse nec lectus sit amet augue rutrum vulputate ut ut mi. Aenean
+										elementum, mi sit amet porttitor lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor
+										sit amet nullam consequat feugiat dolore tempus. Elementum odio duis semper risus et lectus commodo fringilla.
+										Maecenas sagittis convallis justo vel mattis.
+									</p>
+								</section>
+							</article>
+
+					</div>
+				</div>
+
+			<!-- Footer -->
+				<div id="footer-wrapper">
+					<section id="footer" class="container">
+						<div class="row">
+							<div class="4u 12u(mobile)">
+								<section>
+									<header>
+										<h2>Tempus consequat</h2>
+									</header>
+									<ul class="divided">
+										<li><a href="#">Lorem ipsum dolor sit amet sit veroeros</a></li>
+										<li><a href="#">Sed et blandit consequat sed tlorem blandit</a></li>
+										<li><a href="#">Adipiscing feugiat phasellus sed tempus</a></li>
+										<li><a href="#">Hendrerit tortor vitae mattis tempor sapien</a></li>
+										<li><a href="#">Sem feugiat sapien id suscipit magna felis nec</a></li>
+										<li><a href="#">Elit class aptent taciti sociosqu ad litora</a></li>
+									</ul>
+								</section>
+							</div>
+							<div class="4u 12u(mobile)">
+								<section>
+									<header>
+										<h2>Ipsum et phasellus</h2>
+									</header>
+									<ul class="divided">
+										<li><a href="#">Lorem ipsum dolor sit amet sit veroeros</a></li>
+										<li><a href="#">Sed et blandit consequat sed tlorem blandit</a></li>
+										<li><a href="#">Adipiscing feugiat phasellus sed tempus</a></li>
+										<li><a href="#">Hendrerit tortor vitae mattis tempor sapien</a></li>
+										<li><a href="#">Sem feugiat sapien id suscipit magna felis nec</a></li>
+										<li><a href="#">Elit class aptent taciti sociosqu ad litora</a></li>
+									</ul>
+								</section>
+							</div>
+							<div class="4u 12u(mobile)">
+								<section>
+									<header>
+										<h2>Vitae tempor lorem</h2>
+									</header>
+									<ul class="social">
+										<li><a class="icon fa-facebook" href="#"><span class="label">Facebook</span></a></li>
+										<li><a class="icon fa-twitter" href="#"><span class="label">Twitter</span></a></li>
+										<li><a class="icon fa-dribbble" href="#"><span class="label">Dribbble</span></a></li>
+										<li><a class="icon fa-linkedin" href="#"><span class="label">LinkedIn</span></a></li>
+										<li><a class="icon fa-google-plus" href="#"><span class="label">Google+</span></a></li>
+									</ul>
+									<ul class="contact">
+										<li>
+											<h3>Address</h3>
+											<p>
+												Untitled Incorporated<br />
+												1234 Somewhere Road Suite<br />
+												Nashville, TN 00000-0000
+											</p>
+										</li>
+										<li>
+											<h3>Mail</h3>
+											<p><a href="#">someone@untitled.tld</a></p>
+										</li>
+										<li>
+											<h3>Phone</h3>
+											<p>(800) 000-0000</p>
+										</li>
+									</ul>
+								</section>
+							</div>
+						</div>
+						<div class="row">
+							<div class="12u">
+
+								<!-- Copyright -->
+									<div id="copyright">
+										<ul class="links">
+											<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+										</ul>
+									</div>
+
+							</div>
+						</div>
+					</section>
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/skel-viewport.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
 </html>
