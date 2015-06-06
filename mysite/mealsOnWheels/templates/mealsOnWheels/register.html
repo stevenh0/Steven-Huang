@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-{% load staticfiles%}
+{% load staticfiles %}
 <!--
 	Dopetrope by HTML5 UP
 	html5up.net | @n33co
@@ -22,7 +22,7 @@
 					<div id="header">
 
 						<!-- Logo -->
-							<h1><a href="index.html">Meals on Wheels</a></h1>
+							<h1><img src="{% static 'mealsOnWheels/images/mealsOnWheelsLogo.png' %}"></h1>
 
 						<!-- Nav -->
 							<nav id="nav">
@@ -49,8 +49,8 @@
 						<!-- Content -->
 							<article class="box post">
 								<header>
-									<h2>Register for an account</h2>
-									<p>Search for food trucks by registering today</p>
+									<h2>Register</h2>
+									<p>Create a new account</p>
 								</header>
 								<p>
                                     {% if registered %}
@@ -72,18 +72,6 @@
                                     </form>
                                     {% endif %}
 								</p>
-								<section>
-									<header>
-										<h3>So in conclusion ...</h3>
-									</header>
-									<p>
-										Nunc diam iaculis massa, et aliquet nibh leo non nisl vitae porta lobortis, enim neque fringilla nunc,
-										eget faucibus lacus sem quis nunc suspendisse nec lectus sit amet augue rutrum vulputate ut ut mi. Aenean
-										elementum, mi sit amet porttitor lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor
-										sit amet nullam consequat feugiat dolore tempus. Elementum odio duis semper risus et lectus commodo fringilla.
-										Maecenas sagittis convallis justo vel mattis.
-									</p>
-								</section>
 							</article>
 
 					</div>
