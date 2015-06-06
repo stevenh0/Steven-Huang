@@ -100,7 +100,7 @@ def vote(request, question_id):
         return HttpResponseRedirect(reverse('mealsOnWheels:results', args=(p.id,)))
 
 
-from .forms import UserForm, UserProfileForm
+from .forms import UserForm
 from django.core.mail import EmailMessage
 
 def register(request):
@@ -113,22 +113,11 @@ def register(request):
     print("request.method: "+request.method)
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
-        profile_form = UserProfileForm(data=request.POST)
-
         print("user_form.is_valid(): " + str(user_form.is_valid()))
-        print("profile_form.is_valid():"+ str(profile_form.is_valid()))
-        if user_form.is_valid() and profile_form.is_valid():
-            print("within if statement")
+
+        if user_form.is_valid():
             user = user_form.save()
-            print("user_form.save() passed correctly")
             user.set_password(user.password)
-            print("user.set_password(user.password) passed correctly")
-            profile = profile_form.save(commit=False)
-            print("rofile_form.save() passed correctly")
-            profile.user = user
-            print("profile.user = user passed correctly")
-            profile.save()
-            print("profile.save() passed correctly")
             user.save()
             print("user.id: "+ str(user.id))
 
@@ -137,19 +126,17 @@ def register(request):
             ## http://www.mangooranges.com/2008/09/15/sending-email-via-gmail-in-django/
             Subject = 'Well Done! Registration to Foods on Wheel is completed!'
             Body1 = 'Hi ' + user.username + ','
-            Body2 = '\nThank you very much for registering to our Foods on Wheel.'
-            Body3 =  '\nCheck out our awesome website at\n'+'http://127.0.0.1:8000/mealsOnWheels/login/'
+            Body2 = '\nThank you very much for registering to our meals on wheels.'
+            Body3 =  '\nCheck out our awesome website at\n'+'http://http://127.0.0.1:8000/mealsOnWheels/'
             email = EmailMessage(Subject, Body1+Body2+Body3, to=[user.email])
             email.send()
 
-            print("profile.id: "+str(profile.id))
             registered =True
 
         else:
-            print user_form.errors, profile_form.errors
+            print user_form.errors
     else:
         user_form = UserForm()
-        profile_form = UserProfileForm()
 
     print("registered: "+str(registered))
     return render(
@@ -157,7 +144,6 @@ def register(request):
         'mealsOnWheels/register.html',
         {
             'user_form': user_form,
-            'profile_form': profile_form,
             'registered':registered,
         }
     )

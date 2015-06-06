@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Question,Choice, UserProfile
+from .models import Question,Choice
 
 
 # Register your models here.
@@ -16,11 +16,9 @@ class stupidnameAdmin(admin.ModelAdmin):
     ##fields = ['pub_date','question_text']
     fieldsets = [
          ('Date information',{'fields':['pub_date'],'classes':['collapse']}),
-    ##     (None,            {'fields':['question_text']}),
+          (None,            {'fields':['question_text']}),
         ]
     inlines = [ChoiceInline]
 
 admin.site.register(Question,stupidnameAdmin)
 ## admin.site.register(Choice)
-
-admin.site.register(UserProfile)

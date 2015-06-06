@@ -31,18 +31,6 @@ class Choice(models.Model):
 
 
 
-## Authentification
-from django.contrib.auth.models import User
 
-class UserProfile(models.Model):
-    #"This"line"is"required."Links"UserProfile"to"a"User"model"instance.
-    user = models.OneToOneField(User)
-
-    ## the additional attribute that we wish to include
-    website= models.URLField(blank=True)
-    ## picture =models.ImageField(upload_to='profile_images',blank=True)
-
-    def __unicode__(self):
-        return self.user.username
 
 

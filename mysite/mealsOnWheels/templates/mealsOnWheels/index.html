@@ -17,7 +17,7 @@
     {% endif %}
 
     <a href="{% url 'mealsOnWheels:register'%}">To answer to the mealsOnWheels, register here</a>
-    <p> List of questions: Each question is hyper-referenced to the mealsOnWheels/specific/question_id's page </p>
+    <p> List of questions: </p>
     {% if latest_question_list %}
     <ul>
         {% for question in latest_question_list %}
