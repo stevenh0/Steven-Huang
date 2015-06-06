@@ -2544,3 +2544,12 @@
 				}
 
 	}
+
+/* Google Map */
+
+    #map-canvas {
+        height: 500px;
+        width: 700px;
+        margin: 0px;
+        padding: 0px
+    }
