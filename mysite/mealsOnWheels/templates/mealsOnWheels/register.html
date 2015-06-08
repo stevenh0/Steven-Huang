@@ -65,8 +65,8 @@
 								</form>
 								<!--
                                     {% if registered %}
-                                    <p>You are already registered.</p>p>
-                                    <a href="{% url 'mealsOnWheels:index' %}">Return to the homepage</a>
+                                    <p>Congratulations! You are now registered.</p>
+                                    <a href="{% url 'mealsOnWheels:login' %}">Login to your account</a>
                                     {% else %}
                                     <form id="user_form" method="post" action="{% url 'mealsOnWheels:register' %}"
                                           enctype="multipart/form-data">
