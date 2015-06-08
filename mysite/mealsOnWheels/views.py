@@ -196,7 +196,6 @@ def register_user(request):
             Body3 = 'http://http://127.0.0.1:8000/mealsOnWheels/confirm/%s' % (activation_key)
             email = EmailMessage(Subject, Body1+Body2+Body3, to=[email])
             email.send()
-            #registered =True
 
             return render(request,'mealsOnWheels/registration_step1.html',{})
         else:
