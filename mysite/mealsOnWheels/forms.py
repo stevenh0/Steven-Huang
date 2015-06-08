@@ -16,25 +16,9 @@ from django.contrib.auth.forms import UserCreationForm
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True,label="E-mail",widget=forms.TextInput(attrs={'placehoder':'E-mail address'}))
-    password1 = forms.CharField(required=True,label="Password",
-                                help_text="Please enter your password",widget=forms.PasswordInput())
-    password2 = forms.CharField(required=True,label="Password",
-                                help_text="Please reenter your password",widget=forms.PasswordInput())
     class Meta:
         model = User
-        fields = ('username','email','password2','password1',)
-
-    def clean_password1(self):
-        ## This function is called by form.is_valid()
-        password1 = self.cleaned_data.get('password1')
-        password2 = self.cleaned_data.get('password2')
-        print "password1" + str(password1)
-        print "password2" + str(password2)
-        ## If a client specify two different passwords then Error message appears
-        if password1 and password1 != password2:
-            raise forms.ValidationError("Passwords don't match")
-
-        return password1
+        fields = ('username','email','password1','password2',)
 
     def clean_email(self):
         ## If client specify the email address which is already taken, it fails

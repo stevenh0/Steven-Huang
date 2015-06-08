@@ -35,7 +35,6 @@ class Choice(models.Model):
 from django.contrib.auth.models import User
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    #password2 = models.CharField(max_length=30)
     activation_key = models.CharField(max_length=40,blank=True)
     key_expires = models.DateTimeField(default=timezone.now)
 
