@@ -2,11 +2,6 @@ import datetime
 from django.db import models
 from django.utils import timezone
 
-# Create your models here.
-## class temp(models.Model):
-##    str = models.IntegerField(default=1);
-
-
 class Question(models.Model):
     question_text = models.CharField('My Question Text',max_length = 200)
     pub_date = models.DateTimeField('date published')
@@ -28,6 +23,8 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice_text
+
+## The above will deleted later
 
 class Position(models.Model):
     lat = models.FloatField()

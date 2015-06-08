@@ -1,13 +1,135 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
+{% load staticfiles %}
+<!--
+	Dopetrope by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+	<head>
+		<title>Meals on Wheels | Login</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><link type="text/css" rel="stylesheet" href="{% static 'mealsOnWheels/js/ie/html5shiv.js' %}"/></script><![endif]-->
+		<link type="text/css" rel="stylesheet" href="{% static 'mealsOnWheels/css/main.css' %}"/>
+		<!--[if lte IE 8]><link type="text/css" rel="stylesheet" href="{% static 'mealsOnWheels/css/ie8.css' %}"/><![endif]-->
+	</head>
+	<body class="no-sidebar">
+		<div id="page-wrapper">
 
-<h1>Congratulations! You successfuly registered to Meals on Wheels. </h1>
-<a href="{% url 'mealsOnWheels:index' %}"> Go back to main page </a>
-<!--TODO: MAke this page nice looking -->
-</body>
+			<!-- Header -->
+				<div id="header-wrapper">
+					<div id="header">
+
+						<!-- Logo -->
+							<h1><img src="{% static 'mealsOnWheels/images/mealsOnWheelsLogo.png' %}"></h1>
+
+						<!-- Nav -->
+							<nav id="nav">
+								<ul>
+									<li><a href="{% url 'mealsOnWheels:index' %}">Home</a></li>
+									{% if user.is_authenticated%}
+                                    <li><a href="{% url 'mealsOnWheels:map' %}">Map</a></li>
+									<li><a href="{% url 'mealsOnWheels:map' %}">Profile</a></li>
+                                    <li><a href="/mealsOnWheels/logout/">Logout</a></li>
+                                    {% else %}
+                                    <li><a href="{% url 'mealsOnWheels:register' %}">Register</a></li>
+                                    <li class="current"><a href="{% url 'mealsOnWheels:login' %}">Login</a></li>
+                                    {% endif %}
+								</ul>
+							</nav>
+
+					</div>
+				</div>
+
+			<!-- Main -->
+				<div id="main-wrapper">
+					<div class="container">
+
+						<!-- Content -->
+							<article class="box post">
+								<h1>Congratulations! You successfuly registered to Meals on Wheels. </h1>
+							</article>
+
+					</div>
+				</div>
+
+			<!-- Footer -->
+				<div id="footer-wrapper">
+					<section id="footer" class="container">
+						<div class="row">
+							<div class="4u 12u(mobile)">
+								<section>
+									<header>
+										<h2>Tempus consequat</h2>
+									</header>
+									<ul class="divided">
+										<li><a href="#">Lorem ipsum dolor sit amet sit veroeros</a></li>
+										<li><a href="#">Sed et blandit consequat sed tlorem blandit</a></li>
+										<li><a href="#">Adipiscing feugiat phasellus sed tempus</a></li>
+									</ul>
+								</section>
+							</div>
+							<div class="4u 12u(mobile)">
+								<section>
+									<header>
+										<h2>Ipsum et phasellus</h2>
+									</header>
+									<ul class="divided">
+										<li><a href="#">Lorem ipsum dolor sit amet sit veroeros</a></li>
+										<li><a href="#">Sed et blandit consequat sed tlorem blandit</a></li>
+										<li><a href="#">Adipiscing feugiat phasellus sed tempus</a></li>
+									</ul>
+								</section>
+							</div>
+							<div class="4u 12u(mobile)">
+								<section>
+									<header>
+										<h2>Vitae tempor lorem</h2>
+									</header>
+									<ul class="social">
+										<li><a class="icon fa-facebook" href="#"><span class="label">Facebook</span></a></li>
+										<li><a class="icon fa-twitter" href="#"><span class="label">Twitter</span></a></li>
+										<li><a class="icon fa-dribbble" href="#"><span class="label">Dribbble</span></a></li>
+										<li><a class="icon fa-linkedin" href="#"><span class="label">LinkedIn</span></a></li>
+										<li><a class="icon fa-google-plus" href="#"><span class="label">Google+</span></a></li>
+									</ul>
+									<ul class="contact">
+										<li>
+											<h3>Mail</h3>
+											<p><a href="mailto:djanguars@gmail.com" target="_top">djanguars@gmail.com</a></p>
+										</li>
+									</ul>
+								</section>
+							</div>
+						</div>
+						<div class="row">
+							<div class="12u">
+
+								<!-- Copyright -->
+									<div id="copyright">
+										<ul class="links">
+											<li>&copy; Djanguars. All rights reserved.</li>
+										</ul>
+									</div>
+
+							</div>
+						</div>
+					</section>
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'mealsOnWheels/js/jquery.min.js' %}"></script>
+			<script src="{% static 'mealsOnWheels/js/jquery.dropotron.min.js' %}"></script>
+			<script src="{% static 'mealsOnWheels/js/skel.min.js' %}"></script>
+			<script src="{% static 'mealsOnWheels/js/skel-viewport.min.js' %}"></script>
+			<script src="{% static 'mealsOnWheels/js/util.js' %}"></script>
+			<!--[if lte IE 8]><script src="{% static 'mealsOnWheels/js/ie/respond.min.js' %}"></script><![endif]-->
+			<script src="{% static 'mealsOnWheels/js/main.js' %}"></script>
+
+	</body>
 </html>
+
+
