@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 {% load staticfiles %}
+
 <!--
 	Dopetrope by HTML5 UP
 	html5up.net | @n33co
@@ -53,6 +54,16 @@
 									<p>Create a new account</p>
 								</header>
 								<p>
+								<form class="form-signup" action="{% url 'mealsOnWheels:register' %}" method = "post">
+								{% csrf_token %}
+								<!--Username: {{ form.username }}
+								Email: {{ form.email }}
+								Password: {{ form.password1 }}
+								Password: {{ form.password2 }}-->
+								{{form.as_p}}
+								<input type="submit" name="submit" value="Register" />
+								</form>
+								<!--
                                     {% if registered %}
                                     <p>You are already registered.</p>p>
                                     <a href="{% url 'mealsOnWheels:index' %}">Return to the homepage</a>
@@ -60,17 +71,12 @@
                                     <form id="user_form" method="post" action="{% url 'mealsOnWheels:register' %}"
                                           enctype="multipart/form-data">
                                     {% csrf_token %}
-                                    <!--
-                                    Display each form. The as_p method wraps each element in a paragraph <p> element.
-                                    This ensures each element appears on a new line, making everything look neater.
-                                    -->
                                         {{user_form.as_p}}
-                                    <!--
-                                        Provide a button to click to submit the form
-                                    -->
                                     <input type="submit" name="submit" value="Register" />
                                     </form>
                                     {% endif %}
+
+								-->
 								</p>
 							</article>
 

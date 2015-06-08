@@ -1,14 +1,11 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Choice,Question
-from django.template import RequestContext, loader
 from django.http import HttpResponseRedirect
 # Create your views here.
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
 import xlrd
-import requests
-import requests_ftp
+
 
 ## HttpRequest object as the first argument
 def index(request):
@@ -61,7 +58,7 @@ from ftplib import FTP
 def results(request,question_id):
     question = get_object_or_404(Question,pk=question_id)
 
-
+    ## Some code to import data(unrelated to results)
     worksheet = importData()
     ## The following shows each row of the downloaded data
     num_rows = worksheet.nrows - 1
@@ -70,9 +67,7 @@ def results(request,question_id):
 	    curr_row += 1
 	    row = worksheet.row(curr_row)
 	    print row
-
-
-
+    ##
 
     return render(request,'mealsOnWheels/results.html',{'question':question})
 
@@ -100,54 +95,8 @@ def vote(request, question_id):
         return HttpResponseRedirect(reverse('mealsOnWheels:results', args=(p.id,)))
 
 
-from .forms import UserForm
+
 from django.core.mail import EmailMessage
-
-def register(request):
-    ## get the request's context
-    ## context=RequestContext(request)
-    ## A boolean value for telling the template whether the registration was
-    ## succeesful. Set to False initially.
-
-    registered = False
-    print("request.method: "+request.method)
-    if request.method == 'POST':
-        user_form = UserForm(data=request.POST)
-        print("user_form.is_valid(): " + str(user_form.is_valid()))
-
-        if user_form.is_valid():
-            user = user_form.save()
-            user.set_password(user.password)
-            user.save()
-            print("user.id: "+ str(user.id))
-
-
-            ## Send email reference
-            ## http://www.mangooranges.com/2008/09/15/sending-email-via-gmail-in-django/
-            Subject = 'Well Done! Registration to Foods on Wheel is completed!'
-            Body1 = 'Hi ' + user.username + ','
-            Body2 = '\nThank you very much for registering to our meals on wheels.'
-            Body3 =  '\nCheck out our awesome website at\n'+'http://http://127.0.0.1:8000/mealsOnWheels/'
-            email = EmailMessage(Subject, Body1+Body2+Body3, to=[user.email])
-            email.send()
-
-            registered =True
-
-        else:
-            print user_form.errors
-    else:
-        user_form = UserForm()
-
-    print("registered: "+str(registered))
-    return render(
-        request,
-        'mealsOnWheels/register.html',
-        {
-            'user_form': user_form,
-            'registered':registered,
-        }
-    )
-
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect,HttpResponse
 
@@ -164,7 +113,7 @@ def user_login(request):
         print("password: "+ password)
         user = authenticate(username=username,password=password)
 
-        ## If we have a user object, the dtails are correct.
+        ## If we have a user object, the details are correct.
         ## If None (Python's way of representing the absence of a value), no user with
         ## matching credentials are found
         if user:
@@ -175,7 +124,7 @@ def user_login(request):
                 print("login(request,user) is passed!???!")
                 return HttpResponseRedirect('/mealsOnWheels/')
             else:
-                return HttpResponse("Your Poll2 account is disabled.")
+                return HttpResponse("Your meals on wheels account is disabled.")
         else:
             TriedBefore=True
             print "Invalid login details: {0}, {1}".format(username,password)
@@ -200,3 +149,79 @@ def user_logout(request):
 @login_required
 def render_map(request):
     return render(request,'mealsOnWheels/map.html',{})
+
+
+from .forms import *
+from .models import *
+import hashlib, datetime, random
+from django.core.context_processors import csrf
+
+def register_user(request):
+    args = {}
+    args.update(csrf(request))
+    print "register_user: request.method " + str(request.method)
+
+    if request.method == 'POST':
+        form = RegistrationForm(data=request.POST)
+        args['form'] = form
+
+        if form.is_valid():
+            print "form.is_valid() passed"
+            form.save() ## save the registration form (overriden in form.py)
+            print "form.save() passed"
+            ## saved user is NOT ACTIVE YET
+            ## Necessary for the confirmation email
+            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
+            ## To generate activation key we used random and hashlib modules
+            ## # because we wanted to get some random number which we use to create SHA hash.
+            salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
+            ## combined that 'salt' value with user's username
+            ## to get final value of activation key that will be sent to user
+            activation_key = hashlib.sha1(salt + email).hexdigest()
+            ## set the date when the activation key will expire
+            key_expires = datetime.datetime.today() + datetime.timedelta(days=1)
+            #Get user by username
+            user=User.objects.get(username=username)
+            # Create and save a new userprofile which is connected to User that we have just created
+            # we pass to it values of activation key and key expiration date.
+            new_profile = UserProfile(user=user,activation_key=activation_key,key_expires=key_expires)
+            new_profile.save()
+
+            ## Send email reference
+            ## http://www.mangooranges.com/2008/09/15/sending-email-via-gmail-in-django/
+            Subject = 'Account confirmation for Meals on Wheels'
+            Body1 = 'Hello %s, \n\nThank you very much for signing up. ' % (username)
+            Body2 = 'To activate your account, click this link below within 24 hours: '
+            Body3 = 'http://http://127.0.0.1:8000/mealsOnWheels/confirm/%s' % (activation_key)
+            email = EmailMessage(Subject, Body1+Body2+Body3, to=[email])
+            email.send()
+            #registered =True
+
+            return render(request,'mealsOnWheels/registration_step1.html',{})
+        else:
+            print form.errors
+    else:
+       args['form'] = RegistrationForm()
+
+    return render(
+            request,
+        'mealsOnWheels/register.html',
+        args
+    )
+
+def register_confirm(request, activation_key):
+    # check if user is already logged in
+    if request.user.is_authenticated():
+        HttpResponseRedirect('/mealsOnWeels')
+    # check if there is UserProfile which matches the activation key if not then display 404
+    user_profile = get_object_or_404(UserProfile,activation_key=activation_key)
+    # check if the activation key has expired if it has then render confirm_expired.html
+    if user_profile.key_expires < timezone.now():
+        return HttpResponse("The activation key has been expired.")
+    # if the key has not been expired, then save user and set him as active and render some template to confirm activation.
+    user = user_profile.user
+    user.is_active = True
+    user.save()
+    return render(request,'mealsOnWheels/registration_confirm.html',{})
+
