@@ -1,11 +1,16 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
-from .forms import UserForm
+#from .forms import UserForm
+from parser import testImportData
+from models import FoodTruck, Position
+
 # Create your tests here.
 
 # Test that page renders properly with all the appropriate fields
 
 # Test that only by entering the appropriate information into the fields will you be able to login
+
+"""
 
 class LoginViewTests(TestCase):
 
@@ -64,6 +69,32 @@ class LoginViewTests(TestCase):
         response = self.client.post(reverse('mealsOnWheels:register'), params)
         self.assertFormError(response, "user_form","username","A user with that username already exists.")
 
+        """
+
 # TODO: make duplicate emails return warning
 # TODO: make blank email page return warning
 # TODO: write test to see if emails are being sent properly
+
+# -------- Import Data Tests ---------
+
+class ImportDataTests(TestCase):
+
+  def setUp(self):
+    testImportData()
+
+  def testDataExistsAfterImport(self):
+    self.assertFalse(FoodTruck.objects.all() == [])
+
+  def testTrucksExistAfterImport(self):
+    self.assertFalse(FoodTruck.objects.get(key="a1") is None)
+    self.assertFalse(FoodTruck.objects.get(key="c3") is None)
+    self.assertFalse(FoodTruck.objects.get(key="g7") is None)
+
+  def testTruckNamesExistAfterImport(self):
+    truck1 = FoodTruck.objects.get(key="a1")
+    truck2 = FoodTruck.objects.get(key="c3")
+    truck3 = FoodTruck.objects.get(key="g7")
+    self.assertEquals(truck1.name, "Japadog")
+    self.assertEquals(truck2.name, "Food Cart")
+    self.assertEquals(truck3.name, "Angry Al's")
+
