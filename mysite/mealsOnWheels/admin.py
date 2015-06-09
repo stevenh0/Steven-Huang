@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Question,Choice, FoodTruck
-from parser import importData, clearData, testImportData
+from parser import importData, clearData, testImportData, updateJSONObject
 
 # Register your models here.
 class ChoiceInline(admin.TabularInline):
@@ -26,12 +26,14 @@ admin.site.register(Question,stupidnameAdmin)
 def updateDatabase(modeladmin, request, queryset):
     clearData()
     importData()
+    updateJSONObject()
 
 updateDatabase.short_description = "Clear all data and fetch new data from City of Vancouver"
 
 def updateTestDatabase(modeladmin, request, queryset):
     clearData()
     testImportData()
+    updateJSONObject()
 
 updateTestDatabase.short_description = "Clear all data and populate from test file"
 

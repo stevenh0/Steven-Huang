@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 #from .forms import UserForm
-from parser import testImportData, clearData
+from parser import testImportData, clearData, updateJSONObject
 from models import FoodTruck, Position
 
 # Create your tests here.
@@ -105,6 +105,9 @@ class ImportDataTests(TestCase):
     self.assertEquals(FoodTruck.objects.filter(foodType="Hot Dogs").count(), 2)
     self.assertEquals(FoodTruck.objects.get(key="c3").foodType, "Fish Tacos")
     self.assertEquals(FoodTruck.objects.get(name="Angry Al's").foodType, "Mystery Food")
+
+  def testWriteToJSON(self):
+    updateJSONObject()
 
   def testDataGoneAfterBeingCleared(self):
     clearData()

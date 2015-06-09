@@ -3,6 +3,8 @@ import xlrd
 from models import FoodTruck, Position
 import os
 from xlrd import empty_cell
+import json
+from json import dumps
 
 
 # Import data from City of Vancouver website using FTP module
@@ -68,7 +70,7 @@ def saveRowAsTruck(worksheet, row_index):
 			fdescription = "Mystery Food"
 		else:
 			fdescription = worksheet.cell_value(row_index, 5)
-			
+
 		fkey = worksheet.cell_value(row_index, 0)
 		t = FoodTruck(key=fkey, name=fname, foodType=fdescription, position=p)
 		t.save()
@@ -94,3 +96,14 @@ def clearData():
 	trucks.delete()
 	positions = Position.objects.all()
 	positions.delete()
+
+# this method takes all the database data and writes it to the JSON file
+
+def updateJSONObject():
+	response = []
+	trucks = FoodTruck.objects.all()
+	for truck in trucks:
+		response.append({'key': truck.key, 'name': truck.name, 'description': truck.foodType, 'latitude': truck.position.lat, 'longitude': truck.position.lon})
+
+	with open('food_trucks.json', 'w') as outfile:
+		json.dump(response, outfile, indent=4)
