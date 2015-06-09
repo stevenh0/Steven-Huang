@@ -431,6 +431,10 @@
             padding: 20px 0 0 10px !important;
         }
 
+        #footer-row {
+        	padding-top: 40px;
+        }
+
 		.row {
 			margin: -50px 0 -1px -50px;
 		}
@@ -1880,7 +1884,7 @@
 				}
 
 			ul.social {
-				margin: 2em 0 0.5em 0;
+				margin: 0.5em 0 0.5em 0;
 			}
 
 				ul.social li {
