@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 #from .forms import UserForm
-from parser import testImportData
+from parser import testImportData, clearData
 from models import FoodTruck, Position
 
 # Create your tests here.
@@ -97,4 +97,18 @@ class ImportDataTests(TestCase):
     self.assertEquals(truck1.name, "Japadog")
     self.assertEquals(truck2.name, "Food Cart")
     self.assertEquals(truck3.name, "Angry Al's")
+
+  def testInvalidTrucksAreNotAdded(self):
+    self.assertEquals(FoodTruck.objects.all().count(), 6)
+
+  def testFoodTypesExistAfterImport(self):
+    self.assertEquals(FoodTruck.objects.filter(foodType="Hot Dogs").count(), 2)
+    self.assertEquals(FoodTruck.objects.get(key="c3").foodType, "Fish Tacos")
+    self.assertEquals(FoodTruck.objects.get(name="Angry Al's").foodType, "Mystery Food")
+
+  def testDataGoneAfterBeingCleared(self):
+    clearData()
+    self.assertEquals(FoodTruck.objects.all().count(), 0)
+
+
 

@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Question,Choice
-
+from .models import Question,Choice, FoodTruck
+from parser import importData, clearData, testImportData
 
 # Register your models here.
 class ChoiceInline(admin.TabularInline):
@@ -22,3 +22,22 @@ class stupidnameAdmin(admin.ModelAdmin):
 
 admin.site.register(Question,stupidnameAdmin)
 ## admin.site.register(Choice)
+
+def updateDatabase(modeladmin, request, queryset):
+    clearData()
+    importData()
+
+updateDatabase.short_description = "Clear all data and fetch new data from City of Vancouver"
+
+def updateTestDatabase(modeladmin, request, queryset):
+    clearData()
+    testImportData()
+
+updateTestDatabase.short_description = "Clear all data and populate from test file"
+
+class FoodTruckAdmin(admin.ModelAdmin):
+    list_display = ['name', 'foodType']
+    ordering = ['name']
+    actions = [updateDatabase, updateTestDatabase]
+
+admin.site.register(FoodTruck, FoodTruckAdmin)
