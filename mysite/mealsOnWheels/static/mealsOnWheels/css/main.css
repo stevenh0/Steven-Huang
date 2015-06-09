@@ -1499,7 +1499,7 @@
 
 	ul.divided li {
 		border-top: solid 1px #ddd;
-		padding: 1em 0 1em 0;
+		padding: 0.5em 0 0.5em 0;
 	}
 
 		ul.divided li:first-child {
@@ -1880,7 +1880,7 @@
 				}
 
 			ul.social {
-				margin: 0 0 3.25em 0;
+				margin: 0 0 0.5em 0;
 			}
 
 				ul.social li {
@@ -1898,11 +1898,11 @@
 			}
 
 			#footer-wrapper {
-				padding: 4em 0 4em 0;
+				padding: 2em 0 2em 0;
 			}
 
 				#footer-wrapper header {
-					margin: 0 0 3em 0;
+					margin: 0 0 1em 0;
 				}
 
 					#footer-wrapper header h2 {
@@ -2089,7 +2089,7 @@
 		/* Copyright */
 
 			#copyright {
-				margin: 3em 0 2em 0;
+			/*	margin: 3em 0 2em 0; */
 			}
 
 				#copyright .links {
