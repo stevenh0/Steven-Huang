@@ -3,6 +3,9 @@ import xlrd
 from models import FoodTruck, Position
 import os
 from xlrd import empty_cell
+import json
+from json import dumps
+
 
 # Import data from City of Vancouver website using FTP module
 
@@ -34,7 +37,6 @@ def importData():
 # This method imports test data instead for testing purposes
 
 def testImportData():
-	print os.getcwd()
 	workbook = xlrd.open_workbook('testXLSfile.xls')
 	worksheet = workbook.sheet_by_name('test_sheet')
 
@@ -57,11 +59,18 @@ def saveRowAsTruck(worksheet, row_index):
 		flon = worksheet.cell_value(row_index, 7)
 		p = Position(lat=float(flat), lon=float(flon))
 		p.save()
-		fdescription = worksheet.cell_value(row_index, 5)
-		if (worksheet.cell(row_index, 3) is empty_cell):
+		
+
+		if (worksheet.cell_type(row_index, 3) is not 1):
 			fname = "Food Cart"
 		else:
 			fname = worksheet.cell_value(row_index, 3)
+
+		if (worksheet.cell_type(row_index, 5) is not 1):
+			fdescription = "Mystery Food"
+		else:
+			fdescription = worksheet.cell_value(row_index, 5)
+
 		fkey = worksheet.cell_value(row_index, 0)
 		t = FoodTruck(key=fkey, name=fname, foodType=fdescription, position=p)
 		t.save()
@@ -70,4 +79,31 @@ def saveRowAsTruck(worksheet, row_index):
 # This method should accept trucks with empty names or descriptions, but they must have one of the two, as well as a key and valid position
 
 def isValidTruck(worksheet, row_index):
-	return worksheet.cell(row_index, 6) is not empty_cell
+	if (worksheet.cell_type(row_index, 0) is not 1):
+		return False
+	if (worksheet.cell_type(row_index, 6) is not 2):
+		return False
+	if (worksheet.cell_type(row_index, 7) is not 2):
+		return False
+	if ((worksheet.cell_type(row_index, 3) is not 1) and (worksheet.cell_type(row_index, 5) is not 1)):
+		return False
+	return True
+
+# The purpose of this is to clear all old data before importing new set
+
+def clearData():
+	trucks = FoodTruck.objects.all()
+	trucks.delete()
+	positions = Position.objects.all()
+	positions.delete()
+
+# this method takes all the database data and writes it to the JSON file
+
+def updateJSONObject():
+	response = []
+	trucks = FoodTruck.objects.all()
+	for truck in trucks:
+		response.append({'key': truck.key, 'name': truck.name, 'description': truck.foodType, 'latitude': truck.position.lat, 'longitude': truck.position.lon})
+
+	with open('food_trucks.json', 'w') as outfile:
+		json.dump(response, outfile, indent=4)
