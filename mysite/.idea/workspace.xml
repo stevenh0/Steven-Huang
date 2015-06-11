@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d48b6a69-474b-42ba-a76d-a8944db311ab" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/detail.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/results.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mealsOnWheels/admin.py" afterPath="$PROJECT_DIR$/mealsOnWheels/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/map.html" afterPath="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/map.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mealsOnWheels/models.py" afterPath="$PROJECT_DIR$/mealsOnWheels/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/registration_confirm.html" afterPath="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/registration_confirm.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/registration_step1.html" afterPath="$PROJECT_DIR$/mealsOnWheels/templates/mealsOnWheels/registration_step1.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mealsOnWheels/urls.py" afterPath="$PROJECT_DIR$/mealsOnWheels/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mealsOnWheels/views.py" afterPath="$PROJECT_DIR$/mealsOnWheels/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mysite.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,8 +57,8 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mealsOnWheels/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.52401745">
-              <caret line="16" column="19" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.34497815">
+              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="43" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -78,8 +69,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mealsOnWheels/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="34.851852">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+            <state vertical-scroll-proportion="-25.981482">
+              <caret line="152" column="40" selection-start-line="152" selection-start-column="40" selection-end-line="152" selection-end-column="40" />
               <folding>
                 <element signature="e#0#54#0" expanded="true" />
               </folding>
@@ -124,7 +115,7 @@
       <file leaf-file-name="tests.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mealsOnWheels/tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.4444444">
+            <state vertical-scroll-proportion="-29.166666">
               <caret line="105" column="60" selection-start-line="105" selection-start-column="58" selection-end-line="105" selection-end-column="60" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
@@ -462,7 +453,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2494043" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16521049" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22160445" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
@@ -785,24 +776,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mealsOnWheels/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.6666666">
-          <caret line="4" column="40" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mealsOnWheels/tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.4444444">
-          <caret line="105" column="60" selection-start-line="105" selection-start-column="58" selection-end-line="105" selection-end-column="60" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mealsOnWheels/parser.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.1111112">
@@ -817,16 +790,6 @@
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mealsOnWheels/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="34.851852">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#54#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -865,10 +828,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mealsOnWheels/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-25.981482">
+          <caret line="152" column="40" selection-start-line="152" selection-start-column="40" selection-end-line="152" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#54#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mealsOnWheels/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.6666666">
+          <caret line="4" column="40" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mealsOnWheels/tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-29.166666">
+          <caret line="105" column="60" selection-start-line="105" selection-start-column="58" selection-end-line="105" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mealsOnWheels/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52401745">
-          <caret line="16" column="19" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.34497815">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="43" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
