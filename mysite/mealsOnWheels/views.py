@@ -150,6 +150,10 @@ def user_logout(request):
 def render_map(request):
     return render(request,'mealsOnWheels/map.html',{})
 
+@login_required
+def render_json(request):
+    return render(request,'mealsOnWheels/food_trucks.json',{})
+
 
 from .forms import *
 from .models import *
