@@ -133,7 +133,7 @@ def register_user(request):
             Body2 = 'To activate your account, click this link below within 24 hours: '
             ## Body 3 will be omitted in the future
             Body3 = '\nhttp://127.0.0.1:8000/mealsOnWheels/confirm/%s' % (activation_key)
-            Body4 = '\nhttp://yumi.pythonanywhere.com/mealsOnWheels/confirm/%s' % (activation_key)
+            Body4 = '\nhttp://djanguars.pythonanywhere.com/mealsOnWheels/confirm/%s' % (activation_key)
             email = EmailMessage(Subject, Body1+Body2+Body3 + Body4, to=[email])
             email.send()
 
