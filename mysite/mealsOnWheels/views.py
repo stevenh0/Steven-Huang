@@ -1,30 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 # Create your views here.
-from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
-
 import xlrd
 
 
 ## HttpRequest object as the first argument
 def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    ##template = loader.get_template('mealsOnWheels/index.html')
-    ##context = RequestContext(request, {
-    ##    'latest_question_list': latest_question_list,
-    ##})
-    ##return HttpResponse(template.render(context))
-    context = {'latest_question_list':latest_question_list}
-    return render(request,'mealsOnWheels/index.html',context)
-
-
-@login_required
-def detail(request, question_id):
-    question = get_object_or_404(Question,pk=question_id)
-    return render(request,'mealsOnWheels/detail.html',{'question': question})
-
-
+    return render(request,'mealsOnWheels/index.html',{})
 
 
 
@@ -51,51 +34,6 @@ def importData():
 
 
 from ftplib import FTP
-#def results(request,question_id):
-#    response = "You are looking at the results of question %s."
-#    return HttpResponse(response % question_id)
-@login_required
-def results(request,question_id):
-    question = get_object_or_404(Question,pk=question_id)
-
-    ## Some code to import data(unrelated to results)
-    worksheet = importData()
-    ## The following shows each row of the downloaded data
-    num_rows = worksheet.nrows - 1
-    curr_row = -1
-    while curr_row < num_rows:
-	    curr_row += 1
-	    row = worksheet.row(curr_row)
-	    print row
-    ##
-
-    return render(request,'mealsOnWheels/results.html',{'question':question})
-
-@login_required
-def vote(request, question_id):
-    p = get_object_or_404(Question,pk=question_id)
-    try:
-        print("I am printing request.POST['choice']: " + request.POST['choice'])
-        selected_choice = p.choice_set.get(pk=request.POST['choice'])
-    except (KeyError, Choice.DoesNotExist):
-        ## Redisplay the question voting form
-        dict = {'question':p,'error_message':"You did not select any choice stupid! (from vote in views.py)"}
-        return render(request, 'mealsOnWheels/detail.html',dict)
-        ##  return HttpResponse("You are voting on question %s" % question_id)
-    else:
-        ## parameters checking
-        print("choice_text is: "+ selected_choice.choice_text)
-        print("selected_choice.votes: "+str(selected_choice.votes))
-
-        selected_choice.votes += 1
-        selected_choice.save()
-        ## HttpResponseRedirect only takes single argument: the URLto which the user will be re-directed
-        ## so does this call urlconf???
-
-        return HttpResponseRedirect(reverse('mealsOnWheels:results', args=(p.id,)))
-
-
-
 from django.core.mail import EmailMessage
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect,HttpResponse
