@@ -23,6 +23,10 @@ class FoodTruck(models.Model):
     def __str__(self):
         return "Truck " + self.key + ": " + self.name
 
+class LastImportDate(models.Model):
+	date = models.DateTimeField()
+	date.null = True
+
 ## Needed for authentifiation
 from django.contrib.auth.models import User
 class UserProfile(models.Model):
