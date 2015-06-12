@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'^login/$', views.user_login, name='login'),
     url(r'^logout/$',views.user_logout,name='logout'),
     url(r'^map/$',views.render_map,name='map'),
-    url(r'^food_truck/$',views.render_json,name='food_truck'),
+    url(r'^food_trucks/$',views.render_json,name='food_trucks'),
     ]
