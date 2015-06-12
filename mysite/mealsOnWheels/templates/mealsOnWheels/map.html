@@ -16,14 +16,17 @@
 	    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 	    <script>
 		<!--http://stackoverflow.com/questions/15144691/google-maps-multiple-marker-from-extern-json-->
+		var map;
+		var downtownVancouver = new google.maps.LatLng(49.28,-123.12);
+
 		function initialize() {
-		  var vancouver = new google.maps.LatLng(49.28,-123.12);
 		  var mapOptions = {
 		    zoom: 14,
-		    center: vancouver
+		    center: downtownVancouver,
+		    mapTypeId:google.maps.MapTypeId.ROADMAP
 		  }
 
-        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
         $(document).ready(function() {
             $.getJSON("/mealsOnWheels/food_trucks", function(food_trucks_json) {
@@ -32,16 +35,21 @@
                     // Creating a marker and putting it on the map
                     var marker = new google.maps.Marker({
                     position: latLng,
-                    title: data.title
+                    title: data.name
                         });
                         marker.setMap(map);
+                        var infowindow = new google.maps.InfoWindow({
+							content: '<b>' + data.name + '</b><br>' + data.description
+							});
+                        google.maps.event.addListener(marker, 'click', function() {
+						  infowindow.open(map,marker);
+						});
                     });
                 });
             });
-		};
+        };
 
 		google.maps.event.addDomListener(window, 'load', initialize);
-
         </script>
 	</head>
 	<body class="right-sidebar">
