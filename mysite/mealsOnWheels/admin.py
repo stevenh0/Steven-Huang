@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import FoodTruck
+from .models import FoodTruck, Position
 from parser import importData, clearData, testImportData, updateJSONObject
 
 
@@ -24,3 +24,4 @@ class FoodTruckAdmin(admin.ModelAdmin):
     actions = [updateDatabase, updateTestDatabase]
 
 admin.site.register(FoodTruck, FoodTruckAdmin)
+admin.site.register(Position)

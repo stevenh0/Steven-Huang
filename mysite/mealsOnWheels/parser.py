@@ -105,5 +105,5 @@ def updateJSONObject():
 	for truck in trucks:
 		response.append({'key': truck.key, 'name': truck.name, 'description': truck.foodType, 'latitude': truck.position.lat, 'longitude': truck.position.lon})
 
-	with open('food_trucks.json', 'w') as outfile:
+	with open('mealsOnWheels/templates/mealsOnWheels/food_trucks.json', 'w') as outfile:
 		json.dump(response, outfile, indent=4)
