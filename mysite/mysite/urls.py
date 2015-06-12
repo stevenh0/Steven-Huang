@@ -19,6 +19,8 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^mealsOnWheels/',include('mealsOnWheels.urls',namespace="mealsOnWheels")),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^',include('mealsOnWheels.urls',namespace="mealsOnWheels")),
+    url(r'^mealsonwheels/',include('mealsOnWheels.urls',namespace="mealsOnWheels")),
 ]
 
 ## include() functions reference other URLconfs
