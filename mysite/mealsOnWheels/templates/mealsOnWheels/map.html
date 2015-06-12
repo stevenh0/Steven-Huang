@@ -39,10 +39,15 @@
                         });
                         marker.setMap(map);
                         var infowindow = new google.maps.InfoWindow({
-							content: '<b>' + data.name + '</b><br>' + data.description
+							content: data.name
 							});
                         google.maps.event.addListener(marker, 'click', function() {
 						  infowindow.open(map,marker);
+						  $( "#selected-food-truck-details p" )
+						  .html( data.description );
+							$( "#selected-food-truck-details h3" )
+						  .html( "<b>" + data.name + "</b>" );
+
 						});
                     });
                 });
@@ -87,20 +92,18 @@
 									</article>
 
 							</div>
-							<div id="map-tooltip-row" class="3u 12u(mobile)">
+							<div id="food-truck-details-container" class="3u 12u(mobile)">
 
 								<!-- Sidebar -->
-									<section class="box" id="active-marker-details">
+									<section id="selected-food-truck-details" class="box">
 										<header>
-											<h3>Food Truck Name</h3>
+											<h3></h3>
 										</header>
 										<p>
-											Address: ???
-											<br>Description: ???
-											<br>Status: Open/Closed?
+											Click on a food truck marker to view its info.
 										</p>
 									</section>
-									<section class="box">
+									<section id="selected-food-truck-instagram" class="box">
 										<header>
 											<h3>Instagram</h3>
 										</header>
