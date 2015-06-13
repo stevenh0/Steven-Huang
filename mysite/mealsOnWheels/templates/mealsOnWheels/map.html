@@ -56,6 +56,11 @@
                     });
                 });
             });
+
+            <!--http://stackoverflow.com/questions/743214/how-do-i-resize-a-google-map-with-javascript-after-it-has-loaded-->
+			$(window).resize(function() {
+		        google.maps.event.trigger(map, "resize");
+		    });
         };
 
 		google.maps.event.addDomListener(window, 'load', initialize);
@@ -101,7 +106,7 @@
 								<!-- Sidebar -->
 									<section id="selected-food-truck-details" class="box">
 										<header>
-											<h3></h3>
+											<h3>Search for Food Trucks</h3>
 										</header>
 										<p>
 											Click on a food truck marker to view its info.

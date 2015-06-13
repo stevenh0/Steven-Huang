@@ -2560,8 +2560,10 @@
 /* Google Map */
 
     #map-canvas {
-        height: 550px;
-        width: 870px;
-        margin: 0px;
-        padding: 0px
+		height: 550px;
+		max-width: 870px;
+		width: 100%;
+		border: 1px solid blue;
+		margin: 0px;
+		padding: 0px;
     }
