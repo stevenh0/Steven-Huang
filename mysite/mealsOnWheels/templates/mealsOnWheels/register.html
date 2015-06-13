@@ -31,7 +31,7 @@
 									<li><a href="{% url 'mealsOnWheels:index' %}">Home</a></li>
 									{% if user.is_authenticated%}
                                     <li><a href="{% url 'mealsOnWheels:map' %}">Map</a></li>
-									<li><a href="{% url 'mealsOnWheels:map' %}">Profile</a></li>
+									<li><a href="{% url 'mealsOnWheels:profile' %}">Profile</a></li>
                                     <li><a href="/mealsOnWheels/logout/">Logout</a></li>
                                     {% else %}
                                     <li class="current"><a href="{% url 'mealsOnWheels:register' %}">Register</a></li>

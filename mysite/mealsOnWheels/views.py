@@ -92,6 +92,9 @@ def render_map(request):
 def render_json(request):
     return render(request,'mealsOnWheels/food_trucks.json',{})
 
+@login_required
+def user_profile(request):
+    return render(request,'mealsOnWheels/profile.html',{})
 
 from .forms import *
 from .models import *
