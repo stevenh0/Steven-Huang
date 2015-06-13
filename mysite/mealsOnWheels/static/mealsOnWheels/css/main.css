@@ -2582,3 +2582,12 @@
     content: url("../images/mealsonwheelslogo.png");
   }
 }
+
+/* Instagram */
+
+#default-instagram-background {
+	content: url("../images/foodtruckbackground.png");
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
