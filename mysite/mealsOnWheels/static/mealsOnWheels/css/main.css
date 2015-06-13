@@ -2559,11 +2559,26 @@
 
 /* Google Map */
 
-    #map-canvas {
-		height: 550px;
-		max-width: 870px;
-		width: 100%;
-		border: 1px solid blue;
-		margin: 0px;
-		padding: 0px;
-    }
+#map-canvas {
+	height: 550px;
+	max-width: 870px;
+	width: 100%;
+	border: 1px solid blue;
+	margin: 0px;
+	padding: 0px;
+}
+
+
+/* Logo */
+
+@media screen and (max-width: 740px) {
+  #meals-on-wheels-logo {
+    content: url("../images/smallmealsonwheelslogo.png");
+  }
+}
+
+@media screen and (min-width: 740px) {
+  #meals-on-wheels-logo {
+    content: url("../images/mealsonwheelslogo.png");
+  }
+}
