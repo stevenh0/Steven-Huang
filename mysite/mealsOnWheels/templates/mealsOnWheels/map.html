@@ -14,6 +14,8 @@
 		<link type="text/css" rel="stylesheet" href="{% static 'mealsOnWheels/css/main.css' %}"/>
 		<!--[if lte IE 8]><link type="text/css" rel="stylesheet" href="{% static 'mealsOnWheels/css/ie8.css' %}"/><![endif]-->
 	    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+
+
 	    <script>
 		<!--http://stackoverflow.com/questions/15144691/google-maps-multiple-marker-from-extern-json-->
 		var map;
@@ -27,6 +29,20 @@
 		  }
 
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+		function run(name){
+
+		tag = name.replace(/\s+/g, '');
+		tag = tag.toLowerCase()
+		$(function(){
+		   		var feed = new Instafeed({
+        								get: 'tagged',
+        								tagName: tag,
+        								clientId: 'bcd816efac8548f0a76c300d2ffd7005',
+        								limit:16,
+    								});
+    						feed.run();
+    	});
+    	}
 
         $(document).ready(function() {
             $.getJSON("/mealsOnWheels/food_trucks", function(food_trucks_json) {
@@ -51,8 +67,11 @@
 							// TODO: add Instagram photos
                             $( "#selected-food-truck-instagram p")
                             .html ( "Display " + data.name + "'s photos" );
+							run(data.name);
+
 
 						});
+
                     });
                 });
             });
@@ -116,6 +135,7 @@
 										<header>
 											<h3>Instagram</h3>
 										</header>
+										<div id='instafeed'></div>
 										<p><img id="default-instagram-background"></p>
 										<footer>
 											<a href="#" class="button alt">View more photos</a>
@@ -188,6 +208,7 @@
 			<script src="{% static 'mealsOnWheels/js/util.js' %}"></script>
 			<!--[if lte IE 8]><script src="{% static 'mealsOnWheels/js/ie/respond.min.js' %}"></script><![endif]-->
 			<script src="{% static 'mealsOnWheels/js/main.js' %}"></script>
+			<script type="text/javascript" src="{%static 'mealsOnWheels/js/instafeed.min.js' %}"></script>
 
 	</body>
 </html>
