@@ -38,7 +38,7 @@
         								get: 'tagged',
         								tagName: tag,
         								clientId: 'bcd816efac8548f0a76c300d2ffd7005',
-        								limit:16,
+        								limit:3,
     								});
     						feed.run();
     	});
@@ -65,8 +65,8 @@
 							.html( data.name );
 
 							// TODO: add Instagram photos
-                            $( "#selected-food-truck-instagram p")
-                            .html ( "Display " + data.name + "'s photos" );
+                            $( "#instafeed")
+                            .html ( "" );
 							run(data.name);
 
 
@@ -135,8 +135,7 @@
 										<header>
 											<h3>Instagram</h3>
 										</header>
-										<div id='instafeed'></div>
-										<p><img id="default-instagram-background"></p>
+										<div id="instafeed"><p><img id="default-instagram-background"></p></div>
 										<footer>
 											<a href="#" class="button alt">View more photos</a>
 										</footer>
