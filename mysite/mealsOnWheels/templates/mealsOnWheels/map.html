@@ -34,41 +34,43 @@
 		tag = name.replace(/\s+/g, '');
 		tag = tag.toLowerCase()
 		$(function(){
-		   		var feed = new Instafeed({
-        								get: 'tagged',
-        								tagName: tag,
-        								clientId: 'bcd816efac8548f0a76c300d2ffd7005',
-        								limit:3,
-    								});
-    						feed.run();
-    	});
-    	}
+	        var feed = new Instafeed({
+	                get: 'tagged',
+	                tagName: tag,
+	                clientId: 'bcd816efac8548f0a76c300d2ffd7005',
+	                limit: 6,
+	            });
+                feed.run();
+            });
+        }
 
         $(document).ready(function() {
             $.getJSON("/mealsOnWheels/food_trucks", function(food_trucks_json) {
                 $.each(food_trucks_json, function(key, data) {
                     var latLng = new google.maps.LatLng(data.latitude, data.longitude);
+
                     // Creating a marker and putting it on the map
                     var marker = new google.maps.Marker({
                     position: latLng,
                     title: data.name
                         });
+
                         marker.setMap(map);
                         var infowindow = new google.maps.InfoWindow({
 							content: data.name
 							});
+
                         google.maps.event.addListener(marker, 'click', function() {
 							infowindow.open(map,marker);
+
 							$( "#selected-food-truck-details p" )
 							.html( data.description );
-							$( "#selected-food-truck-details h3" )
-							.html( data.name );
+							<!--$( "#selected-food-truck-details h3" )-->
+							<!--.html( data.name );-->
 
-							// TODO: add Instagram photos
                             $( "#instafeed")
                             .html ( "" );
 							run(data.name);
-
 
 						});
 
@@ -132,9 +134,6 @@
 										</p>
 									</section>
 									<section id="selected-food-truck-instagram" class="box">
-										<header>
-											<h3>Instagram</h3>
-										</header>
 										<div id="instafeed"><p><img id="default-instagram-background"></p></div>
 										<footer>
 											<a href="#" class="button alt">View more photos</a>
