@@ -32,6 +32,8 @@ class RegistrationForm(UserCreationForm):
         return user
 
 class UserProfileForm(UserChangeForm):
+    password = ReadOnlyPasswordHashField(label=_(""),
+        help_text=_(""))
 
     class Meta:
         model = User

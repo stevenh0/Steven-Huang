@@ -52,15 +52,20 @@
 									<h2>Profile</h2>
 									<p>Your account information</p>
 								</header>
-								<p>
-									<header><h3>Current User Settings</h3></header>
-									{% if user.is_authenticated %}
-									User: {{user.username}}
-									<br>Email: {{user.email}}
-									{% endif %}
-								</p>
-								<p>
-									<header><h3>Change User Settings</h3></header>
+								<section>
+										<header><h3>Current Profile Settings</h3></header>
+									<p>
+										<b>
+										{% if user.is_authenticated %}
+										User: {{user.username}}
+										<br>Email: {{user.email}}
+										{% endif %}
+										</font>
+									</p>
+								</section>
+								<section>
+									<header><h3>Change Profile Settings</h3></header>
+									<p>
 										{% if settings_changed %}
 								        <p><h4 style="color: green">Profile preferences have been saved.</h4></p>
 								        {% endif %}
@@ -77,9 +82,8 @@
 							            <!-- Provide a button to click to submit the form. -->
 							            <input type="submit" name="submit" value="Save changes" />
 							        </form>
+									</p>
 								</section>
-
-								</p>
 							</article>
 
 					</div>
