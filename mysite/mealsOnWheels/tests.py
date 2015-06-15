@@ -4,6 +4,8 @@ from django.core import mail
 #from .forms import UserForm
 from parser import testImportData, clearData
 from models import FoodTruck, Position
+from django.shortcuts import render, get_object_or_404
+import hashlib, datetime, random
 
 # Create your tests here.
 
@@ -26,9 +28,8 @@ class RegisterViewTests(TestCase):
                'password2': 'hello'}
 
         response = self.client.post(reverse('mealsOnWheels:register'), params)
-        self.assertEqual(response.status_code, 200)
         self.assertFormError(response, "form","username","This field is required.")
-
+        self.assertContains(response, 'Create a new account')
 
 
     def test_missing_email(self):
@@ -36,17 +37,16 @@ class RegisterViewTests(TestCase):
                'password1': 'hello',
                'password2': 'hello'}
         response = self.client.post(reverse('mealsOnWheels:register'), params)
-        self.assertEqual(response.status_code, 200)
         self.assertFormError(response, "form","email","This field is required.")
+        self.assertContains(response, 'Create a new account')
 
     def test_missing_password(self):
         params = {'username': 'steven',
                'email': 'stevenh0@hotmail.com',
                'password2:': 'hello'}
         response = self.client.post(reverse('mealsOnWheels:register'), params)
-        self.assertEqual(response.status_code, 200)
         self.assertFormError(response, "form","password1","This field is required.")
-
+        self.assertContains(response, 'Create a new account')
 
     def test_invalid_email(self):
         params = {'username': 'steven',
@@ -54,9 +54,17 @@ class RegisterViewTests(TestCase):
                'password1': 'hello',
                'password2': 'hello'}
         response = self.client.post(reverse('mealsOnWheels:register'), params)
-        self.assertEqual(response.status_code, 200)
         self.assertFormError(response, "form","email","Enter a valid email address.")
+        self.assertContains(response, 'Create a new account')
 
+    def test_mismatching_passwords(self):
+        params = {'username': 'steven',
+                  'email': 'asdfasdf',
+               'password1': 'hello',
+               'password2': 'goodbye'}
+        response = self.client.post(reverse('mealsOnWheels:register'), params)
+        self.assertFormError(response, 'form', 'password2', "The two password fields didn't match.")
+        self.assertContains(response, 'Create a new account')
 
 
     def test_complete_form(self):
@@ -68,11 +76,18 @@ class RegisterViewTests(TestCase):
                    'password2': 'asdf'}
          self.assertEqual(len(mail.outbox), 0)
          response2 = self.client.post(reverse('mealsOnWheels:register'), params)
+         # check that registration with valid form redirects you to confirmation page
          self.assertContains(response2, 'To complete the registration')
-
          # all emails sent are redirected to dummy outbox, if outbox contains an email, confirmation was sent
-
          self.assertEqual(len(mail.outbox), 1)
+         """
+         # check that hashing provides valid confirmation page for users when they visit it from email
+         salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
+         activation_key = hashlib.sha1(salt + 'stevenh0@hotmail.com').hexdigest()
+         body1 = '\nhttp://127.0.0.1:8000/mealsOnWheels/confirm/%s' % (activation_key)
+         response3 = self.client.get(body1)
+         self.assertContains(response3, 'Congratulations!')
+         """
 
     def test_duplicate_user(self):
         params1 = {'username': 'steven',
@@ -85,7 +100,10 @@ class RegisterViewTests(TestCase):
                    'password2': 'asdf'}
         self.client.post(reverse('mealsOnWheels:register'), params1)
         response = self.client.post(reverse('mealsOnWheels:register'), params2)
+        # check that registration fails
         self.assertFormError(response, "form","username","A user with that username already exists.")
+        # check that we are still on the registration page
+        self.assertContains(response, 'Create a new account')
 
 
     def test_duplicate_email(self):
@@ -102,30 +120,56 @@ class RegisterViewTests(TestCase):
         self.assertFormError(response, "form","email","duplicate email")
 
 
-
-# TODO: rewrite test for complete form so that it doesn't check redirect based on text on page
+# TODO: tests for authentication? I think because it takes a random number you can't just hash the same
+# TODO: way to get the same key
 
 # -------- Login View Tests -----------
 
 class LoginViewTests(TestCase):
 
+    def setup_user(self):
+        params1 = {'username': 'steven',
+                   'email': 'stevenh0@hotmail.com',
+                   'password1': 'asdf',
+                   'password2': 'asdf'}
+        self.client.post(reverse('mealsOnWheels:register'), params1)
+
+
+
     def test_invalid_login(self):
+        self.setup_user()
         params = {'username':'',
                   'password':''}
         response = self.client.post(reverse('mealsOnWheels:login'), params)
         self.assertContains(response, 'Invalid username or password')
 
-"""
-    def test_login(self):
-        params = {'username': 'steven',
-                   'email': 'stevenh0@hotmail.com',
-                   'password1': 'asdf',
-                   'password2': 'asdf'}
-        self.client.post(reverse('mealsOnWheels:register'), params)
- """
+    def test_invalid_username(self):
+         self.setup_user()
+         params = {'username':'bob',
+                  'password':'asdf'}
+         response = self.client.post(reverse('mealsOnWheels:login'), params)
+         self.assertContains(response, 'Invalid username or password')
 
-        
-# TODO: Test login works. Issue: how to mimic email confirmation?
+    def test_invalid_password(self):
+         self.setup_user()
+         params = {'username':'steven',
+                  'password':'invalid'}
+         response = self.client.post(reverse('mealsOnWheels:login'), params)
+         self.assertContains(response, 'Invalid username or password')
+
+
+    def test_login_unauth(self):
+        self.setup_user()
+        params = {'username': 'steven',
+                   'password': 'asdf'}
+        response = self.client.post(reverse('mealsOnWheels:login'), params)
+        self.assertContains(response, 'Your meals on wheels account is disabled')
+        #self.assertEqual(response['Location'], 'http://localhost:8000/mealsOnWheels/index')
+
+
+# TODO: response['Location'] should return url but just results in an error for me, would be better to test for url than page content but
+# TODO: can't seem to get it to work
+# TODO: how to test authenticated users?
 # TODO: Remove Register and Login buttons from home page after logging in with a user?
 
 # -------- Import Data Tests ---------
@@ -162,6 +206,5 @@ class ImportDataTests(TestCase):
   def testDataGoneAfterBeingCleared(self):
     clearData()
     self.assertEquals(FoodTruck.objects.all().count(), 0)
-
 
 

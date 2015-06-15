@@ -29,9 +29,11 @@
 		  }
 
         map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
 		function run(name){
 
-		tag = name.replace(/\s+/g, '');
+		tag = name.replace(/\s+/g, '').replace(/\./g,'').replace(/-/g, '');;
+		tag = tag
 		tag = tag.toLowerCase()
 		$(function(){
 	        var feed = new Instafeed({
