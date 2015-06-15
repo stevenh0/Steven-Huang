@@ -32,7 +32,7 @@
 
 		function run(name){
 
-		tag = name.replace(/\s+/g, '').replace(/\./g,'').replace(/-/g, '');;
+		tag = name.replace(/\s+/g, '').replace(/\./g,'').replace(/-/g, '').replace(/\'/g, '');
 		tag = tag
 		tag = tag.toLowerCase()
 		$(function(){
@@ -67,8 +67,8 @@
 
 							$( "#selected-food-truck-details p" )
 							.html( data.description );
-							<!--$( "#selected-food-truck-details h3" )-->
-							<!--.html( data.name );-->
+							$( "#selected-food-truck-details h3" )
+							.html( data.name );
 
                             $( "#instafeed")
                             .html ( "" );
