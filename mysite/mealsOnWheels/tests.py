@@ -165,7 +165,7 @@ class LoginViewTests(TestCase):
         params = {'username': username,
                    'password': password}
         response = self.client.post(reverse('mealsOnWheels:login'), params)
-        self.assertContains(response, 'Your meals on wheels account is disabled')
+        self.assertContains(response, 'Your meals on wheels account has not been activated.')
         #self.assertEqual(response['Location'], 'http://localhost:8000/mealsOnWheels/index')
 
 

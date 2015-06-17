@@ -62,16 +62,18 @@ def user_login(request):
                 print("login(request,user) is passed!???!")
                 return HttpResponseRedirect('/mealsOnWheels/')
             else:
-                return HttpResponse("Your meals on wheels account is disabled.")
+                message="disable"
+                return render(request,'mealsOnWheels/login.html',{"message":message})
+                ##return HttpResponse("Your meals on wheels account is disabled.")
         else:
-            TriedBefore=True
+            message="invalid"
             print "Invalid login details: {0}, {1}".format(username,password)
-            return render(request,'mealsOnWheels/login.html',{"TriedBefore":TriedBefore})
+            return render(request,'mealsOnWheels/login.html',{"message":message})
             ##HttpResponse("Invalid login details are shipped")
     else:
-        TriedBefore=False
+        message="work"
         #return HttpResponse("Wow")#
-        return render(request,'mealsOnWheels/login.html',{"TriedBefore":TriedBefore})
+        return render(request,'mealsOnWheels/login.html',{"message":message})
 
 
 from django.contrib.auth import logout
