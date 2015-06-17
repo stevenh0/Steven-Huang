@@ -13,7 +13,9 @@ import hashlib, datetime, random
 
 # Test that only by entering the appropriate information into the fields will you be able to login
 
-
+username = 'steven'
+email = 'stevenh0@hotmail.com'
+password = 'hello'
 
 class RegisterViewTests(TestCase):
 
@@ -23,9 +25,9 @@ class RegisterViewTests(TestCase):
 
     def test_missing_username(self):
         params = {
-               'email': 'stevenh0@hotmail.com',
-               'password1': 'hello',
-               'password2': 'hello'}
+               'email': email,
+               'password1': password,
+               'password2': password}
 
         response = self.client.post(reverse('mealsOnWheels:register'), params)
         self.assertFormError(response, "form","username","This field is required.")
@@ -33,34 +35,34 @@ class RegisterViewTests(TestCase):
 
 
     def test_missing_email(self):
-        params = {'username': 'steven',
-               'password1': 'hello',
-               'password2': 'hello'}
+        params = {'username': username,
+               'password1': password,
+               'password2': password}
         response = self.client.post(reverse('mealsOnWheels:register'), params)
         self.assertFormError(response, "form","email","This field is required.")
         self.assertContains(response, 'Create a new account')
 
     def test_missing_password(self):
-        params = {'username': 'steven',
-               'email': 'stevenh0@hotmail.com',
-               'password2:': 'hello'}
+        params = {'username': username,
+               'email': email,
+               'password2:': password}
         response = self.client.post(reverse('mealsOnWheels:register'), params)
         self.assertFormError(response, "form","password1","This field is required.")
         self.assertContains(response, 'Create a new account')
 
     def test_invalid_email(self):
-        params = {'username': 'steven',
+        params = {'username': username,
                   'email': 'asdfasdf',
-               'password1': 'hello',
-               'password2': 'hello'}
+               'password1': password,
+               'password2': password}
         response = self.client.post(reverse('mealsOnWheels:register'), params)
         self.assertFormError(response, "form","email","Enter a valid email address.")
         self.assertContains(response, 'Create a new account')
 
     def test_mismatching_passwords(self):
-        params = {'username': 'steven',
+        params = {'username': username,
                   'email': 'asdfasdf',
-               'password1': 'hello',
+               'password1': password,
                'password2': 'goodbye'}
         response = self.client.post(reverse('mealsOnWheels:register'), params)
         self.assertFormError(response, 'form', 'password2', "The two password fields didn't match.")
@@ -70,8 +72,8 @@ class RegisterViewTests(TestCase):
     def test_complete_form(self):
          response1 = self.client.get(reverse('mealsOnWheels:register'))
          self.assertContains(response1, 'Create a new account')
-         params = {'username': 'steven',
-                   'email': 'stevenh0@hotmail.com',
+         params = {'username': username,
+                   'email': email,
                    'password1': 'asdf',
                    'password2': 'asdf'}
          self.assertEqual(len(mail.outbox), 0)
@@ -90,14 +92,14 @@ class RegisterViewTests(TestCase):
          """
 
     def test_duplicate_user(self):
-        params1 = {'username': 'steven',
-                   'email': 'stevenh0@hotmail.com',
-                   'password1': 'asdf',
-                   'password2': 'asdf'}
-        params2 = {'username': 'steven',
-                   'email': 'stevenh1@hotmail.com',
-                   'password1': 'asdf',
-                   'password2': 'asdf'}
+        params1 = {'username': username,
+                   'email': email,
+                   'password1': password,
+                   'password2': password}
+        params2 = {'username': username,
+                   'email': email,
+                   'password1': password,
+                   'password2': password}
         self.client.post(reverse('mealsOnWheels:register'), params1)
         response = self.client.post(reverse('mealsOnWheels:register'), params2)
         # check that registration fails
@@ -107,14 +109,14 @@ class RegisterViewTests(TestCase):
 
 
     def test_duplicate_email(self):
-        params1 = {'username': 'steven1',
-                   'email': 'stevenh0@hotmail.com',
-                   'password1': 'asdf',
-                   'password2': 'asdf'}
-        params2 = {'username': 'steven2',
-                   'email': 'stevenh0@hotmail.com',
-                   'password1': 'asdf',
-                   'password2': 'asdf'}
+        params1 = {'username': username + '1',
+                   'email': email,
+                   'password1': password,
+                   'password2': password}
+        params2 = {'username': username + '2',
+                   'email': email,
+                   'password1': password,
+                   'password2': password}
         self.client.post(reverse('mealsOnWheels:register'), params1)
         response = self.client.post(reverse('mealsOnWheels:register'), params2)
         self.assertFormError(response, "form","email","duplicate email")
@@ -128,31 +130,31 @@ class RegisterViewTests(TestCase):
 class LoginViewTests(TestCase):
 
     def setup_user(self):
-        params1 = {'username': 'steven',
-                   'email': 'stevenh0@hotmail.com',
-                   'password1': 'asdf',
-                   'password2': 'asdf'}
+        params1 = {'username': username,
+                   'email': email,
+                   'password1': password,
+                   'password2': password}
         self.client.post(reverse('mealsOnWheels:register'), params1)
 
 
 
     def test_invalid_login(self):
         self.setup_user()
-        params = {'username':'',
-                  'password':''}
+        params = {'username': '',
+                  'password': ''}
         response = self.client.post(reverse('mealsOnWheels:login'), params)
         self.assertContains(response, 'Invalid username or password')
 
     def test_invalid_username(self):
          self.setup_user()
-         params = {'username':'bob',
-                  'password':'asdf'}
+         params = {'username': 'bob',
+                  'password': password}
          response = self.client.post(reverse('mealsOnWheels:login'), params)
          self.assertContains(response, 'Invalid username or password')
 
     def test_invalid_password(self):
          self.setup_user()
-         params = {'username':'steven',
+         params = {'username': username,
                   'password':'invalid'}
          response = self.client.post(reverse('mealsOnWheels:login'), params)
          self.assertContains(response, 'Invalid username or password')
@@ -160,8 +162,8 @@ class LoginViewTests(TestCase):
 
     def test_login_unauth(self):
         self.setup_user()
-        params = {'username': 'steven',
-                   'password': 'asdf'}
+        params = {'username': username,
+                   'password': password}
         response = self.client.post(reverse('mealsOnWheels:login'), params)
         self.assertContains(response, 'Your meals on wheels account is disabled')
         #self.assertEqual(response['Location'], 'http://localhost:8000/mealsOnWheels/index')
