@@ -5,21 +5,27 @@ import os
 from xlrd import empty_cell
 import json
 from json import dumps
+import time
 
 
 # Import data from City of Vancouver website using FTP module
 
 def importData():
-	ftp = FTP('webftp.vancouver.ca')
-	ftp.login()
-	ftp.cwd('OpenData/xls')
-	filename = 'new_food_vendor_locations.xls'
-	ftp.retrbinary('RETR %s' % filename, open('myLovelyNewFile.xls', 'w').write)
-	ftp.quit()
+	try:
+		ftp = FTP('webftp.vancouver.ca')
+		ftp.login()
+		ftp.cwd('OpenData/xls')
+		filename = 'new_food_vendor_locations.xls'
+		ftp.retrbinary('RETR %s' % filename, open('testThisFile.xls', 'w').write)
+		ftp.quit()
+		workbook = xlrd.open_workbook('testThisFile.xls')
+	except:
+		print "mealsOnWheels > >> > .xls file from server cannot be read. Switching to local file."
+		print "mealsOnWheels > >> > To manually import, save file in workbook program and replace file on server "
+		print "mealsOnWheels > >> > ftp://webftp.vancouver.ca/OpenData/xls/new_food_vendor_locations.xls\n"
+		workbook = xlrd.open_workbook('localfoodtruckfile.xls')
 
-	# Open workbook so data can be read
-
-	workbook = xlrd.open_workbook('myLovelyNewFile.xls')
+	
 	worksheet = workbook.sheet_by_name('Query_vendor_food')
 
 	# Initialize counters for parsing through file
