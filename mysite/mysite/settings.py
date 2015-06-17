@@ -103,7 +103,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_URL='/mealsOnWheels/login/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, "mealsOnWheels/static")
 
 
 ## My Email account
