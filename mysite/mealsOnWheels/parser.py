@@ -32,7 +32,7 @@ def importData():
 			return
 		workbook = xlrd.open_workbook('localfoodtruckfile.xls')
 
-	
+
 	worksheet = workbook.sheet_by_name('Query_vendor_food')
 
 	# Initialize counters for parsing through file
@@ -47,6 +47,8 @@ def importData():
 	    curr_row += 1
 	    saveRowAsTruck(worksheet, curr_row)
 
+
+
 class HandleFoodTrucks(xml.sax.handler.ContentHandler):
 	curr_name = ""
 	curr_description = ""
@@ -55,38 +57,44 @@ class HandleFoodTrucks(xml.sax.handler.ContentHandler):
 	buff = ""
 		
 	def startElement(self, name, attrs):
-		buff = ""
+		self.buff = ""
 		if name == 'Placemark':
-			curr_id = attrs.get(id)
+			self.curr_id = attrs.get("id")
 	
 	def characters(self, ch):
-		buff = buff + ch
+		self.buff = self.buff + ch ## YK
 	
 	def endElement(self, name):
 		if name == 'Placemark':
-			truck = FoodTruck(key=curr_id, name=curr_name, foodType=curr_description, position=curr_position)
+			truck = FoodTruck(key=self.curr_id, name=self.curr_name, foodType=self.curr_description, position=self.curr_position)
 			truck.save()
-			curr_name = ""
-			curr_description = ""
-			curr_position = Position(lat=0,lon=0)
-			curr_id = 0
-			buff = ""
+			print "saved: "+ str(truck);
+			self.curr_name = ""
+			self.curr_description = ""
+			self.curr_position = Position(lat=0,lon=0)
+			self.curr_id = 0
+			self.buff = ""
 		elif name == 'name':
-			curr_name = buff
+			self.curr_name = self.buff
 		elif name == 'description':
-			curr_description = buff
+			self.curr_description = self.buff
 		elif name == 'coordinates':
-			coords = buff.split(sep=",")
-			curr_position = Position(lat=float(coords[0]), lon=float(coords[1]))
-			curr_position.save()
-		buff = ""
+			coords = self.buff.split(",")
+			print "float(coords[0])" + str(coords[0]) + "float(coords[1])" + str(coords[1])
+			self.curr_position = Position(lat=float(coords[1]), lon=float(coords[0]))
+			self.curr_position.save()
+		self.buff = ""
 
 def importKMZData():
 	try:
 		filedst = open('testThisFile.kmz', 'w')
+		print "importKMZData()pass1"
 		req = urllib2.Request("http://data.vancouver.ca/download/kml/food_vendor_pilot.kmz")
+		print "importKMZData()pass2"
 		filesrc = urllib2.urlopen(req)
+		print "importKMZData()pass3"
 		shutil.copyfileobj(filesrc, filedst)
+		print "importKMZData()pass4"
 		filedst.close()
 		filesrc.close()
 		
@@ -96,13 +104,18 @@ def importKMZData():
 		print "IS THIS A FUCKING ZIPFILE? " + str(is_zipfile('testThisFile.kmz'))
 		
 		kmz = ZipFile('testThisFile.kmz', 'r')
+		print "Zipped!"
 		kml = kmz.open('street_food_vendors.kml', 'r')
-		
+		print "opened!"
 		# Parse like the wind!!!
 		parser = make_parser()
+		print "parsed!"
 		parser.setFeature(feature_namespaces, 0)
+		print "feature namespace!"
 		dh = HandleFoodTrucks()
+		print "HandleFoodTrucks()"
 		parser.setContentHandler(dh)
+		print "parser.setContentHandler(dh)"
 		parser.parse(kml)
 		return 0
 	except:
