@@ -19,12 +19,12 @@ import shutil
 
 def importData():
 	try:
-		ftp = FTP('webftp.vancouver.ca')
-		ftp.login()
-		ftp.cwd('OpenData/xls')
-		filename = 'new_food_vendor_locations.xls'
-		ftp.retrbinary('RETR %s' % filename, open('testThisFile.xls', 'w').write)
-		ftp.quit()
+		filedst = open('testThisFile.xls', 'w')
+		req = urllib2.Request("ftp://webftp.vancouver.ca/OpenData/xls/new_food_vendor_locations.xls")
+		filesrc = urllib2.urlopen(req)
+		shutil.copyfileobj(filesrc, filedst)
+		filedst.close()
+		filesrc.close()
 		workbook = xlrd.open_workbook('testThisFile.xls')
 	except:
 		print "mealsOnWheels :: .xls file from server cannot be read. Trying KML File.."
