@@ -6,23 +6,30 @@ from xlrd import empty_cell
 import json
 from json import dumps
 import time
+from zipfile import ZipFile, is_zipfile
+import xml.sax, xml.sax.handler
+from xml.sax import saxutils, make_parser
+from xml.sax.handler import feature_namespaces
+import traceback
+import urllib2
+import shutil
 
 
 # Import data from City of Vancouver website using FTP module
 
 def importData():
 	try:
-		ftp = FTP('webftp.vancouver.ca')
-		ftp.login()
-		ftp.cwd('OpenData/xls')
-		filename = 'new_food_vendor_locations.xls'
-		ftp.retrbinary('RETR %s' % filename, open('testThisFile.xls', 'w').write)
-		ftp.quit()
+		filedst = open('testThisFile.xls', 'w')
+		req = urllib2.Request("ftp://webftp.vancouver.ca/OpenData/xls/new_food_vendor_locations.xls")
+		filesrc = urllib2.urlopen(req)
+		shutil.copyfileobj(filesrc, filedst)
+		filedst.close()
+		filesrc.close()
 		workbook = xlrd.open_workbook('testThisFile.xls')
 	except:
-		print "mealsOnWheels > >> > .xls file from server cannot be read. Switching to local file."
-		print "mealsOnWheels > >> > To manually import, save file in workbook program and replace file on server "
-		print "mealsOnWheels > >> > ftp://webftp.vancouver.ca/OpenData/xls/new_food_vendor_locations.xls\n"
+		print "mealsOnWheels :: .xls file from server cannot be read. Trying KML File.."
+		if not importKMZData():
+			return
 		workbook = xlrd.open_workbook('localfoodtruckfile.xls')
 
 	
@@ -39,6 +46,69 @@ def importData():
 	while curr_row < num_rows:
 	    curr_row += 1
 	    saveRowAsTruck(worksheet, curr_row)
+
+class HandleFoodTrucks(xml.sax.handler.ContentHandler):
+	curr_name = ""
+	curr_description = ""
+	curr_position = Position(lat=0,lon=0)
+	curr_id = 0
+	buff = ""
+		
+	def startElement(self, name, attrs):
+		buff = ""
+		if name == 'Placemark':
+			curr_id = attrs.get(id)
+	
+	def characters(self, ch):
+		buff = buff + ch
+	
+	def endElement(self, name):
+		if name == 'Placemark':
+			truck = FoodTruck(key=curr_id, name=curr_name, foodType=curr_description, position=curr_position)
+			truck.save()
+			curr_name = ""
+			curr_description = ""
+			curr_position = Position(lat=0,lon=0)
+			curr_id = 0
+			buff = ""
+		elif name == 'name':
+			curr_name = buff
+		elif name == 'description':
+			curr_description = buff
+		elif name == 'coordinates':
+			coords = buff.split(sep=",")
+			curr_position = Position(lat=float(coords[0]), lon=float(coords[1]))
+			curr_position.save()
+		buff = ""
+
+def importKMZData():
+	try:
+		filedst = open('testThisFile.kmz', 'w')
+		req = urllib2.Request("http://data.vancouver.ca/download/kml/food_vendor_pilot.kmz")
+		filesrc = urllib2.urlopen(req)
+		shutil.copyfileobj(filesrc, filedst)
+		filedst.close()
+		filesrc.close()
+		
+		with open('testThisFile.kmz', 'rb') as MyZip:
+			print "ANYA HERE ARE THE FUCKING MAGIC NUMBERS FUCK: " + MyZip.read(4)
+			
+		print "IS THIS A FUCKING ZIPFILE? " + str(is_zipfile('testThisFile.kmz'))
+		
+		kmz = ZipFile('testThisFile.kmz', 'r')
+		kml = kmz.open('street_food_vendors.kml', 'r')
+		
+		# Parse like the wind!!!
+		parser = make_parser()
+		parser.setFeature(feature_namespaces, 0)
+		dh = HandleFoodTrucks()
+		parser.setContentHandler(dh)
+		parser.parse(kml)
+		return 0
+	except:
+		print "mealsOnWheels :: KML file could not be read. Switching to local file."
+		traceback.print_exc()
+		return 1
 
 # This method imports test data instead for testing purposes
 
