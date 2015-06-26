@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^logout/$',views.user_logout,name='logout'),
     url(r'^map/$',views.render_map,name='map'),
     url(r'^food_trucks/$',views.render_json,name='food_trucks'),
-    url(r'^profile/$', views.change_profile_settings, name='profile')
+    url(r'^profile/$', views.change_profile_settings, name='profile'),
+    url(r'^about/$', views.render_about, name='about'),
     ]

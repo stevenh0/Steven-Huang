@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
 {% load staticfiles %}
-
 <!--
 	Dopetrope by HTML5 UP
 	html5up.net | @n33co
@@ -8,7 +7,7 @@
 -->
 <html>
 	<head>
-		<title>Meals on Wheels | Registration</title>
+		<title>Meals on Wheels | About</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><link type="text/css" rel="stylesheet" href="{% static 'mealsOnWheels/js/ie/html5shiv.js' %}"/></script><![endif]-->
@@ -35,8 +34,8 @@
 									<li><a href="{% url 'mealsOnWheels:about' %}">About</a></li>
                                     <li><a href="/mealsOnWheels/logout/">Logout</a></li>
                                     {% else %}
-                                    <li class="current"><a href="{% url 'mealsOnWheels:register' %}">Register</a></li>
-                                    <li><a href="{% url 'mealsOnWheels:login' %}">Login</a></li>
+                                    <li><a href="{% url 'mealsOnWheels:register' %}">Register</a></li>
+                                    <li class="current"><a href="{% url 'mealsOnWheels:login' %}">Login</a></li>
                                     {% endif %}
 								</ul>
 							</nav>
@@ -51,33 +50,20 @@
 						<!-- Content -->
 							<article class="box post">
 								<header>
-									<h2>Register</h2>
-									<p>Create a new account</p>
+									<h2>About the App</h2>
+									<p>What is Meals on Wheels?</p>
 								</header>
 								<p>
-								<form class="form-signup" action="{% url 'mealsOnWheels:register' %}" method = "post">
-								{% csrf_token %}
-								<!--Username: {{ form.username }}
-								Email: {{ form.email }}
-								Password: {{ form.password1 }}
-								Password: {{ form.password2 }}-->
-								{{form.as_p}}
-								<input type="submit" name="submit" value="Register" />
-								</form>
-								<!--
-                                    {% if registered %}
-                                    <p>Congratulations! You are now registered.</p>
-                                    <a href="{% url 'mealsOnWheels:login' %}">Login to your account</a>
-                                    {% else %}
-                                    <form id="user_form" method="post" action="{% url 'mealsOnWheels:register' %}"
-                                          enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                        {{user_form.as_p}}
-                                    <input type="submit" name="submit" value="Register" />
-                                    </form>
-                                    {% endif %}
-
-								-->
+									Looking for food trucks in Vancouver? We've got you covered. Our app can look for food trucks in downtown Vancouver. All the food trucks are displayed on a map and you are able to look for certain ones. If you feel like gorging on some delicious pizza or Vietnamese food, you can look for those food trucks in our app. The locations of food trucks are shown on a map, and our app can show you a drool-worthy Instagram feed that's associated with that food truck.
+								</p>
+								<p>
+									So what are you waiting for? Sign up today for an account and find some food trucks in Vancouver!
+								</p>
+								<header>
+									<h3>About the Creators</h3>
+								</header>
+								<p>
+									We are a group of computer science students from the University of British Columbia (UBC). Collectively, we are known as team <i>Djanguars</i> which is a portmanteau for 'Jaguar' and 'Django' - the latter being the Python framework that we used to create it. Our team members are Yumi Kondo, Vania Budiman, Anya McGee, and Steven Huang.
 								</p>
 							</article>
 

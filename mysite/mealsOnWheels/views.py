@@ -94,6 +94,9 @@ def render_map(request):
 def render_json(request):
     return render(request,'mealsOnWheels/food_trucks.json',{})
 
+def render_about(request):
+    return render(request,'mealsOnWheels/about.html',{})
+
 from .forms import *
 from .models import *
 import hashlib, datetime, random
