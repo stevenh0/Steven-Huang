@@ -31,11 +31,11 @@
 									{% if user.is_authenticated%}
                                     <li><a href="{% url 'mealsOnWheels:map' %}">Map</a></li>
 									<li><a href="{% url 'mealsOnWheels:profile' %}">Profile</a></li>
-									<li><a href="{% url 'mealsOnWheels:about' %}">About</a></li>
+									<li class="current"><a href="{% url 'mealsOnWheels:about' %}">About</a></li>
                                     <li><a href="/mealsOnWheels/logout/">Logout</a></li>
                                     {% else %}
                                     <li><a href="{% url 'mealsOnWheels:register' %}">Register</a></li>
-                                    <li class="current"><a href="{% url 'mealsOnWheels:login' %}">Login</a></li>
+                                    <li><a href="{% url 'mealsOnWheels:login' %}">Login</a></li>
                                     {% endif %}
 								</ul>
 							</nav>
@@ -54,7 +54,7 @@
 									<p>What is Meals on Wheels?</p>
 								</header>
 								<p>
-									Looking for food trucks in Vancouver? We've got you covered. Our app can look for food trucks in downtown Vancouver. All the food trucks are displayed on a map and you are able to look for certain ones. If you feel like gorging on some delicious pizza or Vietnamese food, you can look for those food trucks in our app. The locations of food trucks are shown on a map, and our app can show you a drool-worthy Instagram feed that's associated with that food truck.
+									Looking for food trucks in Vancouver? We've got you covered. Our app can look for food trucks in downtown Vancouver. All the food trucks are displayed on a map and you are able to look for certain ones. If you feel like gorging on some delicious pizza or Vietnamese food, you can look for those food trucks in our app. The locations of food trucks are shown on a map, and our app can show you a drool-worthy Instagram feed that's associated with each food truck.
 								</p>
 								<p>
 									So what are you waiting for? Sign up today for an account and find some food trucks in Vancouver!
@@ -63,7 +63,7 @@
 									<h3>About the Creators</h3>
 								</header>
 								<p>
-									We are a group of computer science students from the University of British Columbia (UBC). Collectively, we are known as team <i>Djanguars</i> which is a portmanteau for 'Jaguar' and 'Django' - the latter being the Python framework that we used to create it. Our team members are Yumi Kondo, Vania Budiman, Anya McGee, and Steven Huang.
+									We are a group of four computer science students from the University of British Columbia (UBC). Collectively, we are known as team <i>Djanguars</i> which is a portmanteau for 'Jaguar' and 'Django' - the latter being the Python framework that we used to create it. Our team members are Yumi Kondo, Vania Budiman, Anya McGee, and Steven Huang.
 								</p>
 							</article>
 
