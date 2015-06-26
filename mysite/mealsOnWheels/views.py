@@ -94,6 +94,7 @@ def render_map(request):
 def render_json(request):
     return render(request,'mealsOnWheels/food_trucks.json',{})
 
+@login_required
 def render_about(request):
     return render(request,'mealsOnWheels/about.html',{})
 

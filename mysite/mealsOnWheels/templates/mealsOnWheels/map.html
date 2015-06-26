@@ -1,137 +1,51 @@
-<!DOCTYPE HTML>
 {% load staticfiles %}
-<!--
-	Dopetrope by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Meals on Wheels | Map</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><link type="text/css" rel="stylesheet" href="{% static 'mealsOnWheels/js/ie/html5shiv.js' %}"/></script><![endif]-->
-		<link type="text/css" rel="stylesheet" href="{% static 'mealsOnWheels/css/main.css' %}"/>
-		<!--[if lte IE 8]><link type="text/css" rel="stylesheet" href="{% static 'mealsOnWheels/css/ie8.css' %}"/><![endif]-->
-	    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-		<script src="{% static 'mealsOnWheels/js/instafeed.js' %}"></script>
-		<script src="{% static 'mealsOnWheels/js/foodtruckmap.js' %}"></script>
-	</head>
-	<body class="right-sidebar">
-		<div id="page-wrapper">
+{% include "mealsOnWheels/header.html" %}
 
-			<!-- Header -->
-				<div id="header-wrapper">
-					<div id="header">
-
-						<!-- Logo -->
-							<h1><img id="meals-on-wheels-logo"></h1>
-
-						<!-- Nav -->
-							<nav id="nav">
-								<ul>
-									<li><a href="{% url 'mealsOnWheels:index' %}">Home</a></li>
-									<li class="current"><a href="{% url 'mealsOnWheels:map' %}">Map</a></li>
-									<li><a href="{% url 'mealsOnWheels:profile' %}">Profile</a></li>
-									<li><a href="{% url 'mealsOnWheels:about' %}">About</a></li>
-									<li><a href="/mealsOnWheels/logout/">Logout</a></li>
-								</ul>
-							</nav>
-
-					</div>
-				</div>
-
-			<!-- Main -->
-				<div id="main-wrapper">
-					<div class="container">
-						<div class="row">
-							<div id="map-row" class="9u 12u(mobile)">
-
-								<!-- Content -->
-									<article class="box post">
-										<div id="map-canvas">
-									</article>
-
-							</div>
-							<div id="food-truck-details-container" class="3u 12u(mobile)">
-
-								<!-- Sidebar -->
-									<section id="selected-food-truck-details" class="box">
-										<header>
-											<h3>Search for Food Trucks</h3>
-										</header>
-										<p>
-											Click on a food truck marker to view its info.
-										</p>
-									</section>
-									<section id="selected-food-truck-instagram" class="box">
-										<div id="instafeed"><p><img id="default-instagram-background"></p></div>
-									</section>
-
-							</div>
-						</div>
-					</div>
-				</div>
-
-			<!-- Footer -->
-				<div id="footer-wrapper">
-					<section id="footer" class="container">
-						<div class="row">
-							<div class="4u 12u(mobile)">
-								<section>
-									<header>
-										<h3>Food truck data provided by</h3>
-									</header>
-									<ul class="divided">
-										<li><a href="http://data.vancouver.ca/">City of Vancouver</a></li>
-									</ul>
-								</section>
-							</div>
-							<div class="4u 12u(mobile)">
-								<section>
-									<header>
-										<h2>Contact Us</h2>
-									</header>
-									<ul class="divided">
-										<li><a href="mailto:djanguars@gmail.com" target="_top">djanguars@gmail.com</a></li>
-									</ul>
-								</section>
-							</div>
-							<div class="4u 12u(mobile)">
-								<section>
-									<ul class="social">
-										<li><a class="icon fa-facebook" href="http://facebook.com"><span class="label">Facebook</span></a></li>
-										<li><a class="icon fa-twitter" href="http://twitter.com"><span class="label">Twitter</span></a></li>
-										<li><a class="icon fa-dribbble" href="http://dribbble.com"><span class="label">Dribbble</span></a></li>
-										<li><a class="icon fa-linkedin" href="http://linkedin.com"><span class="label">LinkedIn</span></a></li>
-										<li><a class="icon fa-google-plus" href="http://plus.google.com"><span class="label">Google+</span></a></li>
-									</ul>
-								</section>
-							</div>
-						</div>
-						<div class="row">
-							<div class="12u">
-
-								<!-- Copyright -->
-									<div id="copyright">
-										<ul class="links">
-											<li>Copyright &copy; 2015 Yumi Kondo, Vania Budiman, Anya McGee, Steven Huang</li>
-										</ul>
-									</div>
-
-							</div>
-						</div>
-					</section>
-				</div>
+			<!-- Nav -->
+			<nav id="nav">
+				<ul>
+					<li><a href="{% url 'mealsOnWheels:index' %}">Home</a></li>
+					<li class="current"><a href="{% url 'mealsOnWheels:map' %}">Map</a></li>
+					<li><a href="{% url 'mealsOnWheels:profile' %}">Profile</a></li>
+					<li><a href="{% url 'mealsOnWheels:about' %}">About</a></li>
+					<li><a href="/mealsOnWheels/logout/">Logout</a></li>
+				</ul>
+			</nav>
 
 		</div>
-			<script src="{% static 'mealsOnWheels/js/jquery.min.js' %}"></script>
-			<script src="{% static 'mealsOnWheels/js/jquery.dropotron.min.js' %}"></script>
-			<script src="{% static 'mealsOnWheels/js/skel.min.js' %}"></script>
-			<script src="{% static 'mealsOnWheels/js/skel-viewport.min.js' %}"></script>
-			<script src="{% static 'mealsOnWheels/js/util.js' %}"></script>
-			<!--[if lte IE 8]><script src="{% static 'mealsOnWheels/js/ie/respond.min.js' %}"></script><![endif]-->
-			<script src="{% static 'mealsOnWheels/js/main.js' %}"></script>
-			<script type="text/javascript" src="{%static 'mealsOnWheels/js/instafeed.min.js' %}"></script>
-	</body>
-</html>
+	</div>
+
+<!-- Main -->
+<div id="main-wrapper">
+		<div class="container">
+			<div class="row">
+				<div id="map-row" class="9u 12u(mobile)">
+
+					<!-- Content -->
+					<article class="box post">
+						<div id="map-canvas">
+					</article>
+
+				</div>
+				<div id="food-truck-details-container" class="3u 12u(mobile)">
+
+					<!-- Sidebar -->
+					<section id="selected-food-truck-details" class="box">
+						<header>
+							<h3>Search for Food Trucks</h3>
+						</header>
+						<p>
+							Click on a food truck marker to view its info.
+						</p>
+					</section>
+					<section id="selected-food-truck-instagram" class="box">
+						<div id="instafeed"><p><img id="default-instagram-background"></p></div>
+					</section>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% include "mealsOnWheels/footer.html" %}

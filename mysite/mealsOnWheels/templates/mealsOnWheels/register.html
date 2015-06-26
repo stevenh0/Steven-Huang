@@ -1,150 +1,63 @@
-<!DOCTYPE HTML>
 {% load staticfiles %}
+{% include "mealsOnWheels/header.html" %}
 
-<!--
-	Dopetrope by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Meals on Wheels | Registration</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><link type="text/css" rel="stylesheet" href="{% static 'mealsOnWheels/js/ie/html5shiv.js' %}"/></script><![endif]-->
-		<link type="text/css" rel="stylesheet" href="{% static 'mealsOnWheels/css/main.css' %}"/>
-		<!--[if lte IE 8]><link type="text/css" rel="stylesheet" href="{% static 'mealsOnWheels/css/ie8.css' %}"/><![endif]-->
-	</head>
-	<body class="no-sidebar">
-		<div id="page-wrapper">
+		<!-- Nav -->
+		<nav id="nav">
+			<ul>
+				<li><a href="{% url 'mealsOnWheels:index' %}">Home</a></li>
+				{% if user.is_authenticated%}
+                <li><a href="{% url 'mealsOnWheels:map' %}">Map</a></li>
+				<li><a href="{% url 'mealsOnWheels:profile' %}">Profile</a></li>
+				<li><a href="{% url 'mealsOnWheels:about' %}">About</a></li>
+                <li><a href="/mealsOnWheels/logout/">Logout</a></li>
+                {% else %}
+                <li class="current"><a href="{% url 'mealsOnWheels:register' %}">Register</a></li>
+                <li><a href="{% url 'mealsOnWheels:login' %}">Login</a></li>
+                {% endif %}
+			</ul>
+		</nav>
 
-			<!-- Header -->
-				<div id="header-wrapper">
-					<div id="header">
+	</div>
+</div>
 
-						<!-- Logo -->
-							<h1><img id="meals-on-wheels-logo"></h1>
+<!-- Main -->
+<div id="main-wrapper">
+	<div class="container">
 
-						<!-- Nav -->
-							<nav id="nav">
-								<ul>
-									<li><a href="{% url 'mealsOnWheels:index' %}">Home</a></li>
-									{% if user.is_authenticated%}
-                                    <li><a href="{% url 'mealsOnWheels:map' %}">Map</a></li>
-									<li><a href="{% url 'mealsOnWheels:profile' %}">Profile</a></li>
-									<li><a href="{% url 'mealsOnWheels:about' %}">About</a></li>
-                                    <li><a href="/mealsOnWheels/logout/">Logout</a></li>
-                                    {% else %}
-                                    <li class="current"><a href="{% url 'mealsOnWheels:register' %}">Register</a></li>
-                                    <li><a href="{% url 'mealsOnWheels:login' %}">Login</a></li>
-                                    {% endif %}
-								</ul>
-							</nav>
+		<!-- Content -->
+			<article class="box post">
+				<header>
+					<h2>Register</h2>
+					<p>Create a new account</p>
+				</header>
+				<p>
+				<form class="form-signup" action="{% url 'mealsOnWheels:register' %}" method = "post">
+				{% csrf_token %}
+				<!--Username: {{ form.username }}
+				Email: {{ form.email }}
+				Password: {{ form.password1 }}
+				Password: {{ form.password2 }}-->
+				{{form.as_p}}
+				<input type="submit" name="submit" value="Register" />
+				</form>
+				<!--
+                    {% if registered %}
+                    <p>Congratulations! You are now registered.</p>
+                    <a href="{% url 'mealsOnWheels:login' %}">Login to your account</a>
+                    {% else %}
+                    <form id="user_form" method="post" action="{% url 'mealsOnWheels:register' %}"
+                          enctype="multipart/form-data">
+                    {% csrf_token %}
+                        {{user_form.as_p}}
+                    <input type="submit" name="submit" value="Register" />
+                    </form>
+                    {% endif %}
 
-					</div>
-				</div>
+				-->
+				</p>
+			</article>
 
-			<!-- Main -->
-				<div id="main-wrapper">
-					<div class="container">
+	</div>
+</div>
 
-						<!-- Content -->
-							<article class="box post">
-								<header>
-									<h2>Register</h2>
-									<p>Create a new account</p>
-								</header>
-								<p>
-								<form class="form-signup" action="{% url 'mealsOnWheels:register' %}" method = "post">
-								{% csrf_token %}
-								<!--Username: {{ form.username }}
-								Email: {{ form.email }}
-								Password: {{ form.password1 }}
-								Password: {{ form.password2 }}-->
-								{{form.as_p}}
-								<input type="submit" name="submit" value="Register" />
-								</form>
-								<!--
-                                    {% if registered %}
-                                    <p>Congratulations! You are now registered.</p>
-                                    <a href="{% url 'mealsOnWheels:login' %}">Login to your account</a>
-                                    {% else %}
-                                    <form id="user_form" method="post" action="{% url 'mealsOnWheels:register' %}"
-                                          enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                        {{user_form.as_p}}
-                                    <input type="submit" name="submit" value="Register" />
-                                    </form>
-                                    {% endif %}
-
-								-->
-								</p>
-							</article>
-
-					</div>
-				</div>
-
-			<!-- Footer -->
-				<div id="footer-wrapper">
-					<section id="footer" class="container">
-						<div class="row">
-							<div class="4u 12u(mobile)">
-								<section>
-									<header>
-										<h3>Food truck data provided by</h3>
-									</header>
-									<ul class="divided">
-										<li><a href="http://data.vancouver.ca/">City of Vancouver</a></li>
-									</ul>
-								</section>
-							</div>
-							<div class="4u 12u(mobile)">
-								<section>
-									<header>
-										<h3>Contact Us</h3>
-									</header>
-									<ul class="divided">
-										<li><a href="mailto:djanguars@gmail.com" target="_top">djanguars@gmail.com</a></li>
-									</ul>
-								</section>
-							</div>
-							<div class="4u 12u(mobile)">
-								<section>
-									<ul class="social">
-										<li><a class="icon fa-facebook" href="http://facebook.com"><span class="label">Facebook</span></a></li>
-										<li><a class="icon fa-twitter" href="http://twitter.com"><span class="label">Twitter</span></a></li>
-										<li><a class="icon fa-dribbble" href="http://dribbble.com"><span class="label">Dribbble</span></a></li>
-										<li><a class="icon fa-linkedin" href="http://linkedin.com"><span class="label">LinkedIn</span></a></li>
-										<li><a class="icon fa-google-plus" href="http://plus.google.com"><span class="label">Google+</span></a></li>
-									</ul>
-								</section>
-							</div>
-						</div>
-						<div class="row">
-							<div id="footer-row" class="12u">
-
-								<!-- Copyright -->
-									<div id="copyright">
-										<ul class="links">
-											<li>Copyright &copy; 2015 Yumi Kondo, Vania Budiman, Anya McGee, Steven Huang</li>
-										</ul>
-									</div>
-
-							</div>
-						</div>
-					</section>
-				</div>
-
-		</div>
-
-		<!-- Scripts -->
-			<script src="{% static 'mealsOnWheels/js/jquery.min.js' %}"></script>
-			<script src="{% static 'mealsOnWheels/js/jquery.dropotron.min.js' %}"></script>
-			<script src="{% static 'mealsOnWheels/js/skel.min.js' %}"></script>
-			<script src="{% static 'mealsOnWheels/js/skel-viewport.min.js' %}"></script>
-			<script src="{% static 'mealsOnWheels/js/util.js' %}"></script>
-			<!--[if lte IE 8]><script src="{% static 'mealsOnWheels/js/ie/respond.min.js' %}"></script><![endif]-->
-			<script src="{% static 'mealsOnWheels/js/main.js' %}"></script>
-
-	</body>
-</html>
+{% include "mealsOnWheels/footer.html" %}
