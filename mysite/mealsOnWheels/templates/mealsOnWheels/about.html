@@ -1,21 +1,6 @@
 {% load staticfiles %}
 {% include "mealsOnWheels/header.html" with page="About" %}
 
-		<!-- Nav -->
-		<nav id="nav">
-			<ul>
-				<li><a href="{% url 'mealsOnWheels:index' %}">Home</a></li>
-				{% if user.is_authenticated%}
-                <li><a href="{% url 'mealsOnWheels:map' %}">Map</a></li>
-				<li><a href="{% url 'mealsOnWheels:profile' %}">Profile</a></li>
-				<li class="current"><a href="{% url 'mealsOnWheels:about' %}">About</a></li>
-                <li><a href="/mealsOnWheels/logout/">Logout</a></li>
-                {% else %}
-                <li><a href="{% url 'mealsOnWheels:register' %}">Register</a></li>
-                <li><a href="{% url 'mealsOnWheels:login' %}">Login</a></li>
-                {% endif %}
-			</ul>
-		</nav>
 	</div>
 </div>
 
