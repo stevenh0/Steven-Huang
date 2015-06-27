@@ -29,18 +29,20 @@
 
 							<!-- Nav -->
 							<nav id="nav">
+								{% with request.resolver_match.url_name as url_name %}
 								<ul>
-									<li><a href="{% url 'mealsOnWheels:index' %}">Home</a></li>
+									<li class="{% if url_name == 'index' %}current{% endif %}"><a href="{% url 'mealsOnWheels:index' %}">Home</a></li>
 									{% if user.is_authenticated%}
-					                <li><a href="{% url 'mealsOnWheels:map' %}">Map</a></li>
-									<li><a href="{% url 'mealsOnWheels:profile' %}">Profile</a></li>
-									<li><a href="{% url 'mealsOnWheels:about' %}">About</a></li>
+					                <li class="{% if url_name == 'map' %}current{% endif %}"><a href="{% url 'mealsOnWheels:map' %}">Map</a></li>
+									<li class="{% if url_name == 'profile' %}current{% endif %}"><a href="{% url 'mealsOnWheels:profile' %}">Profile</a></li>
+									<li class="{% if url_name == 'about' %}current{% endif %}"><a href="{% url 'mealsOnWheels:about' %}">About</a></li>
 					                <li><a href="/mealsOnWheels/logout/">Logout</a></li>
 					                {% else %}
-					                <li><a href="{% url 'mealsOnWheels:register' %}">Register</a></li>
-					                <li><a href="{% url 'mealsOnWheels:login' %}">Login</a></li>
+					                <li class="{% if url_name == 'register' %}current{% endif %}"><a href="{% url 'mealsOnWheels:register' %}">Register</a></li>
+					                <li class="{% if url_name == 'login' %}current{% endif %}"><a href="{% url 'mealsOnWheels:login' %}">Login</a></li>
 					                {% endif %}
 								</ul>
+								{% endwith %}
 							</nav>
 
 					{% if page == "Home" %}
