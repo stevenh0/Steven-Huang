@@ -175,7 +175,6 @@ def register_confirm(request, activation_key):
 
 @login_required
 def change_profile_settings(request):
-    print 'change profile settings'
 
     # A boolean value for telling the template whether the user settings changed.
     # Set to False initially. Code changes value to True when the setting change succeeds.
@@ -189,13 +188,12 @@ def change_profile_settings(request):
         # If the form is valid...
         if user_form.is_valid():
             # Save the user's form data to the database.
-            print 'form is valid'
             user = user_form.save()
 
-            # TODO: Now we hash the password with the set_password method.
-
+            # Now we hash the password with the set_password method.
             # Once hashed, we can update the user object.
-            # user.set_password(user.password)
+            password = user_form.cleaned_data['password']
+            user.set_password(password)
             user.save()
 
             # Update our variable to tell the template the settings change was successful.
@@ -210,7 +208,6 @@ def change_profile_settings(request):
     # Not a HTTP POST, so we render our form.
     # The form will be blank, ready for user input.
     else:
-        print 'display form'
         user_form = UserProfileForm(instance=request.user)
 
     # Render the template depending on the context.

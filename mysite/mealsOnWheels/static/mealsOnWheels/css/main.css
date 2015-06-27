@@ -2603,9 +2603,3 @@
 #selected-food-truck-details {
 	margin-bottom: 0.5em;
 }
-
-/* Profile Settings Form */
-
-#id_password {
-	display: none;
-}

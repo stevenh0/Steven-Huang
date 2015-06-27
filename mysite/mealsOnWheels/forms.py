@@ -32,12 +32,12 @@ class RegistrationForm(UserCreationForm):
         return user
 
 class UserProfileForm(UserChangeForm):
-    password = ReadOnlyPasswordHashField(label=_(""),
-        help_text=_(""))
+    password = forms.CharField(required=False, widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ('username','email',)
+        fields = ('username','email','password',)
 
     def clean_password(self):
-        return ""
+         password = self.data["password"]
+         return password
