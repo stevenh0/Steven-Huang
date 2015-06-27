@@ -6,27 +6,27 @@
 	<div class="container">
 
 		<!-- Content -->
-			<article class="box post">
-				<header>
-					<h2>Login</h2>
-					<p>Search for food trucks by logging in</p>
-				</header>
-				<p>
-					<form id="login_form" method="post" action="{% url 'mealsOnWheels:login' %}">
-				    {% csrf_token %}
-				        Username: <input type="text" name="username" value="" size="50" />
-				        <br />
-				        Password: <input type="password" name="password" value="" size="50" />
-				        <br />
-				        <input type="submit" value="Login" />
-				    </form>
-					{% if message == "invalid" %}
-                    <p><h3 style="color:red">Invalid username or password.</h3></p>
-					{% elif message == "disable"%}
-					<p><h3 style="color:red">Your Meals on Wheels account has not been activated.</h3></p>
-                    {% endif %}
-				</p>
-			</article>
+		<article class="box post">
+			<header>
+				<h2>Login</h2>
+				<p>Search for food trucks by logging in</p>
+			</header>
+			<p>
+				<form id="login_form" method="post" action="{% url 'mealsOnWheels:login' %}">
+			    {% csrf_token %}
+			        Username: <input type="text" name="username" value="" size="50" />
+			        <br />
+			        Password: <input type="password" name="password" value="" size="50" />
+			        <br />
+			        <input type="submit" value="Login" />
+			    </form>
+				{% if message == "invalid" %}
+                <p><h3 style="color:red">Invalid username or password.</h3></p>
+				{% elif message == "disable"%}
+				<p><h3 style="color:red">Your Meals on Wheels account has not been activated.</h3></p>
+                {% endif %}
+			</p>
+		</article>
 
 	</div>
 </div>
