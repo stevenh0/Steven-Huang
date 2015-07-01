@@ -26,7 +26,7 @@ var searchBox = new google.maps.places.SearchBox(
 var markers = [];
   // Listen for the event fired when the user selects an item from the
   // pick list. Retrieve the matching places for that item.
-  google.maps.event.addListener(searchBox, 'places_changed', function() {
+google.maps.event.addListener(searchBox, 'places_changed', function() {
     var places = searchBox.getPlaces();
     for (var i = 0, marker; marker = markers[i]; i++) {
       marker.setMap(null);
@@ -37,7 +37,11 @@ var markers = [];
 
     // For each place, get the icon, place name, and location.
     markers = [];
+
+    // Zoom in/out to show both the new location and the food vendors
+
     var bounds = new google.maps.LatLngBounds();
+    bounds.extend(downtownVancouver);
     for (var i = 0, place; place = places[i]; i++) {
       var image = {
          url: place.icon,
@@ -58,27 +62,22 @@ var markers = [];
          animation: google.maps.Animation.BOUNCE// DROP
       });
 
-      var infowindow = new google.maps.InfoWindow({
-         content: place.name
-      });
-      google.maps.event.addListener(marker, 'click', function() {
-         infowindow.open(map,marker);
-      });
+    markers.push(marker);
 
-      markers.push(marker);
-      // Zoom in/out to show both the new location and the food vendors
-      bounds.extend(downtownVancouver);
+
+    markers[i].addListener('click',function(){
+         var infowindow = new google.maps.InfoWindow({
+           content: this.title
+         });
+         infowindow.open(map,this);
+    });
+
       bounds.extend(place.geometry.location);
     }
-
     map.fitBounds(bounds);
   });
     // Bias the SearchBox results towards places that are within the bounds of the
   // current map's viewport.
-  google.maps.event.addListener(map, 'bounds_changed', function() {
-    var bounds = map.getBounds();
-    searchBox.setBounds(bounds);
-  });
 
 
 
