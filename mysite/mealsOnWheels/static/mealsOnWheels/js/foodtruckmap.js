@@ -40,23 +40,31 @@ var markers = [];
     var bounds = new google.maps.LatLngBounds();
     for (var i = 0, place; place = places[i]; i++) {
       var image = {
-        url: place.icon,
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 25)
+         url: place.icon,
+         size: new google.maps.Size(71, 71),
+         origin: new google.maps.Point(0, 0),
+         anchor: new google.maps.Point(17, 34),
+         scaledSize: new google.maps.Size(25, 25)
       };
 
       // Create a marker for each place.
       var marker = new google.maps.Marker({
-        map: map,
-        icon: image,
-        title: place.name,
-        position: place.geometry.location,
-        click: true,
-        draggable: true,
-        animation: google.maps.Animation.BOUNCE// DROP
+         map: map,
+         icon: image,
+         title: place.name,
+         position: place.geometry.location,
+         click: true,
+         draggable: false,
+         animation: google.maps.Animation.BOUNCE// DROP
       });
+
+      var infowindow = new google.maps.InfoWindow({
+         content: place.name
+      });
+      google.maps.event.addListener(marker, 'click', function() {
+         infowindow.open(map,marker);
+      });
+
       markers.push(marker);
       // Zoom in/out to show both the new location and the food vendors
       bounds.extend(downtownVancouver);
