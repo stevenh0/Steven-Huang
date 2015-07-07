@@ -24,10 +24,10 @@ class FoodTruck(models.Model):
         return "Truck " + self.key + ": " + self.name
 
 class LastImportDate(models.Model):
-	date = models.DateTimeField()
-	date.null = True
+    date = models.DateTimeField()
+    date.null = True
 
-## Needed for authentifiation
+## Needed for authentification
 from django.contrib.auth.models import User
 class UserProfile(models.Model):
     user = models.OneToOneField(User)

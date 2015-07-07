@@ -32,7 +32,7 @@
 								{% with request.resolver_match.url_name as url_name %}
 								<ul>
 									<li class="{% if url_name == 'index' %}current{% endif %}"><a href="{% url 'mealsOnWheels:index' %}">Home</a></li>
-									{% if user.is_authenticated%}
+									{% if user.is_authenticated %}
 					                <li class="{% if url_name == 'map' %}current{% endif %}"><a href="{% url 'mealsOnWheels:map' %}">Map</a></li>
 									<li class="{% if url_name == 'profile' %}current{% endif %}"><a href="{% url 'mealsOnWheels:profile' %}">Profile</a></li>
 									<li class="{% if url_name == 'about' %}current{% endif %}"><a href="{% url 'mealsOnWheels:about' %}">About</a></li>

@@ -33,7 +33,6 @@ class RegisterViewTests(TestCase):
         self.assertFormError(response, "form","username","This field is required.")
         self.assertContains(response, 'Create a new account')
 
-
     def test_missing_email(self):
         params = {'username': username,
                'password1': password,
@@ -67,7 +66,6 @@ class RegisterViewTests(TestCase):
         response = self.client.post(reverse('mealsOnWheels:register'), params)
         self.assertFormError(response, 'form', 'password2', "The two password fields didn't match.")
         self.assertContains(response, 'Create a new account')
-
 
     def test_complete_form(self):
          response1 = self.client.get(reverse('mealsOnWheels:register'))
@@ -106,7 +104,6 @@ class RegisterViewTests(TestCase):
         self.assertFormError(response, "form","username","A user with that username already exists.")
         # check that we are still on the registration page
         self.assertContains(response, 'Create a new account')
-
 
     def test_duplicate_email(self):
         params1 = {'username': username + '1',
@@ -150,7 +147,6 @@ class LoginViewTests(TestCase):
         response = self.client.post(reverse('mealsOnWheels:login'), params)
         self.assertContains(response, 'Invalid username or password')
 
-
     def test_invalid_login(self):
         self.setup_user()
         params = {'username': '',
@@ -191,35 +187,35 @@ class LoginViewTests(TestCase):
 
 class ImportDataTests(TestCase):
 
-  def setUp(self):
-    testImportData()
+    def setUp(self):
+        testImportData()
 
-  def testDataExistsAfterImport(self):
-    self.assertFalse(FoodTruck.objects.all() == [])
+    def testDataExistsAfterImport(self):
+        self.assertFalse(FoodTruck.objects.all() == [])
 
-  def testTrucksExistAfterImport(self):
-    self.assertFalse(FoodTruck.objects.get(key="a1") is None)
-    self.assertFalse(FoodTruck.objects.get(key="c3") is None)
-    self.assertFalse(FoodTruck.objects.get(key="g7") is None)
+    def testTrucksExistAfterImport(self):
+        self.assertFalse(FoodTruck.objects.get(key="a1") is None)
+        self.assertFalse(FoodTruck.objects.get(key="c3") is None)
+        self.assertFalse(FoodTruck.objects.get(key="g7") is None)
 
-  def testTruckNamesExistAfterImport(self):
-    truck1 = FoodTruck.objects.get(key="a1")
-    truck2 = FoodTruck.objects.get(key="c3")
-    truck3 = FoodTruck.objects.get(key="g7")
-    self.assertEquals(truck1.name, "Japadog")
-    self.assertEquals(truck2.name, "Food Cart")
-    self.assertEquals(truck3.name, "Angry Al's")
+    def testTruckNamesExistAfterImport(self):
+        truck1 = FoodTruck.objects.get(key="a1")
+        truck2 = FoodTruck.objects.get(key="c3")
+        truck3 = FoodTruck.objects.get(key="g7")
+        self.assertEquals(truck1.name, "Japadog")
+        self.assertEquals(truck2.name, "Food Cart")
+        self.assertEquals(truck3.name, "Angry Al's")
 
-  def testInvalidTrucksAreNotAdded(self):
-    self.assertEquals(FoodTruck.objects.all().count(), 6)
+    def testInvalidTrucksAreNotAdded(self):
+        self.assertEquals(FoodTruck.objects.all().count(), 6)
 
-  def testFoodTypesExistAfterImport(self):
-    self.assertEquals(FoodTruck.objects.filter(foodType="Hot Dogs").count(), 2)
-    self.assertEquals(FoodTruck.objects.get(key="c3").foodType, "Fish Tacos")
-    self.assertEquals(FoodTruck.objects.get(name="Angry Al's").foodType, "Mystery Food")
+    def testFoodTypesExistAfterImport(self):
+        self.assertEquals(FoodTruck.objects.filter(foodType="Hot Dogs").count(), 2)
+        self.assertEquals(FoodTruck.objects.get(key="c3").foodType, "Fish Tacos")
+        self.assertEquals(FoodTruck.objects.get(name="Angry Al's").foodType, "Mystery Food")
 
-  def testDataGoneAfterBeingCleared(self):
-    clearData()
-    self.assertEquals(FoodTruck.objects.all().count(), 0)
+    def testDataGoneAfterBeingCleared(self):
+        clearData()
+        self.assertEquals(FoodTruck.objects.all().count(), 0)
 
 

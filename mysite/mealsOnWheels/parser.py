@@ -32,7 +32,6 @@ def importData():
 			return
 		workbook = xlrd.open_workbook('localfoodtruckfile.xls')
 
-
 	worksheet = workbook.sheet_by_name('Query_vendor_food')
 
 	# Initialize counters for parsing through file
@@ -44,8 +43,8 @@ def importData():
 	# Parse through file and save to database
 
 	while curr_row < num_rows:
-	    curr_row += 1
-	    saveRowAsTruck(worksheet, curr_row)
+		curr_row += 1
+		saveRowAsTruck(worksheet, curr_row)
 
 
 
@@ -136,8 +135,8 @@ def testImportData():
 	# Parse through file and save to database
 
 	while curr_row < num_rows:
-	    curr_row += 1
-	    saveRowAsTruck(worksheet, curr_row)
+		curr_row += 1
+		saveRowAsTruck(worksheet, curr_row)
 
 # Where the actual data saving is done
 # TODO: implement else case: figure out what functionality we want when an invalid truck is passed in, probably just does nothing but could throw exception/print to console etc.
@@ -148,7 +147,6 @@ def saveRowAsTruck(worksheet, row_index):
 		flon = worksheet.cell_value(row_index, 7)
 		p = Position(lat=float(flat), lon=float(flon))
 		p.save()
-		
 
 		if (worksheet.cell_type(row_index, 3) is not 1):
 			fname = "Food Cart"
