@@ -113,7 +113,7 @@ def register_user(request):
             Subject = 'Account confirmation for Meals on Wheels'
             Body1 = 'Hello %s, \n\nThank you very much for signing up. ' % (username)
             Body2 = 'To activate your account, click this link below within 24 hours: '
-            ## Body3 = '\nhttp://127.0.0.1:8000/mealsOnWheels/confirm/%s' % (activation_key)
+            Body3 = '\nhttp://127.0.0.1:8000/mealsOnWheels/confirm/%s' % (activation_key)
             Body4 = '\nhttp://djanguars.pythonanywhere.com/mealsOnWheels/confirm/%s' % (activation_key)
             email = EmailMessage(Subject, Body1+Body2+Body3 + Body4, to=[email])
             email.send()
