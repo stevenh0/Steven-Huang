@@ -58,4 +58,4 @@ class Review(models.Model):
     rate = Integer010Field(
         blank=True,
         help_text="rate must be between 0 - 10")
-
+    pub_date = models.DateField()

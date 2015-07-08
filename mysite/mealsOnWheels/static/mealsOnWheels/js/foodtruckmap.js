@@ -79,7 +79,21 @@ google.maps.event.addListener(searchBox, 'places_changed', function() {
     // Bias the SearchBox results towards places that are within the bounds of the
   // current map's viewport.
 
+// yumi added
+// http://stackoverflow.com/questions/24152420/pass-dynamic-javascript-variable-to-django-python
 
+
+var URL = "/mealsOnWheels/map/";
+//var URL = "/map/";
+
+function sendFoodVendorToDjango(key){
+    var data = {'foodTruckKey': key,'rating':rating};
+
+    $.post(URL, data, function(response){
+        if(response === 'success'){ alert('Yay!'); }
+        else{ alert('Error! :('); }
+    });
+}
 
 
 $(document).ready(function() {
@@ -106,9 +120,11 @@ $(document).ready(function() {
 					$( "#selected-food-truck-details h3" )
 					.html( data.name );
 
-                    $("#selected-food-truck-details h1")
-                    .html(function(){document.getElementById("rating").style.visibility="visible"});
-
+                    // yumi added
+                    //$("#selected-food-truck-details h1")
+                    //.html(function(){document.getElementById("rating").style.visibility="visible"});
+                    rating = 0;
+                    sendFoodVendorToDjango(key=data.key);
 
                     $( "#instafeed")
                     .html ( "" );

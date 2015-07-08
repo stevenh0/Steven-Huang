@@ -59,8 +59,37 @@ def user_logout(request):
     # Take the user back to the index page
     return HttpResponseRedirect('/mealsOnWheels/')
 
+
+from django.views.decorators.csrf import csrf_exempt
+@csrf_exempt
 @login_required
 def render_map(request):
+    print "render_map!"+"request.method";
+    if request.method == 'POST':
+        print "POST";
+        key = request.POST['foodTruckKey'];
+        rate = request.POST['rating'];
+        print "key:"+key;
+        print "rate:" + rate;
+        myUser = request.user;
+        print "user:" + str(myUser);
+        myFood = FoodTruck.objects.filter(key=key);
+        print "myFood:" + str(myFood.size);
+
+        myArticle = myUser.article_set.filter(foodTruck=myFood);
+        print myArticle;
+
+        if myArticle:
+            print "article exists";
+            myArticle.rate = rate;
+            myUser.save();
+        else:
+            print "article does not exist";
+            myUser.article_set.create(
+                foodtruck=myFood,rate=rate,
+				pub_date=datetime.datetime.today());
+
+	    return HttpResponse("success");
     return render(request,'mealsOnWheels/map.html',{})
 
 @login_required
