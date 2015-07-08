@@ -106,6 +106,10 @@ $(document).ready(function() {
 					$( "#selected-food-truck-details h3" )
 					.html( data.name );
 
+                    $("#selected-food-truck-details h1")
+                    .html(function(){document.getElementById("rating").style.visibility="visible"});
+
+
                     $( "#instafeed")
                     .html ( "" );
 					run(data.name);
