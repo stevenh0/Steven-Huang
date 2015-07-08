@@ -9,6 +9,7 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 ## http://ipasic.com/article/user-registration-and-email-confirmation-django/
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True,label="E-mail",widget=forms.TextInput(attrs={'placehoder':'E-mail address'}))
+
     class Meta:
         model = User
         fields = ('username','email','password1','password2',) ## password1 and password2 are defined in UserCreationForm

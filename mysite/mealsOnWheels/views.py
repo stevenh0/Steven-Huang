@@ -3,13 +3,19 @@ from django.http import HttpResponseRedirect
 # Create your views here.
 from django.contrib.auth.decorators import login_required
 import xlrd
+from ftplib import FTP
+from django.core.mail import EmailMessage
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponseRedirect, HttpResponse
+from .forms import *
+from .models import *
+import hashlib, datetime, random
+from django.core.context_processors import csrf
 
 
 ## HttpRequest object as the first argument
 def index(request):
     return render(request,'mealsOnWheels/index.html',{})
-
-
 
 def importData():
     ftp = FTP('webftp.vancouver.ca')
@@ -21,14 +27,6 @@ def importData():
     workbook = xlrd.open_workbook('myLovelyNewFile.xls')
     worksheet = workbook.sheet_by_name('Query_vendor_food')
     return worksheet
-
-
-
-from ftplib import FTP
-from django.core.mail import EmailMessage
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect,HttpResponse
-
 
 def user_login(request):
     ## If the request is a HTTP POST, try to pull out the relevant infomation
@@ -73,11 +71,6 @@ def render_json(request):
 def render_about(request):
     return render(request,'mealsOnWheels/about.html',{})
 
-from .forms import *
-from .models import *
-import hashlib, datetime, random
-from django.core.context_processors import csrf
-
 ## Send email reference
 ## http://www.mangooranges.com/2008/09/15/sending-email-via-gmail-in-django/
 def register_user(request):
@@ -108,7 +101,6 @@ def register_user(request):
             # we pass to it values of activation key and key expiration date.
             new_profile = UserProfile(user=user,activation_key=activation_key,key_expires=key_expires)
             new_profile.save()
-
 
             Subject = 'Account confirmation for Meals on Wheels'
             Body1 = 'Hello %s, \n\nThank you very much for signing up. ' % (username)

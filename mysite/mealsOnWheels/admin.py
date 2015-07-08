@@ -34,9 +34,9 @@ def updateTestDatabase(modeladmin, request, queryset):
 updateTestDatabase.short_description = "Fetch new data from test file (Last updated: " + printLastImportDate() + ")"
 
 class FoodTruckAdmin(admin.ModelAdmin):
-    list_display = ['name', 'foodType']
-    ordering = ['name']
-    actions = [updateDatabase, updateTestDatabase]
+	list_display = ['name', 'foodType']
+	ordering = ['name']
+	actions = [updateDatabase, updateTestDatabase]
 
 admin.site.register(FoodTruck, FoodTruckAdmin)
 admin.site.register(Position)
