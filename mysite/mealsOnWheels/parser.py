@@ -17,7 +17,7 @@ import shutil
 
 # Import data from City of Vancouver website using FTP module
 
-def import_data():
+def importData():
 	try:
 		filedst = open('testThisFile.xls', 'w')
 		req = urllib2.Request("ftp://webftp.vancouver.ca/OpenData/xls/new_food_vendor_locations.xls")
@@ -28,7 +28,7 @@ def import_data():
 		workbook = xlrd.open_workbook('testThisFile.xls')
 	except:
 		print "mealsOnWheels :: .xls file from server cannot be read. Trying KML File.."
-		if not import_kmz_data():
+		if not importKMZData():
 			return
 		workbook = xlrd.open_workbook('localfoodtruckfile.xls')
 
@@ -44,7 +44,7 @@ def import_data():
 
 	while curr_row < num_rows:
 		curr_row += 1
-		save_row_as_truck(worksheet, curr_row)
+		saveRowAsTruck(worksheet, curr_row)
 
 
 
@@ -84,16 +84,16 @@ class HandleFoodTrucks(xml.sax.handler.ContentHandler):
 			self.curr_position.save()
 		self.buff = ""
 
-def import_kmz_data():
+def importKMZData():
 	try:
 		filedst = open('testThisFile.kmz', 'w')
-		print "import_kmz_data()pass1"
+		print "importKMZData()pass1"
 		req = urllib2.Request("http://data.vancouver.ca/download/kml/food_vendor_pilot.kmz")
-		print "import_kmz_data()pass2"
+		print "importKMZData()pass2"
 		filesrc = urllib2.urlopen(req)
-		print "import_kmz_data()pass3"
+		print "importKMZData()pass3"
 		shutil.copyfileobj(filesrc, filedst)
-		print "import_kmz_data()pass4"
+		print "importKMZData()pass4"
 		filedst.close()
 		filesrc.close()
 		
@@ -124,7 +124,7 @@ def import_kmz_data():
 
 # This method imports test data instead for testing purposes
 
-def test_import_data():
+def testImportData():
 	workbook = xlrd.open_workbook('testXLSfile.xls')
 	worksheet = workbook.sheet_by_name('test_sheet')
 
@@ -136,13 +136,13 @@ def test_import_data():
 
 	while curr_row < num_rows:
 		curr_row += 1
-		save_row_as_truck(worksheet, curr_row)
+		saveRowAsTruck(worksheet, curr_row)
 
 # Where the actual data saving is done
 # TODO: implement else case: figure out what functionality we want when an invalid truck is passed in, probably just does nothing but could throw exception/print to console etc.
 
-def save_row_as_truck(worksheet, row_index):
-	if (is_valid_truck(worksheet, row_index)):
+def saveRowAsTruck(worksheet, row_index):
+	if (isValidTruck(worksheet, row_index)):
 		flat = worksheet.cell_value(row_index, 6)
 		flon = worksheet.cell_value(row_index, 7)
 		p = Position(lat=float(flat), lon=float(flon))
@@ -165,7 +165,7 @@ def save_row_as_truck(worksheet, row_index):
 # TODO: Only provides partial functionality, need to finish implementing
 # This method should accept trucks with empty names or descriptions, but they must have one of the two, as well as a key and valid position
 
-def is_valid_truck(worksheet, row_index):
+def isValidTruck(worksheet, row_index):
 	if (worksheet.cell_type(row_index, 0) is not 1):
 		return False
 	if (worksheet.cell_type(row_index, 6) is not 2):
@@ -178,7 +178,7 @@ def is_valid_truck(worksheet, row_index):
 
 # The purpose of this is to clear all old data before importing new set
 
-def clear_data():
+def clearData():
 	trucks = FoodTruck.objects.all()
 	trucks.delete()
 	positions = Position.objects.all()
@@ -186,7 +186,7 @@ def clear_data():
 
 # this method takes all the database data and writes it to the JSON file
 
-def update_json_object():
+def updateJSONObject():
 	response = []
 	trucks = FoodTruck.objects.all()
 	for truck in trucks:

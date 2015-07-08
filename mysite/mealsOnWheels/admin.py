@@ -1,42 +1,42 @@
 from django.contrib import admin
-from .models import FoodTruck, Position, last_import_date
-from parser import import_data, clear_data, test_import_data, update_json_object
+from .models import FoodTruck, Position, LastImportDate
+from parser import importData, clearData, testImportData, updateJSONObject
 import datetime
 
-last_import_date = last_import_date.objects.get(id=1)
+lastImportDate = LastImportDate.objects.get(id=1)
 
-def print_last_import_date():
-	if last_import_date.date is not None:
-		return last_import_date.date.__str__()
+def printLastImportDate():
+	if lastImportDate.date is not None:
+		return lastImportDate.date.__str__()
 	else:
 		return "Never"
 
-def update_database(modeladmin, request, queryset):
-	clear_data()
-	import_data()
-	update_json_object()
-	last_import_date.date = datetime.date.today()
-	last_import_date.save()
-	update_database.short_description = "Fetch new data from City of Vancouver (Last updated: " + print_last_import_date() + ")"
-	update_test_database.short_description = "Fetch new data from test file (Last updated: " + print_last_import_date() + ")"
+def updateDatabase(modeladmin, request, queryset):
+	clearData()
+	importData()
+	updateJSONObject()
+	lastImportDate.date = datetime.date.today()
+	lastImportDate.save()
+	updateDatabase.short_description = "Fetch new data from City of Vancouver (Last updated: " + printLastImportDate() + ")"
+	updateTestDatabase.short_description = "Fetch new data from test file (Last updated: " + printLastImportDate() + ")"
 
-update_database.short_description = "Fetch new data from City of Vancouver (Last updated: " + print_last_import_date() + ")"
+updateDatabase.short_description = "Fetch new data from City of Vancouver (Last updated: " + printLastImportDate() + ")"
 
-def update_test_database(modeladmin, request, queryset):
-	clear_data()
-	test_import_data()
-	update_json_object()
-	last_import_date.date = datetime.date.today()
-	last_import_date.save()
-	update_test_database.short_description = "Fetch new data from test file (Last updated: " + print_last_import_date() + ")"
-	update_database.short_description = "Fetch new data from City of Vancouver (Last updated: " + print_last_import_date() + ")"
+def updateTestDatabase(modeladmin, request, queryset):
+	clearData()
+	testImportData()
+	updateJSONObject()
+	lastImportDate.date = datetime.date.today()
+	lastImportDate.save()
+	updateTestDatabase.short_description = "Fetch new data from test file (Last updated: " + printLastImportDate() + ")"
+	updateDatabase.short_description = "Fetch new data from City of Vancouver (Last updated: " + printLastImportDate() + ")"
 
-update_test_database.short_description = "Fetch new data from test file (Last updated: " + print_last_import_date() + ")"
+updateTestDatabase.short_description = "Fetch new data from test file (Last updated: " + printLastImportDate() + ")"
 
 class FoodTruckAdmin(admin.ModelAdmin):
 	list_display = ['name', 'foodType']
 	ordering = ['name']
-	actions = [update_database, update_test_database]
+	actions = [updateDatabase, updateTestDatabase]
 
 admin.site.register(FoodTruck, FoodTruckAdmin)
 admin.site.register(Position)

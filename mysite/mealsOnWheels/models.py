@@ -23,7 +23,7 @@ class FoodTruck(models.Model):
     def __str__(self):
         return "Truck " + self.key + ": " + self.name
 
-class last_import_date(models.Model):
+class LastImportDate(models.Model):
     date = models.DateTimeField()
     date.null = True
 
