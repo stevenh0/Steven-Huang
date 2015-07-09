@@ -105,7 +105,8 @@ import json
 def filterVendor(request):
     key = request.POST['foodTruckKey']
     foodtruck = FoodTruck.objects.get(key=key)
-    reviews = foodtruck.review_set.all()
+    ## send only the latest 5 reviews.
+    reviews = foodtruck.review_set.order_by('-pub_date')[:5]
     dict = convertReviewsToJSON(reviews)
     js= json.dumps(dict)
     return HttpResponse(js,
