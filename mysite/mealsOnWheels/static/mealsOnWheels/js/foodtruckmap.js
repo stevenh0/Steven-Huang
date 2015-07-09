@@ -99,6 +99,8 @@ function filterFoodVendor(key){
             dateType: 'json',
             data: data,
             success:function(json){
+            // Before appending, delete all the previously appended information
+            $(".listRateAppended").remove();
             if (json.length === 0){
             $("#listRate").append("<div class='listRateAppended'>No one has reviewed yet!</div>");
             }else{
@@ -141,7 +143,6 @@ $(document).ready(function() {
 
                     // ~~~ filtering ~~~
                     $(".listRateAppended").remove();
-                    //document.getElementById("listRate").style.visibility="hidden";
                      $("#rateh1")
                     .html(function(){document.getElementById("rateh1").style.visibility="visible"});
                     $("#button").unbind('click').click(function(){
@@ -151,7 +152,6 @@ $(document).ready(function() {
                         })
                     $("#listRateHeader").unbind('click').click(function(){
                         filterFoodVendor(key=data.key);
-                        document.getElementById("listRate").style.visibility="visible";
                         });
 
 

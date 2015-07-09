@@ -87,6 +87,7 @@ def render_map(request):
         if myReviews.count()==1:
             myReview = myReviews[0]
             myReview.rate = rate
+            myReview.pub_date=datetime.datetime.today()
             myReview.save()
         else:
             print "this is my first review"
