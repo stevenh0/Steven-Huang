@@ -2641,7 +2641,7 @@ display:inline
 }
 
 #listRate{
-visibility:hidden;
+visibility:visible;
 color: #252122;
 font-weight: 100;
 }

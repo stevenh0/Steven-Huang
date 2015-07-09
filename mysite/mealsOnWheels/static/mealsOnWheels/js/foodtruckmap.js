@@ -79,16 +79,14 @@ google.maps.event.addListener(searchBox, 'places_changed', function() {
     // Bias the SearchBox results towards places that are within the bounds of the
   // current map's viewport.
 
-// yumi added
+
 // http://stackoverflow.com/questions/24152420/pass-dynamic-javascript-variable-to-django-python
 function sendFoodVendorToDjango(key,rate){
     var data = {'foodTruckKey': key,'rate':rate};
 
     $.post("/mealsOnWheels/map/", data,
         function(response){
-            if(response === 'success'){ //alert('Yay!');
-            }else{ //alert('Error! :(');
-            }
+           // Do Nothing
     });
 }
 
@@ -101,13 +99,16 @@ function filterFoodVendor(key){
             dateType: 'json',
             data: data,
             success:function(json){
-            $.each(json, function(index, element) {
-                $("#listRate").append("user: " + element.user + "</br>rate: " +
-                element.rate +"</br>pub date: "+ element.pub_date+"</br>");
-            });
-            }}
-     );
-    }
+            if (json.length === 0){
+            $("#listRate").append("<div class='listRateAppended'>No one has reviewed yet!</div>");
+            }else{
+                $.each(json, function(index, element) {
+                    $("#listRate").append("<div class='listRateAppended'>user: " + element.user + "</br>rate: " +
+                    element.rate +"</br>pub date: "+ element.pub_date+"</br></div>");
+                 });
+            }
+    }});
+}
 
 
 
@@ -139,7 +140,8 @@ $(document).ready(function() {
 					run(data.name);
 
                     // ~~~ filtering ~~~
-                    document.getElementById("listRate").style.visibility="hidden";
+                    $(".listRateAppended").remove();
+                    //document.getElementById("listRate").style.visibility="hidden";
                      $("#rateh1")
                     .html(function(){document.getElementById("rateh1").style.visibility="visible"});
                     $("#button").unbind('click').click(function(){

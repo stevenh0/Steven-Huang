@@ -113,15 +113,13 @@ def filterVendor(request):
 
 
 def convertReviewsToJSON(reviews):
-    output = {}
-    count = 0
+    output = []
     for review in reviews:
         dict = {}
         dict["user"] = review.user.username
         dict["pub_date"] = str(review.pub_date)
         dict["rate"] = review.rate
-        output[count] = dict
-        count +=1
+        output.append(dict)
     return output
 
 
