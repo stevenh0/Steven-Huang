@@ -32,6 +32,12 @@ class LastImportDate(models.Model):
 
 ## Needed for authentification
 from django.contrib.auth.models import User
+
+class UserJSONObject(models.Model):
+	user = models.OneToOneField(User)
+	json_object = models.TextField()
+	location = models.OneToOneField(Position)
+	
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     activation_key = models.CharField(max_length=40,blank=True)

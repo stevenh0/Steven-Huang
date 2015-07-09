@@ -11,6 +11,7 @@ from .forms import *
 from .models import *
 import hashlib, datetime, random
 from django.core.context_processors import csrf
+from search import get_user_json,  createJSONString
 
 
 ## HttpRequest object as the first argument
@@ -93,8 +94,8 @@ def render_map(request):
 		        pub_date=datetime.datetime.today())
         print str(myUser.review_set.get(foodtruck=myFood))
         return HttpResponse("success")
+    return render(request,'mealsOnWheels/map.html',{'json_string': get_user_json(request).json_object})
 
-    return render(request,'mealsOnWheels/map.html',{})
 
 @login_required
 def render_json(request):
