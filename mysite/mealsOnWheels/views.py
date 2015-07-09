@@ -64,32 +64,36 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 @login_required
 def render_map(request):
-    print "render_map!"+"request.method";
     if request.method == 'POST':
-        print "POST";
-        key = request.POST['foodTruckKey'];
-        rate = request.POST['rating'];
-        print "key:"+key;
-        print "rate:" + rate;
-        myUser = request.user;
-        print "user:" + str(myUser);
-        myFood = FoodTruck.objects.filter(key=key);
-        print "myFood:" + str(myFood.size);
+        print "POST"
+        key = request.POST['foodTruckKey']
+        rate = request.POST['rate']
+        print "key:" + key +"rate:" + rate
+        myUser = request.user
+        print "user:" + str(myUser)
+        print "tot n of foodtruck" + str( FoodTruck.objects.count())
+        ##for i in FoodTruck.objects.all():
+        ##    print str(i)
+        try:
+            myFood = FoodTruck.objects.get(key=key)
+            print "myFood--->" + str(myFood)
+        except:
+            print "There is no food truck corresponding to this key."+\
+                  "\nThis should not happen!"
 
-        myArticle = myUser.article_set.filter(foodTruck=myFood);
-        print myArticle;
-
-        if myArticle:
-            print "article exists";
-            myArticle.rate = rate;
-            myUser.save();
+        myReviews = myUser.review_set.filter(foodtruck=myFood)
+        if myReviews.count()==1:
+            myReview = myReviews[0];
+            myReview.rate = rate
+            myReview.save()
         else:
-            print "article does not exist";
-            myUser.article_set.create(
+            print "this is my first review"
+            myUser.review_set.create(
                 foodtruck=myFood,rate=rate,
-				pub_date=datetime.datetime.today());
+		        pub_date=datetime.datetime.today())
+        print str(myUser.review_set.get(foodtruck=myFood))
+        return HttpResponse("success")
 
-	    return HttpResponse("success");
     return render(request,'mealsOnWheels/map.html',{})
 
 @login_required

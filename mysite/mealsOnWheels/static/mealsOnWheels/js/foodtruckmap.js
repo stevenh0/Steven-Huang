@@ -84,14 +84,13 @@ google.maps.event.addListener(searchBox, 'places_changed', function() {
 
 
 var URL = "/mealsOnWheels/map/";
-//var URL = "/map/";
-
-function sendFoodVendorToDjango(key){
-    var data = {'foodTruckKey': key,'rating':rating};
+function sendFoodVendorToDjango(key,rate){
+    var data = {'foodTruckKey': key,'rate':rate};
 
     $.post(URL, data, function(response){
-        if(response === 'success'){ alert('Yay!'); }
-        else{ alert('Error! :('); }
+        if(response === 'success'){ //alert('Yay!');
+        }else{ //alert('Error! :(');
+        }
     });
 }
 
@@ -121,14 +120,19 @@ $(document).ready(function() {
 					.html( data.name );
 
                     // yumi added
-                    //$("#selected-food-truck-details h1")
-                    //.html(function(){document.getElementById("rating").style.visibility="visible"});
-                    rating = 0;
-                    sendFoodVendorToDjango(key=data.key);
+                    $("#selected-food-truck-details h1")
+                    .html(function(){document.getElementById("rateh1").style.visibility="visible"});
+
+                    $("#button").unbind('click').click(function(){
+                        var rate = $('#rateinput').val();
+                        sendFoodVendorToDjango(key=data.key,rate=rate);
+                        $('#rateinput').val("");
+                        })
 
                     $( "#instafeed")
                     .html ( "" );
 					run(data.name);
+
 
 				});
 

@@ -14,7 +14,7 @@ class Position(models.Model):
         return "(" + str(self.lat) + "," + str(self.lon) + ")"
 
 class FoodTruck(models.Model):
-    key = models.CharField('Key',max_length=50)
+    key = models.CharField('Key',max_length=50,unique=True)
     key.primary_key = True
     name = models.CharField('Truck Name', max_length=200)
     foodType = models.CharField('Truck Food Type', max_length=200)
@@ -22,6 +22,9 @@ class FoodTruck(models.Model):
 
     def __str__(self):
         return "Truck " + self.key + ": " + self.name
+
+    def __eq__(self, other):
+        return self.key == other.key
 
 class LastImportDate(models.Model):
     date = models.DateTimeField()
@@ -59,3 +62,5 @@ class Review(models.Model):
         blank=True,
         help_text="rate must be between 0 - 10")
     pub_date = models.DateField()
+    def __str__(self):
+        return str(self.foodtruck)+ " rate:" + str(self.rate)
