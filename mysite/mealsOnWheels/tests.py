@@ -6,6 +6,7 @@ from parser import testImportData, clearData
 from models import FoodTruck, Position
 from django.shortcuts import render, get_object_or_404
 import hashlib, datetime, random
+from django.contrib.auth.models import User
 
 # Create your tests here.
 
@@ -119,6 +120,7 @@ class RegisterViewTests(TestCase):
         self.assertFormError(response, "form","email","duplicate email")
 
 
+
 # TODO: tests for authentication? I think because it takes a random number you can't just hash the same
 # TODO: way to get the same key
 
@@ -183,6 +185,69 @@ class LoginViewTests(TestCase):
 # TODO: how to test authenticated users?
 # TODO: Remove Register and Login buttons from home page after logging in with a user?
 
+
+# -------- Profile View Tests ---------
+
+new_username = 'sarah'
+new_password = 'world'
+
+class ProfileViewTests(TestCase):
+
+	def navigate_to_profile(self):
+		myUser = User(username=username,email=email)
+		myUser.set_password(password)
+		myUser.save()
+		self.client.login(username=username, password=password)
+		response = self.client.get(reverse('mealsOnWheels:profile'), follow=True)
+		self.assertEqual(response.status_code, 200)
+
+	def test_change_username(self):
+		self.navigate_to_profile()
+		params = {'username': new_username,
+				'password': password,
+		        'password_confirmation': password}
+		response = self.client.post(reverse('mealsOnWheels:profile'), params)
+		self.assertContains(response, 'Profile preferences have been saved.')
+
+	def test_change_password(self):
+		self.navigate_to_profile()
+		params = {'username': username,
+				'password': new_password,
+		        'password_confirmation': new_password}
+		response = self.client.post(reverse('mealsOnWheels:profile'), params)
+		self.assertContains(response, 'Profile preferences have been saved.')
+
+	def test_missing_password(self):
+		self.navigate_to_profile()
+		params = {'username': username}
+		response = self.client.post(reverse('mealsOnWheels:profile'), params)
+		self.assertContains(response, 'This field is required.')
+
+	def test_missing_username(self):
+		self.navigate_to_profile()
+		params = {'password': new_password,
+		        'password_confirmation': new_password}
+		response = self.client.post(reverse('mealsOnWheels:profile'), params)
+		self.assertContains(response, 'This field is required.')
+
+	def test_change_email(self):
+		self.navigate_to_profile()
+		params = {'username': username,
+		        'email': email,
+				'password': password,
+		        'password_confirmation': password}
+		response = self.client.post(reverse('mealsOnWheels:profile'), params)
+		self.assertContains(response, 'Profile preferences have been saved.')
+
+	def test_mismatched_passwords(self):
+		self.navigate_to_profile()
+		params = {'username': username,
+				'password': password,
+		        'password_confirmation': new_password}
+		response = self.client.post(reverse('mealsOnWheels:profile'), params)
+		self.assertContains(response, 'Passwords don&#39;t match. Please try again.')
+
+
 # -------- Import Data Tests ---------
 
 class ImportDataTests(TestCase):
@@ -217,5 +282,3 @@ class ImportDataTests(TestCase):
     def testDataGoneAfterBeingCleared(self):
         clearData()
         self.assertEquals(FoodTruck.objects.all().count(), 0)
-
-
