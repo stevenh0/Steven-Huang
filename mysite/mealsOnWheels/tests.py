@@ -119,6 +119,7 @@ class RegisterViewTests(TestCase):
         self.assertFormError(response, "form","email","duplicate email")
 
 
+
 # TODO: tests for authentication? I think because it takes a random number you can't just hash the same
 # TODO: way to get the same key
 
@@ -219,3 +220,38 @@ class ImportDataTests(TestCase):
         self.assertEquals(FoodTruck.objects.all().count(), 0)
 
 
+
+
+from django.test import Client
+from django.contrib.auth.models import User
+class ProfileViewTests(TestCase):
+
+	def register_user(self):
+		params1 = {'username': username,
+				'email': email,
+				'password1': password,
+				'password2': password}
+		self.client.post(reverse('mealsOnWheels:register'), params1)
+
+	def successful_login(self):
+		self.register_user()
+		params = {'username': username,
+				'password': password}
+		self.client.post(reverse('mealsOnWheels:login'), params)
+
+	def navigate_to_profile(self):
+		myUser=User(username="yumi",email="test@gmail.com")
+		myUser.set_password("temporary")
+		myUser.save()
+		c = Client()
+		c.login(username='yumi', password= 'temporary')
+		response = c.get(reverse('mealsOnWheels:profile'), follow=True)
+		#self.successful_login()
+        #response = self.client.get(reverse('mealsOnWheels:profile'), follow=True)
+		print 'response!!!'
+		print response
+		self.assertEqual(response.status_code, 200)
+
+	def test_change_username(self):
+		self.navigate_to_profile()
+		self.successful_login()
