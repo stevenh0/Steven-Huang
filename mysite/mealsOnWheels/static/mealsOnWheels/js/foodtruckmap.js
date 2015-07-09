@@ -82,13 +82,33 @@ google.maps.event.addListener(searchBox, 'places_changed', function() {
 
 // http://stackoverflow.com/questions/24152420/pass-dynamic-javascript-variable-to-django-python
 function sendFoodVendorToDjango(key,rate){
-    var data = {'foodTruckKey': key,'rate':rate};
-
-    $.post("/mealsOnWheels/map/", data,
-        function(response){
-           // Do Nothing
-    });
+    $(".invalidRate").remove();
+    $(".listRateAppended").remove();
+    if (checkRateValid(rate)){
+        var data = {'foodTruckKey': key,'rate':rate};
+        $.post("/mealsOnWheels/map/", data,
+            function(response){// Do Nothing
+            });
+    }else{
+        $("#listRateHeader").prepend(
+        "<div style='color:blue' class='invalidRate'>Rate must be an integer between 0 - 10!</div>");
+    }
 }
+
+function isInt(value) {
+  return !isNaN(value) &&
+         parseInt(Number(value)) == value &&
+         !isNaN(parseInt(value, 10));
+}
+
+function checkRateValid(rate){
+    if (isInt(rate)){
+        if (rate <= 10 & rate >= 0 )
+            return true;
+    }
+    return false;
+}
+
 
 
 function filterFoodVendor(key){
@@ -104,6 +124,7 @@ function filterFoodVendor(key){
             if (json.length === 0){
             $("#listRate").append("<div class='listRateAppended'>No one has reviewed yet!</div>");
             }else{
+                // each user's review is printed.
                 $.each(json, function(index, element) {
                     $("#listRate").append("<div class='listRateAppended'>user: " + element.user + "</br>rate: " +
                     element.rate +"</br>pub date: "+ element.pub_date+"</br></div>");
@@ -143,7 +164,7 @@ $(document).ready(function() {
 
                     // ~~~ filtering ~~~
                     $(".listRateAppended").remove();
-                     $("#rateh1")
+                    $("#rateh1")
                     .html(function(){document.getElementById("rateh1").style.visibility="visible"});
                     $("#button").unbind('click').click(function(){
                         var rate = $('#rateinput').val();

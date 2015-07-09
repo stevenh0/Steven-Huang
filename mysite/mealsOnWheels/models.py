@@ -49,24 +49,25 @@ class UserProfile(models.Model):
     class Meta:
         verbose_name_plural = 'User profiles'
 
-## http://stackoverflow.com/questions/849142/how-to-limit-the-maximum-value-of-a-numeric-field-in-a-django-model
+#http://stackoverflow.com/questions/849142/how-to-limit-the-maximum-value-of-a-numeric-field-in-a-django-model
 class Integer010Field(models.IntegerField):
-    def __init__(self, verbose_name=None, name=None, **kwargs):
-        self.min_value = 0
-        self.max_value = 10
-        models.IntegerField.__init__(self, verbose_name, name, **kwargs)
+   def __init__(self, verbose_name=None, name=None, **kwargs):
+       self.min_value = 0
+       self.max_value = 10
+       models.IntegerField.__init__(self, verbose_name, name, **kwargs)
 
-    def formfield(self, **kwargs):
-        defaults = {'min_value': self.min_value, 'max_value':self.max_value}
-        defaults.update(kwargs)
-        return super(IntegerRangeField, self).formfield(**defaults)
+   def formfield(self, **kwargs):
+       defaults = {'min_value': self.min_value, 'max_value':self.max_value}
+       defaults.update(kwargs)
+       return super(IntegerRangeField, self).formfield(**defaults)
 
 class Review(models.Model):
     user = models.ForeignKey(User) ## a user has many reviews
     foodtruck = models.ForeignKey(FoodTruck) ## a food truck has many reviews
+    #rate = models.FloatField(blank=True)
     rate = Integer010Field(
-        blank=True,
-        help_text="rate must be between 0 - 10")
+       blank=True,
+       help_text="rate must be between 0 - 10")
     pub_date = models.DateField()
 
     def __str__(self):
