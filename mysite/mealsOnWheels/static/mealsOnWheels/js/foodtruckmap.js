@@ -81,18 +81,37 @@ google.maps.event.addListener(searchBox, 'places_changed', function() {
 
 // yumi added
 // http://stackoverflow.com/questions/24152420/pass-dynamic-javascript-variable-to-django-python
-
-
-var URL = "/mealsOnWheels/map/";
 function sendFoodVendorToDjango(key,rate){
     var data = {'foodTruckKey': key,'rate':rate};
 
-    $.post(URL, data, function(response){
-        if(response === 'success'){ //alert('Yay!');
-        }else{ //alert('Error! :(');
-        }
+    $.post("/mealsOnWheels/map/", data,
+        function(response){
+            if(response === 'success'){ //alert('Yay!');
+            }else{ //alert('Error! :(');
+            }
     });
 }
+
+
+function filterFoodVendor(key){
+    var data = {'foodTruckKey': key};
+    $.ajax({
+            type: "POST",
+            url: "/mealsOnWheels/filterVendor/",
+            dateType: 'json',
+            data: data,
+            success:function(json){
+                $("#listRate").append("append :D ");
+                console.log("json.reviews.length" + json.reviews.length);
+                for (var i = 0 ; i < json.reviews.length;i++)
+                {
+                    $("#listRate").append(json.reviews[i].rate);
+                }
+            }
+            });
+     }
+
+
 
 
 $(document).ready(function() {
@@ -118,20 +137,23 @@ $(document).ready(function() {
 					.html( data.description );
 					$( "#selected-food-truck-details h3" )
 					.html( data.name );
+                    $( "#instafeed")
+                    .html ( "" );
+					run(data.name);
 
-                    // yumi added
-                    $("#selected-food-truck-details h1")
+                    // ~~~ filtering ~~~
+                    document.getElementById("listRate").style.visibility="hidden";
+                     $("#rateh1")
                     .html(function(){document.getElementById("rateh1").style.visibility="visible"});
-
                     $("#button").unbind('click').click(function(){
                         var rate = $('#rateinput').val();
                         sendFoodVendorToDjango(key=data.key,rate=rate);
                         $('#rateinput').val("");
                         })
-
-                    $( "#instafeed")
-                    .html ( "" );
-					run(data.name);
+                    $("#listRateHeader").unbind('click').click(function(){
+                        filterFoodVendor(key=data.key);
+                        document.getElementById("listRate").style.visibility="visible";
+                        });
 
 
 				});

@@ -61,6 +61,7 @@ def user_logout(request):
     return HttpResponseRedirect('/mealsOnWheels/')
 
 
+
 from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 @login_required
@@ -80,11 +81,11 @@ def render_map(request):
             print "myFood--->" + str(myFood)
         except:
             print "There is no food truck corresponding to this key."+\
-                  "\nThis should not happen!"
+                  "\nDid you perse all the food truck from admin page?"
 
         myReviews = myUser.review_set.filter(foodtruck=myFood)
         if myReviews.count()==1:
-            myReview = myReviews[0];
+            myReview = myReviews[0]
             myReview.rate = rate
             myReview.save()
         else:
@@ -94,8 +95,27 @@ def render_map(request):
 		        pub_date=datetime.datetime.today())
         print str(myUser.review_set.get(foodtruck=myFood))
         return HttpResponse("success")
-    return render(request,'mealsOnWheels/map.html',{'json_string': get_user_json(request).json_object})
+    return render(request,'mealsOnWheels/map.html',
+                   {'json_string': get_user_json(request).json_object}
+                  )
 
+import json
+@csrf_exempt
+def filterVendor(request):
+    print "~~~~inside filterVendor~~~~~"
+    key = request.POST['foodTruckKey']
+    print "key" + key
+    foodtruck = FoodTruck.objects.get(key=key)
+    print str(foodtruck)
+    reviews = foodtruck.review_set.all()
+    print "reviews.count()" + str(reviews.count())
+    print "reviews[0]" + str(reviews[0])
+    js = json.dumps({'reviews' :reviews})
+    print "js.count()" + str(js.count())
+    return HttpResponse(js,## list of reviews
+                        content_type = "application/json")
+    ##return render(request,'mealsOnWheels/map.html',
+    ##              {'reviews' :reviews})
 
 @login_required
 def render_json(request):

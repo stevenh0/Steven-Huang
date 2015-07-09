@@ -2607,7 +2607,7 @@
 #rateh1{
 visibility:hidden;
 margin-top: -1em;
-margin-bottom: -1em;
+margin-bottom: -0.5em;
 color: #252122;
 font-weight: 100;
 }
@@ -2627,11 +2627,6 @@ backgound: #fff;
 width: 30%;
 display:inline
 }
-
-
-
-
-
 #button{
     display: inline-block;
     height:30px;
@@ -2643,4 +2638,10 @@ display:inline
 	border-radius: 5px;
 	text-align:center;
 	margin-top:2px;
+}
+
+#listRate{
+visibility:hidden;
+color: #252122;
+font-weight: 100;
 }
