@@ -96,7 +96,21 @@ function sendFoodVendorToDjango(key){
 }
 
 
+
 $(document).ready(function() {
+
+    $('.image-popup-vertical-fit').magnificPopup({
+        type:'image',
+        delegate: 'a',
+        closeOnContentClick: true,
+        mainClass: 'mfp-img-mobile',
+        image: {
+            verticalFit: true
+        }
+
+
+    });
+
     $.getJSON("/mealsOnWheels/food_trucks", function(food_trucks_json) {
         $.each(food_trucks_json, function(key, data) {
             var latLng = new google.maps.LatLng(data.latitude, data.longitude);
@@ -134,6 +148,8 @@ $(document).ready(function() {
 
             });
         });
+
+
     });
 
     <!--http://stackoverflow.com/questions/743214/how-do-i-resize-a-google-map-with-javascript-after-it-has-loaded-->

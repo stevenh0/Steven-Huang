@@ -1,3 +1,4 @@
+
 function run(name) {
 
 tag = name.replace(/\s+/g, '').replace(/\./g,'').replace(/-/g, '').replace(/\'/g, '');
@@ -11,7 +12,12 @@ $(function(){
             limit: 6,
             error: function(string){
                 $("#instafeed").append('<img id="default-instagram-background">');
-            }
+            },
+            resolution: 'standard_resolution',
+            template: '<a href="{{image}}"><img src="{{image}}" /></a>',
+
+
+
         });
             feed.run();
     });
