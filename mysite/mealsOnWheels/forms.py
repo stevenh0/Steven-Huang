@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+
 ## Reference:
 ## https://docs.djangoproject.com/en/1.8/_modules/django/contrib/auth/forms/
 ## http://ipasic.com/article/user-registration-and-email-confirmation-django/

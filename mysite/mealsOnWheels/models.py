@@ -2,7 +2,6 @@ import datetime
 from django.db import models
 from django.utils import timezone
 
-## The above will deleted later
 
 ## Definitions for Food Truck-related classes
 
@@ -38,7 +37,7 @@ class UserJSONObject(models.Model):
     json_object = models.TextField()
     location = models.OneToOneField(Position)
     location.null = True
-	
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     activation_key = models.CharField(max_length=40,blank=True)
@@ -69,5 +68,6 @@ class Review(models.Model):
         blank=True,
         help_text="rate must be between 0 - 10")
     pub_date = models.DateField()
+
     def __str__(self):
         return str(self.foodtruck)+ " rate:" + str(self.rate)

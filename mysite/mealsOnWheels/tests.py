@@ -1,7 +1,6 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.core import mail
-#from .forms import UserForm
 from parser import testImportData, clearData
 from models import FoodTruck, Position
 from django.shortcuts import render, get_object_or_404
@@ -105,6 +104,7 @@ class RegisterViewTests(TestCase):
 		response = self.client.post(reverse('mealsOnWheels:register'), params2)
 		self.assertFormError(response, "form","email","duplicate email")
 
+
 # -------- Login View Tests -----------
 
 class LoginViewTests(TestCase):
@@ -160,9 +160,9 @@ new_password = 'world'
 class ProfileViewTests(TestCase):
 
 	def navigate_to_profile(self):
-		myUser = User(username=username,email=email)
-		myUser.set_password(password)
-		myUser.save()
+		new_user = User(username=username,email=email)
+		new_user.set_password(password)
+		new_user.save()
 		self.client.login(username=username, password=password)
 		response = self.client.get(reverse('mealsOnWheels:profile'), follow=True)
 		self.assertEqual(response.status_code, 200)
