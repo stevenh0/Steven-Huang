@@ -187,10 +187,14 @@ def clearData():
 # this method takes all the database data and writes it to the JSON file
 
 def updateJSONObject():
-	response = []
 	trucks = FoodTruck.objects.all()
+	createJSONObject(trucks)
+	with open('mealsOnWheels/templates/mealsOnWheels/food_trucks.json', 'w') as outfile:
+		json.dump(createJSONObject(trucks), outfile, indent=4)
+
+def createJSONObject(trucks):
+	response = []
 	for truck in trucks:
 		response.append({'key': truck.key, 'name': truck.name, 'description': truck.foodType, 'latitude': truck.position.lat, 'longitude': truck.position.lon})
-
-	with open('mealsOnWheels/templates/mealsOnWheels/food_trucks.json', 'w') as outfile:
-		json.dump(response, outfile, indent=4)
+	return response
+	
