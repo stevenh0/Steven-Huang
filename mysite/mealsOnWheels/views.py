@@ -11,6 +11,7 @@ from .forms import *
 from .models import *
 import hashlib, datetime, random
 from django.core.context_processors import csrf
+from search import get_user_json,  createJSONString
 
 
 ## HttpRequest object as the first argument
@@ -60,37 +61,69 @@ def user_logout(request):
     return HttpResponseRedirect('/mealsOnWheels/')
 
 
+
 from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 @login_required
 def render_map(request):
-    print "render_map!"+"request.method";
     if request.method == 'POST':
-        print "POST";
-        key = request.POST['foodTruckKey'];
-        rate = request.POST['rating'];
-        print "key:"+key;
-        print "rate:" + rate;
-        myUser = request.user;
-        print "user:" + str(myUser);
-        myFood = FoodTruck.objects.filter(key=key);
-        print "myFood:" + str(myFood.size);
+        print "POST"
+        key = request.POST['foodTruckKey']
+        rate = request.POST['rate']
+        print "key:" + key +"rate:" + rate
+        myUser = request.user
+        print "user:" + str(myUser)
+        print "tot n of foodtruck" + str( FoodTruck.objects.count())
+        ##for i in FoodTruck.objects.all():
+        ##    print str(i)
+        try:
+            myFood = FoodTruck.objects.get(key=key)
+            print "myFood--->" + str(myFood)
+        except:
+            print "There is no food truck corresponding to this key."+\
+                  "\nDid you perse all the food truck from admin page?"
 
-        myArticle = myUser.article_set.filter(foodTruck=myFood);
-        print myArticle;
-
-        if myArticle:
-            print "article exists";
-            myArticle.rate = rate;
-            myUser.save();
+        myReviews = myUser.review_set.filter(foodtruck=myFood)
+        if myReviews.count()==1:
+            myReview = myReviews[0]
+            myReview.rate = rate
+            myReview.pub_date=datetime.datetime.today()
+            myReview.save()
         else:
-            print "article does not exist";
-            myUser.article_set.create(
+            print "this is my first review"
+            myUser.review_set.create(
                 foodtruck=myFood,rate=rate,
-				pub_date=datetime.datetime.today());
+		        pub_date=datetime.datetime.today())
+        print str(myUser.review_set.get(foodtruck=myFood))
+        return HttpResponse("success")
+    return render(request,'mealsOnWheels/map.html',
+                   {'json_string': get_user_json(request).json_object}
+                  )
 
-	    return HttpResponse("success");
-    return render(request,'mealsOnWheels/map.html',{})
+import json
+@csrf_exempt
+def filterVendor(request):
+    key = request.POST['foodTruckKey']
+    foodtruck = FoodTruck.objects.get(key=key)
+    ## send only the latest 5 reviews.
+    reviews = foodtruck.review_set.order_by('-pub_date')[:5]
+    dict = convertReviewsToJSON(reviews)
+    js= json.dumps(dict)
+    return HttpResponse(js,
+                        content_type = "application/json")
+
+
+
+def convertReviewsToJSON(reviews):
+    output = []
+    for review in reviews:
+        dict = {}
+        dict["user"] = review.user.username
+        dict["pub_date"] = str(review.pub_date)
+        dict["rate"] = review.rate
+        output.append(dict)
+    return output
+
 
 @login_required
 def render_json(request):

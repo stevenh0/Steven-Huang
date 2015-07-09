@@ -79,20 +79,58 @@ google.maps.event.addListener(searchBox, 'places_changed', function() {
     // Bias the SearchBox results towards places that are within the bounds of the
   // current map's viewport.
 
-// yumi added
+
 // http://stackoverflow.com/questions/24152420/pass-dynamic-javascript-variable-to-django-python
+function sendFoodVendorToDjango(key,rate){
+    $(".invalidRate").remove();
+    $(".listRateAppended").remove();
+    if (checkRateValid(rate)){
+        var data = {'foodTruckKey': key,'rate':rate};
+        $.post("/mealsOnWheels/map/", data,
+            function(response){// Do Nothing
+            });
+    }else{
+        $("#listRateHeader").prepend(
+        "<div style='color:blue' class='invalidRate'>Rate must be an integer between 0 - 10!</div>");
+    }
+}
+
+function isInt(value) {
+  return !isNaN(value) &&
+         parseInt(Number(value)) == value &&
+         !isNaN(parseInt(value, 10));
+}
+
+function checkRateValid(rate){
+    if (isInt(rate)){
+        if (rate <= 10 & rate >= 0 )
+            return true;
+    }
+    return false;
+}
 
 
-var URL = "/mealsOnWheels/map/";
-//var URL = "/map/";
 
-function sendFoodVendorToDjango(key){
-    var data = {'foodTruckKey': key,'rating':rating};
-
-    $.post(URL, data, function(response){
-        if(response === 'success'){ alert('Yay!'); }
-        else{ alert('Error! :('); }
-    });
+function filterFoodVendor(key){
+    var data = {'foodTruckKey': key};
+    $.ajax({
+            type: "POST",
+            url: "/mealsOnWheels/filterVendor/",
+            dateType: 'json',
+            data: data,
+            success:function(json){
+            // Before appending, delete all the previously appended information
+            $(".listRateAppended").remove();
+            if (json.length === 0){
+            $("#listRate").append("<div class='listRateAppended'>No one has reviewed yet!</div>");
+            }else{
+                // each user's review is printed.
+                $.each(json, function(index, element) {
+                    $("#listRate").append("<div class='listRateAppended'>user: " + element.user + "</br>rate: " +
+                    element.rate +"</br>pub date: "+ element.pub_date+"</br></div>");
+                 });
+            }
+    }});
 }
 
 
@@ -133,16 +171,23 @@ $(document).ready(function() {
 					.html( data.description );
 					$( "#selected-food-truck-details h3" )
 					.html( data.name );
-
-                    // yumi added
-                    //$("#selected-food-truck-details h1")
-                    //.html(function(){document.getElementById("rating").style.visibility="visible"});
-                    rating = 0;
-                    sendFoodVendorToDjango(key=data.key);
-
                     $( "#instafeed")
                     .html ( "" );
 					run(data.name);
+
+                    // ~~~ filtering ~~~
+                    $(".listRateAppended").remove();
+                    $("#rateh1")
+                    .html(function(){document.getElementById("rateh1").style.visibility="visible"});
+                    $("#button").unbind('click').click(function(){
+                        var rate = $('#rateinput').val();
+                        sendFoodVendorToDjango(key=data.key,rate=rate);
+                        $('#rateinput').val("");
+                        })
+                    $("#listRateHeader").unbind('click').click(function(){
+                        filterFoodVendor(key=data.key);
+                        });
+
 
 				});
 
