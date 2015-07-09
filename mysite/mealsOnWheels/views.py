@@ -102,20 +102,28 @@ def render_map(request):
 import json
 @csrf_exempt
 def filterVendor(request):
-    print "~~~~inside filterVendor~~~~~"
     key = request.POST['foodTruckKey']
-    print "key" + key
     foodtruck = FoodTruck.objects.get(key=key)
-    print str(foodtruck)
     reviews = foodtruck.review_set.all()
-    print "reviews.count()" + str(reviews.count())
-    print "reviews[0]" + str(reviews[0])
-    js = json.dumps({'reviews' :reviews})
-    print "js.count()" + str(js.count())
-    return HttpResponse(js,## list of reviews
+    dict = convertReviewsToJSON(reviews)
+    js= json.dumps(dict)
+    return HttpResponse(js,
                         content_type = "application/json")
-    ##return render(request,'mealsOnWheels/map.html',
-    ##              {'reviews' :reviews})
+
+
+
+def convertReviewsToJSON(reviews):
+    output = {}
+    count = 0
+    for review in reviews:
+        dict = {}
+        dict["user"] = review.user.username
+        dict["pub_date"] = str(review.pub_date)
+        dict["rate"] = review.rate
+        output[count] = dict
+        count +=1
+    return output
+
 
 @login_required
 def render_json(request):

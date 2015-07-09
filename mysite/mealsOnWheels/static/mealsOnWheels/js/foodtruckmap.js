@@ -101,16 +101,13 @@ function filterFoodVendor(key){
             dateType: 'json',
             data: data,
             success:function(json){
-                $("#listRate").append("append :D ");
-                console.log("json.reviews.length" + json.reviews.length);
-                for (var i = 0 ; i < json.reviews.length;i++)
-                {
-                    $("#listRate").append(json.reviews[i].rate);
-                }
-            }
+            $.each(json, function(index, element) {
+                $("#listRate").append("user: " + element.user + "</br>rate: " +
+                element.rate +"</br>pub date: "+ element.pub_date+"</br>");
             });
-     }
-
+            }}
+     );
+    }
 
 
 
