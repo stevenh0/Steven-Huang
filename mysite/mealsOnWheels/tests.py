@@ -6,6 +6,7 @@ from parser import testImportData, clearData
 from models import FoodTruck, Position
 from django.shortcuts import render, get_object_or_404
 import hashlib, datetime, random
+from search import get_user_json
 
 # Create your tests here.
 
@@ -218,4 +219,9 @@ class ImportDataTests(TestCase):
         clearData()
         self.assertEquals(FoodTruck.objects.all().count(), 0)
 
+# -------- Search & Filter Tests -----------
 
+class SearchTests(TestCase):
+	
+	def get_curr_user_json(self):
+		self.assertFale(UserJSONObjects.Objects.all() is null)
