@@ -133,8 +133,6 @@ function filterFoodVendor(key){
     }});
 }
 
-
-
 $(document).ready(function() {
 
     $('.image-popup-vertical-fit').magnificPopup({
@@ -150,6 +148,8 @@ $(document).ready(function() {
     });
 
     $.getJSON("/mealsOnWheels/food_trucks", function(food_trucks_json) {
+		console.log( json_string );
+		//food_trucks_json = $.parseJSON( "{{ %json_string% }}" );
         $.each(food_trucks_json, function(key, data) {
             var latLng = new google.maps.LatLng(data.latitude, data.longitude);
 
