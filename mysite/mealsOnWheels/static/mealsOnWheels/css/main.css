@@ -2651,3 +2651,11 @@
 	cursor: pointer;
 	margin-top: 15px;
 }
+
+#listRate {
+	margin-top: 15px;
+}
+
+.invalidRate {
+	margin-bottom: 10px;
+}
