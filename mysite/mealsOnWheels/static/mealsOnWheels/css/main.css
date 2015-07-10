@@ -2629,8 +2629,6 @@ display:inline
 }
 #button{
     display: inline-block;
-    height:30px;
-	width:60px;
 	background-color:#cc0000;
 	font-family:arial;
 	font-weight:bold;
