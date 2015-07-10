@@ -197,4 +197,3 @@ def createJSONObject(trucks):
 	for truck in trucks:
 		response.append({'key': truck.key, 'name': truck.name, 'description': truck.foodType, 'latitude': truck.position.lat, 'longitude': truck.position.lon})
 	return response
-	
