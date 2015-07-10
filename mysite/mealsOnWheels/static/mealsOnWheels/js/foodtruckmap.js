@@ -168,7 +168,9 @@ $(document).ready(function() {
 					infowindow.open(map,marker);
 
 					$( "#selected-food-truck-details p" )
-					.html( data.description );
+					.html( data.description + "<br>" + data.location );
+					$( "#selected-food-truck-details p" )
+					.html( data.location );
 					$( "#selected-food-truck-details h3" )
 					.html( data.name );
                     $( "#instafeed")
