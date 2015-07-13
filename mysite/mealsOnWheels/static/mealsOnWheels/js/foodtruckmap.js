@@ -126,13 +126,14 @@ function filterFoodVendor(key){
             }else{
                 // each user's review is printed.
                 $.each(json, function(index, element) {
-                    $("#listRate").append("<div class='listRateAppended'>User: " + element.user + "</br>Rating: " +
-                    element.rate +"</br>Date: "+ element.pub_date+"</br></div>");
+                    $("#listRate").append("<div class='listRateAppended'>User: " + element.user + "  Rating: " +
+                    element.rate +"  Date: "+ element.pub_date+"</div>");
                  });
             }
     }});
 }
 function setFav(favName){
+
     var c = getCookie("favorite");
     if(c.indexOf(favName) == -1){
         document.cookie = "favorite=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
@@ -166,7 +167,6 @@ $(document).ready(function() {
 
     $('#my-fav').prepend(getCookie("favorite"));
     $("#remove-fav").click(function(){
-        console.log("removed");
         document.cookie = "favorite=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
         $('#my-fav').html("");
     });
@@ -206,9 +206,7 @@ $(document).ready(function() {
 					infowindow.open(map,marker);
 
 					$( "#selected-food-truck-details p" )
-					.html( data.description + "<br>" + data.location );
-					$( "#selected-food-truck-details p" )
-					.html( data.location );
+					.html("<b>" + data.description + "</b><br>" + data.location);
 					$( "#selected-food-truck-details h3" )
 					.html( data.name );
                     $( "#instafeed")
@@ -227,6 +225,7 @@ $(document).ready(function() {
                     $("#listRateHeader").unbind('click').click(function(){
                         filterFoodVendor(key=data.key);
                         });
+
                     //  ~~~favorite selection
                     $("#myfav").click(function(){
                         setFav(data.name);
