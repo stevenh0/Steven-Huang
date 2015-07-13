@@ -2,19 +2,18 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import django.utils.timezone
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('mealsOnWheels', '0006_userprofile'),
+        ('mealsOnWheels', '0012_review_pub_date'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='userprofile',
-            name='key_expires',
-            field=models.DateTimeField(default=django.utils.timezone.now),
+            model_name='foodtruck',
+            name='key',
+            field=models.CharField(max_length=50, unique=True, serialize=False, verbose_name=b'Key', primary_key=True),
         ),
     ]

@@ -3,22 +3,24 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 from django.conf import settings
+import mealsOnWheels.models
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('mealsOnWheels', '0003_delete_temp'),
+        ('mealsOnWheels', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='UserProfile',
+            name='Review',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('website', models.URLField(blank=True)),
-                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL)),
+                ('rate', mealsOnWheels.models.Integer010Field(help_text=b'rate must be between 0 - 10', blank=True)),
+                ('foodtruck', models.ForeignKey(to='mealsOnWheels.FoodTruck')),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

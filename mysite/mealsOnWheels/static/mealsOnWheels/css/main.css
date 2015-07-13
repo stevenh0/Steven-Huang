@@ -2605,32 +2605,32 @@
 }
 
 #rateh1{
-visibility:hidden;
-margin-top: -1em;
-margin-bottom: -0.5em;
-color: #252122;
-font-weight: 100;
+	visibility:hidden;
+	margin-top: -1em;
+	margin-bottom: -0.5em;
+	color: #252122;
+	font-weight: 100;
 }
 
 #rateinput{
-font-family: 'Source Sans Pro';
-font-weight: 100;
-color: red;
--webkit-appearance: none;
-display: block;
-border: 0;
-padding: 0.5em 1em;
-font-size: 0.8em;
-border-radius:15px;
-border: solid 1px #dddddd;
-backgound: #fff;
-width: 30%;
-display:inline
+	font-family: 'Source Sans Pro';
+	font-weight: 100;
+	color: red;
+	-webkit-appearance: none;
+	display: block;
+	border: 0;
+	padding: 0.5em 1em;
+	font-size: 0.8em;
+	border-radius: 8px;
+	border: solid 1px #dddddd;
+	background: #fff;
+	width: 70px;
+	height: 47px;
+	display: inline;
+
 }
 #button{
     display: inline-block;
-    height:30px;
-	width:60px;
 	background-color:#cc0000;
 	font-family:arial;
 	font-weight:bold;
@@ -2641,7 +2641,21 @@ display:inline
 }
 
 #listRate{
-visibility:visible;
-color: #252122;
-font-weight: 100;
+	visibility:visible;
+	color: #252122;
+	font-weight: 100;
+}
+
+#listRateHeader {
+	color: #0066CC;
+	cursor: pointer;
+	margin-top: 15px;
+}
+
+#listRate {
+	margin-top: 15px;
+}
+
+.invalidRate {
+	margin-bottom: 10px;
 }
