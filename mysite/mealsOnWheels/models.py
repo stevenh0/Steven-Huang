@@ -13,17 +13,19 @@ class Position(models.Model):
         return "(" + str(self.lat) + "," + str(self.lon) + ")"
 
 class FoodTruck(models.Model):
-    key = models.CharField('Key',max_length=50,unique=True)
-    key.primary_key = True
-    name = models.CharField('Truck Name', max_length=200)
-    foodType = models.CharField('Truck Food Type', max_length=200)
-    position = models.ForeignKey(Position)
+	key = models.CharField('Key',max_length=50,unique=True)
+	key.primary_key = True
+	name = models.CharField('Truck Name', max_length=200)
+	foodType = models.CharField('Truck Food Type', max_length=200)
+	position = models.ForeignKey(Position)
+	location = models.CharField('Truck Location', max_length=200)
+	location.null = True
 
-    def __str__(self):
-        return "Truck " + self.key + ": " + self.name
+	def __str__(self):
+		return "Truck " + self.key + ": " + self.name
 
-    def __eq__(self, other):
-        return self.key == other.key
+	def __eq__(self, other):
+		return self.key == other.key
 
 class LastImportDate(models.Model):
     date = models.DateTimeField()

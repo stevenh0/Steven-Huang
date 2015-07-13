@@ -145,6 +145,7 @@ def saveRowAsTruck(worksheet, row_index):
 	if (isValidTruck(worksheet, row_index)):
 		flat = worksheet.cell_value(row_index, 6)
 		flon = worksheet.cell_value(row_index, 7)
+		floc = worksheet.cell_value(row_index, 4)
 		p = Position(lat=float(flat), lon=float(flon))
 		p.save()
 
@@ -159,7 +160,7 @@ def saveRowAsTruck(worksheet, row_index):
 			fdescription = worksheet.cell_value(row_index, 5)
 
 		fkey = worksheet.cell_value(row_index, 0)
-		t = FoodTruck(key=fkey, name=fname, foodType=fdescription, position=p)
+		t = FoodTruck(key=fkey, name=fname, foodType=fdescription, position=p, location=floc)
 		t.save()
 
 # TODO: Only provides partial functionality, need to finish implementing
@@ -195,5 +196,5 @@ def updateJSONObject():
 def createJSONObject(trucks):
 	response = []
 	for truck in trucks:
-		response.append({'key': truck.key, 'name': truck.name, 'description': truck.foodType, 'latitude': truck.position.lat, 'longitude': truck.position.lon})
+		response.append({'key': truck.key, 'name': truck.name, 'description': truck.foodType, 'location': truck.location, 'latitude': truck.position.lat, 'longitude': truck.position.lon})
 	return response

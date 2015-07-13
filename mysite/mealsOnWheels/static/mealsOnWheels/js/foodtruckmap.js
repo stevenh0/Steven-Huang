@@ -91,7 +91,7 @@ function sendFoodVendorToDjango(key,rate){
             });
     }else{
         $("#listRateHeader").prepend(
-        "<div style='color:blue' class='invalidRate'>Rate must be an integer between 0 - 10!</div>");
+        "<div style='color:blue' class='invalidRate'>Rating must be an integer between 0 - 10</div>");
     }
 }
 
@@ -126,8 +126,8 @@ function filterFoodVendor(key){
             }else{
                 // each user's review is printed.
                 $.each(json, function(index, element) {
-                    $("#listRate").append("<div class='listRateAppended'>user: " + element.user + "</br>rate: " +
-                    element.rate +"</br>pub date: "+ element.pub_date+"</br></div>");
+                    $("#listRate").append("<div class='listRateAppended'>User: " + element.user + "</br>Rating: " +
+                    element.rate +"</br>Date: "+ element.pub_date+"</br></div>");
                  });
             }
     }});
@@ -168,7 +168,9 @@ $(document).ready(function() {
 					infowindow.open(map,marker);
 
 					$( "#selected-food-truck-details p" )
-					.html( data.description );
+					.html( data.description + "<br>" + data.location );
+					$( "#selected-food-truck-details p" )
+					.html( data.location );
 					$( "#selected-food-truck-details h3" )
 					.html( data.name );
                     $( "#instafeed")
