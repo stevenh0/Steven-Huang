@@ -227,7 +227,8 @@ $(document).ready(function() {
                         });
 
                     //  ~~~favorite selection
-                    $("#myfav").click(function(){
+                    $("#myfav").unbind('click').click(function(){
+                        console.log(data.name);
                         setFav(data.name);
                         $('#my-fav').html(getCookie("favorite"));
                     });
