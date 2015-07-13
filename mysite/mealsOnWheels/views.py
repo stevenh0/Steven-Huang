@@ -102,13 +102,13 @@ def render_map(request):
 
 def getAve(foodtruck):
     ave = 0;
-    N = foodtruck.reviews_set.all().count()
+    N = foodtruck.review_set.all().count()
     if N > 0:
-        for review in foodtruck.reviews_set.all():
+        for review in foodtruck.review_set.all():
             ave += review.rate
-        out = ave/N
+        out = str(round(ave/N,1))
     else:
-        out = "No Review yet"
+        out = "NA"
     return out
 
 import json
@@ -119,6 +119,9 @@ def filterVendor(request):
     ## send only the latest 5 reviews.
     reviews = foodtruck.review_set.order_by('-pub_date')[:5]
     dict = convertReviewsToJSON(reviews)
+
+    dict.append({"additional":1,"average":getAve(foodtruck)})
+
     js= json.dumps(dict)
     return HttpResponse(js,
                         content_type = "application/json")
@@ -129,6 +132,7 @@ def convertReviewsToJSON(reviews):
     output = []
     for review in reviews:
         dict = {}
+        dict["additional"] = 0
         dict["user"] = review.user.username
         dict["pub_date"] = str(review.pub_date)
         dict["rate"] = review.rate

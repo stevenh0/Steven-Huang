@@ -90,7 +90,7 @@ function sendFoodVendorToDjango(key,rate){
             function(response){// Do Nothing
             });
     }else{
-        $("#listRateHeader").prepend(
+        $("#listRate").prepend(
         "<div style='color:blue' class='invalidRate'>Rating must be an integer between 0 - 10</div>");
     }
 }
@@ -121,13 +121,25 @@ function filterFoodVendor(key){
             success:function(json){
             // Before appending, delete all the previously appended information
             $(".listRateAppended").remove();
+            $(".rateAve").remove();
             if (json.length === 0){
             $("#listRate").append("<div class='listRateAppended'>No one has reviewed yet!</div>");
             }else{
                 // each user's review is printed.
                 $.each(json, function(index, element) {
-                    $("#listRate").append("<div class='listRateAppended'>User: " + element.user + "  Rating: " +
-                    element.rate +"  Date: "+ element.pub_date+"</div>");
+                    if (element.additional === 0){
+                         $("#listRate").append(
+                         "<div class='listRateAppended'>User: " + element.user + "  Rating: " +
+                        element.rate +"  Date: "+ element.pub_date+"</div>");
+                    }else{
+                    if (element.average !== "NA"){
+
+                        s1 = "<p class='rateAve' style='color:#0000FF;display:inline-block;font-size:150%;float:right;'>" + element.average
+                        s2 = "<span style='font-size:40%;'>rating</span> </p>"
+                         $( "#selected-food-truck-details h3" )
+					    .append(s1 + s2);
+					    }
+                    }
                  });
             }
     }});
@@ -221,10 +233,13 @@ $(document).ready(function() {
                         var rate = $('#rateinput').val();
                         sendFoodVendorToDjango(key=data.key,rate=rate);
                         $('#rateinput').val("");
-                        })
-                    $("#listRateHeader").unbind('click').click(function(){
+
                         filterFoodVendor(key=data.key);
-                        });
+                        })
+                    filterFoodVendor(key=data.key);
+                    //$("#listRateHeader").unbind('click').click(function(){
+                    //    filterFoodVendor(key=data.key);
+                    //    });
 
                     //  ~~~favorite selection
                     $("#myfav").unbind('click').click(function(){
