@@ -145,14 +145,13 @@ function filterFoodVendor(key){
     }});
 }
 function setFav(favName){
-/*    console.log(favName);
+
     var c = getCookie("favorite");
     if(c.indexOf(favName) == -1){
-        console.log("does not contain")
         document.cookie = "favorite=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-        setCookie("favorite", c+"<br>"+favName, 365gi);
+        setCookie("favorite", c+"<br>"+favName, 365);
 
-    }*/
+    }
 
 }
 
@@ -180,7 +179,6 @@ $(document).ready(function() {
 
     $('#my-fav').prepend(getCookie("favorite"));
     $("#remove-fav").click(function(){
-        console.log("removed");
         document.cookie = "favorite=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
         $('#my-fav').html("");
     });
@@ -220,9 +218,7 @@ $(document).ready(function() {
 					infowindow.open(map,marker);
 
 					$( "#selected-food-truck-details p" )
-					.html( data.description + "<br>" + data.location );
-					$( "#selected-food-truck-details p" )
-					.html( data.location );
+					.html("<b>" + data.description + "</b><br>" + data.location);
 					$( "#selected-food-truck-details h3" )
 					.html( data.name );
                     $( "#instafeed")
