@@ -132,10 +132,48 @@ function filterFoodVendor(key){
             }
     }});
 }
+function setFav(favName){
+    console.log(favName);
+    var c = getCookie("favorite");
+    if(c.indexOf(favName) == -1){
+        console.log("does not contain")
+        document.cookie = "favorite=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+        setCookie("favorite", c+"<br>"+favName, 365gi);
 
 
+    }
+
+}
+
+function setCookie(cname,cvalue,exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = cname+"="+cvalue+"; "+expires;
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
 
 $(document).ready(function() {
+
+    $('#my-fav').prepend(getCookie("favorite"));
+    $("#remove-fav").click(function(){
+        console.log("removed");
+        document.cookie = "favorite=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+        $('#my-fav').html("");
+    });
+
 
     $('.image-popup-vertical-fit').magnificPopup({
         type:'image',
@@ -160,6 +198,7 @@ $(document).ready(function() {
                 });
 
                 marker.setMap(map);
+
                 var infowindow = new google.maps.InfoWindow({
 					content: data.name
 					});
@@ -187,6 +226,11 @@ $(document).ready(function() {
                     $("#listRateHeader").unbind('click').click(function(){
                         filterFoodVendor(key=data.key);
                         });
+                    //  ~~~favorite selection
+                    $("#myfav").click(function(){
+                        setFav(data.name);
+                        $('#my-fav').html(getCookie("favorite"));
+                    });
 
 
 				});
