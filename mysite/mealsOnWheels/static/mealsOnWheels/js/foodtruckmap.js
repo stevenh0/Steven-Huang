@@ -133,12 +133,10 @@ function filterFoodVendor(key){
     }});
 }
 function setFav(favName){
-    console.log(favName);
     var c = getCookie("favorite");
     if(c.indexOf(favName) == -1){
-        console.log("does not contain")
         document.cookie = "favorite=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-        setCookie("favorite", c+"<br>"+favName, 365gi);
+        setCookie("favorite", c+"<br>"+favName, 365);
 
     }
 
