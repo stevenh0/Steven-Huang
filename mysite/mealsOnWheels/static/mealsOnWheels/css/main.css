@@ -2659,3 +2659,14 @@
 .invalidRate {
 	margin-bottom: 10px;
 }
+
+#listRateHeader .listRateAppendedExtra{
+	color: #252122;
+	cursor: default;
+}
+#rateAve{
+color:#ff0080;
+display:inline-block;
+font-size:150%;
+float:right;
+}

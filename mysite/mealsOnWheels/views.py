@@ -95,7 +95,7 @@ def render_map(request):
                 foodtruck=myFood,rate=rate,
 		        pub_date=datetime.datetime.today())
         print str(myUser.review_set.get(foodtruck=myFood))
-        return HttpResponse("success")
+        return HttpResponse(key)
     return render(request,'mealsOnWheels/map.html',
                    {'json_string': get_user_json(request).json_object}
                   )
@@ -106,7 +106,7 @@ def getAve(foodtruck):
     if N > 0:
         for review in foodtruck.review_set.all():
             ave += review.rate
-        out = str(round(ave/N,1))
+        out = str(round(ave/(N*1.0),3))
     else:
         out = "NA"
     return out
@@ -119,14 +119,22 @@ def filterVendor(request):
     ## send only the latest 5 reviews.
     reviews = foodtruck.review_set.order_by('-pub_date')[:5]
     dict = convertReviewsToJSON(reviews)
-
     dict.append({"additional":1,"average":getAve(foodtruck)})
-
     js= json.dumps(dict)
     return HttpResponse(js,
                         content_type = "application/json")
 
-
+@csrf_exempt
+def showMoreVendor(request):
+    print "within showMoreVendor"
+    key = request.POST['foodTruckKey']
+    foodtruck = FoodTruck.objects.get(key=key)
+    ## send the remaining users' reviews (all but the first 5 reviews)
+    reviews = foodtruck.review_set.order_by('-pub_date')[5:]
+    dict = convertReviewsToJSON(reviews)
+    js= json.dumps(dict)
+    return HttpResponse(js,
+                        content_type = "application/json")
 
 def convertReviewsToJSON(reviews):
     output = []

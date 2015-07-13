@@ -88,6 +88,7 @@ function sendFoodVendorToDjango(key,rate){
         var data = {'foodTruckKey': key,'rate':rate};
         $.post("/mealsOnWheels/map/", data,
             function(response){// Do Nothing
+            filterFoodVendor(key)
             });
     }else{
         $("#listRate").prepend(
@@ -109,7 +110,34 @@ function checkRateValid(rate){
     return false;
 }
 
+function userRatingStyling(element){
+    return "User: " + element.user + "  Rating: " +
+            element.rate +"  Date: "+ element.pub_date;
+}
 
+function showMoreFoodVendor(key){
+
+    var data = {'foodTruckKey': key};
+    $.ajax({
+            type: "POST",
+            url: "/mealsOnWheels/showMoreVendor/",
+            dateType: 'json',
+            data: data,
+            success:function(json){
+            // Before appending, delete all the previously appended information
+            $(".listRateAppendedExtra").remove();
+            $(".invalidRate").remove();
+            if (json.length === 0){
+            $("#listRateHeader").append("<div class='listRateAppendedExtra'>Nothing more to show!</div>");
+            }else{
+                // each user's review is printed.
+                $.each(json, function(index, element) {
+                 $("#listRateHeader").append(
+                   "<div class='listRateAppendedExtra'> " + userRatingStyling(element) + "</div>");
+                 });
+            }
+    }});
+}
 
 function filterFoodVendor(key){
     var data = {'foodTruckKey': key};
@@ -121,7 +149,9 @@ function filterFoodVendor(key){
             success:function(json){
             // Before appending, delete all the previously appended information
             $(".listRateAppended").remove();
-            $(".rateAve").remove();
+            $(".listRateAppendedExtra").remove();
+            $("#rateAve").remove();
+            $(".invalidRate").remove();
             if (json.length === 0){
             $("#listRate").append("<div class='listRateAppended'>No one has reviewed yet!</div>");
             }else{
@@ -129,12 +159,11 @@ function filterFoodVendor(key){
                 $.each(json, function(index, element) {
                     if (element.additional === 0){
                          $("#listRate").append(
-                         "<div class='listRateAppended'>User: " + element.user + "  Rating: " +
-                        element.rate +"  Date: "+ element.pub_date+"</div>");
+                         "<div class='listRateAppended'>"+userRatingStyling(element)+"</div>");
                     }else{
                     if (element.average !== "NA"){
 
-                        s1 = "<p class='rateAve' style='color:#0000FF;display:inline-block;font-size:150%;float:right;'>" + element.average
+                        s1 = "<p id='rateAve'>" + element.average
                         s2 = "<span style='font-size:40%;'>rating</span> </p>"
                          $( "#selected-food-truck-details h3" )
 					    .append(s1 + s2);
@@ -144,6 +173,8 @@ function filterFoodVendor(key){
             }
     }});
 }
+
+
 function setFav(favName){
 
     var c = getCookie("favorite");
@@ -233,13 +264,11 @@ $(document).ready(function() {
                         var rate = $('#rateinput').val();
                         sendFoodVendorToDjango(key=data.key,rate=rate);
                         $('#rateinput').val("");
-
-                        filterFoodVendor(key=data.key);
                         })
                     filterFoodVendor(key=data.key);
-                    //$("#listRateHeader").unbind('click').click(function(){
-                    //    filterFoodVendor(key=data.key);
-                    //    });
+                    $("#listRateHeader").unbind('click').click(function(){
+                        showMoreFoodVendor(key=data.key);
+                    });
 
                     //  ~~~favorite selection
                     $("#myfav").click(function(){
