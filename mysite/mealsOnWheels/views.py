@@ -129,8 +129,8 @@ def showMoreVendor(request):
     print "within showMoreVendor"
     key = request.POST['foodTruckKey']
     foodtruck = FoodTruck.objects.get(key=key)
-    ## send the remaining users' reviews (all but the first 5 reviews)
-    reviews = foodtruck.review_set.order_by('-pub_date')[5:]
+    ## send all user's reviews
+    reviews = foodtruck.review_set.order_by('-pub_date')
     dict = convertReviewsToJSON(reviews)
     js= json.dumps(dict)
     return HttpResponse(js,

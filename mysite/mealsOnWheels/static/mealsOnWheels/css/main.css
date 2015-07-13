@@ -2670,3 +2670,16 @@ display:inline-block;
 font-size:150%;
 float:right;
 }
+
+
+table, th, td {
+    border: 1px solid #d9d9d9;
+    bordercolor: #adadad;
+	border-collapse: collapse;
+}
+th {
+    text-align: left;
+}
+td {
+    padding: 1px;
+}

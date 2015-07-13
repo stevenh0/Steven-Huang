@@ -82,8 +82,7 @@ google.maps.event.addListener(searchBox, 'places_changed', function() {
 
 // http://stackoverflow.com/questions/24152420/pass-dynamic-javascript-variable-to-django-python
 function sendFoodVendorToDjango(key,rate){
-    $(".invalidRate").remove();
-    $(".listRateAppended").remove();
+    $(".remove").remove();
     if (checkRateValid(rate)){
         var data = {'foodTruckKey': key,'rate':rate};
         $.post("/mealsOnWheels/map/", data,
@@ -92,7 +91,7 @@ function sendFoodVendorToDjango(key,rate){
             });
     }else{
         $("#listRate").prepend(
-        "<div style='color:blue' class='invalidRate'>Rating must be an integer between 0 - 10</div>");
+        "<div style='color:blue' class='remove'>Rating must be an integer between 0 - 10</div>");
     }
 }
 
@@ -110,9 +109,13 @@ function checkRateValid(rate){
     return false;
 }
 
+
+var tableTitle = "<tr><th>Date</th><th>User</th><th>Rating</th></tr>"
 function userRatingStyling(element){
-    return "User: " + element.user + "  Rating: " +
-            element.rate +"  Date: "+ element.pub_date;
+    return "<tr>" +
+    "<td>" + element.pub_date + "</td>"+
+    "<td>" + element.user + "</td>"+
+    "<td>"+ element.rate + "</td>"+"</tr>";
 }
 
 function showMoreFoodVendor(key){
@@ -125,16 +128,18 @@ function showMoreFoodVendor(key){
             data: data,
             success:function(json){
             // Before appending, delete all the previously appended information
-            $(".listRateAppendedExtra").remove();
-            $(".invalidRate").remove();
+            $(".remove").remove();
             if (json.length === 0){
-            $("#listRateHeader").append("<div class='listRateAppendedExtra'>Nothing more to show!</div>");
+            $("#listRateHeader").append("<div class='listRateAppendedExtra remove'>Nothing more to show!</div>");
             }else{
+             $("#listRateHeader").append(
+             "<table class='listRateAppendedExtra remove'>"+tableTitle)
                 // each user's review is printed.
                 $.each(json, function(index, element) {
-                 $("#listRateHeader").append(
-                   "<div class='listRateAppendedExtra'> " + userRatingStyling(element) + "</div>");
+                 $('.listRateAppendedExtra').append(
+                    userRatingStyling(element) );
                  });
+             $("#listRateHeader").append("</table>")
             }
     }});
 }
@@ -147,32 +152,31 @@ function filterFoodVendor(key){
             dateType: 'json',
             data: data,
             success:function(json){
-            // Before appending, delete all the previously appended information
-            $(".listRateAppended").remove();
-            $(".listRateAppendedExtra").remove();
-            $("#rateAve").remove();
-            $(".invalidRate").remove();
+
             if (json.length === 0){
-            $("#listRate").append("<div class='listRateAppended'>No one has reviewed yet!</div>");
+            $("#listRate").append("<div class='listRateAppended remove'>No one has reviewed yet!</div>");
             }else{
                 // each user's review is printed.
+                tableCaption = "<a class='remove'>This vendor is recently rated as..</a>"
+                $("#listRate").append(tableCaption + "<table class='listRateAppended remove'>"+tableTitle)
                 $.each(json, function(index, element) {
                     if (element.additional === 0){
-                         $("#listRate").append(
-                         "<div class='listRateAppended'>"+userRatingStyling(element)+"</div>");
+                         $('.listRateAppended').append(userRatingStyling(element) );
                     }else{
                     if (element.average !== "NA"){
 
-                        s1 = "<p id='rateAve'>" + element.average
+                        s1 = "<p id= 'rateAve' class = 'remove'>" + element.average
                         s2 = "<span style='font-size:40%;'>rating</span> </p>"
                          $( "#selected-food-truck-details h3" )
 					    .append(s1 + s2);
 					    }
                     }
+                    $("#listRateHeader").append("</table>")
                  });
             }
     }});
 }
+
 
 
 function setFav(favName){
@@ -257,7 +261,7 @@ $(document).ready(function() {
 					run(data.name);
 
                     // ~~~ filtering ~~~
-                    $(".listRateAppended").remove();
+                    $(".remove").remove();
                     $("#rateh1")
                     .html(function(){document.getElementById("rateh1").style.visibility="visible"});
                     $("#button").unbind('click').click(function(){
