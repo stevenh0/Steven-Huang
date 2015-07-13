@@ -126,21 +126,21 @@ function filterFoodVendor(key){
             }else{
                 // each user's review is printed.
                 $.each(json, function(index, element) {
-                    $("#listRate").append("<div class='listRateAppended'>User: " + element.user + "</br>Rating: " +
-                    element.rate +"</br>Date: "+ element.pub_date+"</br></div>");
+                    $("#listRate").append("<div class='listRateAppended'>User: " + element.user + "  Rating: " +
+                    element.rate +"  Date: "+ element.pub_date+"</div>");
                  });
             }
     }});
 }
 function setFav(favName){
-    console.log(favName);
+/*    console.log(favName);
     var c = getCookie("favorite");
     if(c.indexOf(favName) == -1){
         console.log("does not contain")
         document.cookie = "favorite=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
         setCookie("favorite", c+"<br>"+favName, 365gi);
 
-    }
+    }*/
 
 }
 
@@ -229,6 +229,7 @@ $(document).ready(function() {
                     $("#listRateHeader").unbind('click').click(function(){
                         filterFoodVendor(key=data.key);
                         });
+
                     //  ~~~favorite selection
                     $("#myfav").click(function(){
                         setFav(data.name);

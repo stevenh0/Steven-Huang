@@ -100,6 +100,17 @@ def render_map(request):
                    {'json_string': get_user_json(request).json_object}
                   )
 
+def getAve(foodtruck):
+    ave = 0;
+    N = foodtruck.reviews_set.all().count()
+    if N > 0:
+        for review in foodtruck.reviews_set.all():
+            ave += review.rate
+        out = ave/N
+    else:
+        out = "No Review yet"
+    return out
+
 import json
 @csrf_exempt
 def filterVendor(request):
