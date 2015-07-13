@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^map/$',views.render_map,name='map'),
     url(r'^filterVendor/$',views.filterVendor ,name='filterVendor'),
     url(r'^showMoreVendor/$',views.showMoreVendor,name='showMoreVendor'),
+    url(r'^recommender/$',views.recommender,name='recommender'),
     url(r'^food_trucks/$',views.render_json,name='food_trucks'),
     url(r'^profile/$', views.change_profile_settings, name='profile'),
     url(r'^about/$', views.render_about, name='about'),

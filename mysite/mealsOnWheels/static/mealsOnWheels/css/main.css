@@ -2697,3 +2697,7 @@ td {
 	cursor: pointer;
 	margin-top: 15px;
 }
+
+#recommend-button{
+	float: center;
+}

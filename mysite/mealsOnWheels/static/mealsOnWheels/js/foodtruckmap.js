@@ -231,6 +231,19 @@ $(document).ready(function() {
 
     });
 
+    // recommendation
+    $('#recommend-button').click(function(){
+            $.ajax({
+            type: "POST",
+            url: "/mealsOnWheels/recommender/",
+            dateType: 'json',
+            success:function(json){
+            $(".recommend-answer").html(
+            "You might like "+json.name+" at "+json.location
+            )
+        }});
+    })
+
     $.getJSON("/mealsOnWheels/food_trucks", function(food_trucks_json) {
 		console.log( json_string );
 		//food_trucks_json = $.parseJSON( "{{ %json_string% }}" );

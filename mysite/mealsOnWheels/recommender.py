@@ -3,9 +3,8 @@ __author__ = 'yumikondo'
 ## recommender.py
 
 import numpy as np
-import matplotlib.pyplot as plt
 from sklearn.cluster import MiniBatchKMeans, KMeans
-from mealsOnWheels.models import FoodTruck, Review
+from mealsOnWheels.models import FoodTruck
 from django.contrib.auth.models import User
 import datetime
 
@@ -56,7 +55,7 @@ k_means.fit(dat)
 label = k_means.labels_
 centers = k_means.cluster_centers_
 
-user = User.objects.get(username="user81")
+user = User.objects.get(username="user_aian_1")
 assignUser2Cluster(user,dat_foodkey,centers)
 
 def vendorToRecommend(iclust,centers,fta):
@@ -77,11 +76,15 @@ def assignUser2Cluster(user,dat_foodkey,centers):
     myReviews = user.review_set.all()
     K = centers.shape[0]
     dist_each_term = np.ndarray(shape=K)
-    for myReview in myReviews:
-        ## food truck key of my review
-        ifood = dat_foodkey.index(myReview.foodtruck.key)
+    if myReviews.count()>0:
+        for myReview in myReviews:
+            ## food truck key of my review
+            ifood = dat_foodkey.index(myReview.foodtruck.key)
+            for ik in range(0,K):
+                dist_each_term[ik] += (centers[ik,ifood] - myReview.rate)**2
+        myClust = dist_each_term.argmin()
+    else:
+        myClust = -1
         for ik in range(0,K):
-            dist_each_term[ik] += (centers[ik,ifood] - myReview.rate)**2
-
-    myClust = dist_each_term.argmin()
+            dist_each_term[ik] = -1
     return {"cluster" : myClust, "dist_each_term" : dist_each_term}

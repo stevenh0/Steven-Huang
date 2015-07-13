@@ -263,3 +263,9 @@ def change_profile_settings(request):
     return render(request,
             'mealsOnWheels/profile.html',
             {'user_form': user_form, 'settings_changed': settings_changed} )
+
+
+
+def recommender(request):
+    myUser = request.user
+    assignUser2Cluster(myUser,dat_foodkey,centers);
