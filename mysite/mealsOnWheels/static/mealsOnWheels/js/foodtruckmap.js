@@ -23,9 +23,19 @@ if (user_position != "None"){
 	var ulat = sarr[0];
 	var ulon = sarr[1];
 	var myLatlng = new google.maps.LatLng(ulat, ulon);
+	
+	map.setCenter(myLatlng);
+	map.setZoom(map.getZoom() - 1);
+	
+	var image = 'http://vignette1.wikia.nocookie.net/wildonesgame/images/0/0d/Tiger-Icon.png/revision/latest?cb=20111003230340';
+	
 	var userPos = new google.maps.Marker({
     position: myLatlng,
-    map: map, });
+    map: map,
+	icon:	image,
+	animation: google.maps.Animation.DROP});
+	
+	
 	
 
 	$("#get-radius").keyup(function(e){
@@ -80,7 +90,7 @@ if (user_position != "None"){
 		markers = [];
 
 		// Zoom in/out to show both the new location and the food vendors
-
+		/*
 		var bounds = new google.maps.LatLngBounds();
 		bounds.extend(downtownVancouver);
 		for (var i = 0, place; place = places[i]; i++) {
@@ -116,6 +126,7 @@ if (user_position != "None"){
 		  bounds.extend(place.geometry.location);
 		}
 		map.fitBounds(bounds);
+		*/
 		
 		var position_data = {'mapRequestType': 'new_position', 'lat': places[0].geometry.location.lat(), 'lon': places[0].geometry.location.lng()};
 		$.ajax({

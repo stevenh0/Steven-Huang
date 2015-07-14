@@ -88,39 +88,25 @@ class HandleFoodTrucks(xml.sax.handler.ContentHandler):
 def importKMZData():
 	try:
 		filedst = open('testThisFile.kmz', 'w')
-		print "importKMZData()pass1"
 		req = urllib2.Request("http://data.vancouver.ca/download/kml/food_vendor_pilot.kmz")
-		print "importKMZData()pass2"
 		filesrc = urllib2.urlopen(req)
-		print "importKMZData()pass3"
 		shutil.copyfileobj(filesrc, filedst)
-		print "importKMZData()pass4"
 		filedst.close()
 		filesrc.close()
 		
-		with open('testThisFile.kmz', 'rb') as MyZip:
-			print "ANYA HERE ARE THE FUCKING MAGIC NUMBERS FUCK: " + MyZip.read(4)
-			
-		print "IS THIS A FUCKING ZIPFILE? " + str(is_zipfile('testThisFile.kmz'))
 		
 		kmz = ZipFile('testThisFile.kmz', 'r')
-		print "Zipped!"
 		kml = kmz.open('street_food_vendors.kml', 'r')
-		print "opened!"
+		
 		# Parse like the wind!!!
 		parser = make_parser()
-		print "parsed!"
 		parser.setFeature(feature_namespaces, 0)
-		print "feature namespace!"
 		dh = HandleFoodTrucks()
-		print "HandleFoodTrucks()"
 		parser.setContentHandler(dh)
-		print "parser.setContentHandler(dh)"
 		parser.parse(kml)
 		return 0
 	except:
 		print "mealsOnWheels :: KML file could not be read. Switching to local file."
-		traceback.print_exc()
 		return 1
 
 # This method imports test data instead for testing purposes
