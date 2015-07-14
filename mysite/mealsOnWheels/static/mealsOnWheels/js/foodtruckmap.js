@@ -90,7 +90,7 @@ function sendFoodVendorToDjango(key,rate){
             filterFoodVendor(key)
             });
     }else{
-        $("#listRate").prepend(
+        $("#list-rate").prepend(
         "<div style='color:blue' class='remove'>Rating must be an integer between 0 - 10</div>");
     }
 }
@@ -130,16 +130,16 @@ function showMoreFoodVendor(key){
             // Before appending, delete all the previously appended information
             $(".remove").remove();
             if (json.length === 0){
-            $("#listRateHeader").append("<div class='listRateAppendedExtra remove'>Nothing more to show!</div>");
+            $("#list-rate-header").append("<div class='list-rate-appended-extra remove'>Nothing more to show!</div>");
             }else{
-             $("#listRateHeader").append(
-             "<table class='listRateAppendedExtra remove'>"+tableTitle)
+             $("#list-rate-header").append(
+             "<table class='list-rate-appended-extra remove'>"+tableTitle)
                 // each user's review is printed.
                 $.each(json, function(index, element) {
-                 $('.listRateAppendedExtra').append(
+                 $('.list-rate-appended-extra').append(
                     userRatingStyling(element) );
                  });
-             $("#listRateHeader").append("</table>")
+             $("#list-rate-header").append("</table>")
             }
     }});
 }
@@ -154,24 +154,24 @@ function filterFoodVendor(key){
             success:function(json){
 
             if (json.length === 0){
-            $("#listRate").append("<div class='listRateAppended remove'>No one has reviewed yet!</div>");
+            $("#list-rate").append("<div class='list-rate-appended remove'>No one has reviewed yet!</div>");
             }else{
                 // each user's review is printed.
                 tableCaption = "<span class='remove'>This vendor is currently rated as:</span>"
-                $("#listRate").append(tableCaption + "<table class='listRateAppended remove'>"+tableTitle)
+                $("#list-rate").append(tableCaption + "<table class='list-rate-appended remove'>"+tableTitle)
                 $.each(json, function(index, element) {
                     if (element.additional === 0){
-                         $('.listRateAppended').append(userRatingStyling(element) );
+                         $('.list-rate-appended').append(userRatingStyling(element) );
                     }else{
                     if (element.average !== "NA"){
 
-                        s1 = "<p id= 'rateAve' class = 'remove'>" + element.average
+                        s1 = "<p id='rate-ave' class='remove'>" + element.average
                         s2 = "<span style='font-size:40%;'>rating</span> </p>"
                          $( "#selected-food-truck-details h3" )
 					    .append(s1 + s2);
 					    }
                     }
-                    $("#listRateHeader").append("</table>")
+                    $("#list-rate-header").append("</table>")
                  });
             }
     }});
@@ -277,18 +277,18 @@ $(document).ready(function() {
                     $(".remove").remove();
                     $("#truck-rating")
                     .html(function(){document.getElementById("truck-rating").style.display="inline-block"});
-                    $("#button").unbind('click').click(function(){
-                        var rate = $('#rateinput').val();
+                    $("#rate-button").unbind('click').click(function(){
+                        var rate = $('#rate-input').val();
                         sendFoodVendorToDjango(key=data.key,rate=rate);
-                        $('#rateinput').val("");
+                        $('#rate-input').val("");
                         })
                     filterFoodVendor(key=data.key);
-                    $("#listRateHeader").unbind('click').click(function(){
+                    $("#list-rate-header").unbind('click').click(function(){
                         showMoreFoodVendor(key=data.key);
                     });
 
                     //  ~~~favorite selection
-                    $("#myfav").unbind('click').click(function(){
+                    $("#add-to-fav").unbind('click').click(function(){
                         console.log(data.name);
                         setFav(data.name);
                         $('#my-fav').html(getCookie("favorite"));

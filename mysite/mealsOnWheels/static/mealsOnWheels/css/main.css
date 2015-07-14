@@ -2608,6 +2608,8 @@
 	margin-bottom: 0.5em;
 }
 
+/* Food Truck Rating */
+
 #truck-rating {
 	display: none;
 	margin-top: 1em;
@@ -2616,7 +2618,7 @@
 	font-weight: 100;
 }
 
-#rateinput {
+#rate-input {
 	font-family: 'Source Sans Pro';
 	font-weight: 100;
 	color: red;
@@ -2631,10 +2633,9 @@
 	width: 160px;
 	height: 47px;
 	display: inline;
-
 }
 
-#button{
+#rate-button {
     display: inline-block;
 	background-color: #CC0000;
 	font-family: arial;
@@ -2645,19 +2646,16 @@
 	margin-top: 2px;
 }
 
-#listRate{
+#list-rate {
 	visibility: visible;
 	color: #252122;
 	font-weight: 100;
-}
-
-#listRateHeader {
-	color: #0066CC;
-	cursor: pointer;
 	margin-top: 15px;
 }
 
-#listRate {
+#list-rate-header {
+	color: #0066CC;
+	cursor: pointer;
 	margin-top: 15px;
 }
 
@@ -2665,7 +2663,7 @@
 	margin-bottom: 10px;
 }
 
-#listRateHeader .listRateAppendedExtra {
+#list-rate-header .list-rate-appended-extra {
 	color: #252122;
 	cursor: default;
 }
@@ -2685,7 +2683,7 @@ td {
     padding: 1px 1px 1px 10px;
 }
 
-#rateAve {
+#rate-ave {
 	color: #FF0080;
 	display: inline-block;
 	font-size:150%;
@@ -2694,7 +2692,7 @@ td {
 
 /* Favourite Food Trucks */
 
-#myfav {
+#add-to-fav {
 	color: #0066CC;
 	cursor: pointer;
 	margin-top: 15px;
