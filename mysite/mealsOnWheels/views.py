@@ -11,12 +11,22 @@ from .forms import *
 from .models import *
 import hashlib, datetime, random
 from django.core.context_processors import csrf
-from search import get_user_json,  createJSONString, get_user_location, search_by_radius
+from search import get_user_json,  createJSONString, get_user_location, search_by_radius, reset_user_data, search_by_term
 
 
 ## HttpRequest object as the first argument
 def index(request):
     return render(request,'mealsOnWheels/index.html',{})
+	
+	
+ 
+class AjaxRedirect(object):
+	def process_response(self, request, response):
+		if request.is_ajax():
+			if type(response) == HttpResponseRedirect:
+				print "yaaassss"
+				response.status_code = 278
+		return response
 
 def importData():
     ftp = FTP('webftp.vancouver.ca')
@@ -69,20 +79,33 @@ def render_map(request):
 
 	print "render_map was called"
 	if request.method == 'POST':
+		print "POST"
 		if (request.POST.get('mapRequestType', '') == 'new_position'):
 			newposition = Position(lat=request.POST['lat'], lon=request.POST['lon'])
 			newposition.save()
 			ujo = get_user_json(request)
 			ujo.location = newposition
 			ujo.save()
+			refresh_redirect = HttpResponseRedirect('/mealsOnWheels/map/')
+			refresh_redirect.status_code = 278
+			return refresh_redirect
 		elif (request.POST.get('mapRequestType', '') == 'radius_changed'):
-			print "We need to change the radius"
-			print "new_radius: " + request.POST['new_radius']
-			print "user_location: " + get_user_location(request)
 			search_by_radius(request.POST['new_radius'],get_user_location(request), request)
-			return render(request,'mealsOnWheels/map.html', {'json_string': get_user_json(request).json_object, 'location': get_user_location(request)})
+			refresh_redirect = HttpResponseRedirect('/mealsOnWheels/map/')
+			refresh_redirect.status_code = 278
+			return refresh_redirect
+		elif(request.POST.get('mapRequestType', '') == 'clear_data'):
+			reset_user_data(request)
+			print "We're about to send the redirect"
+			refresh_redirect = HttpResponseRedirect('/mealsOnWheels/map/')
+			refresh_redirect.status_code = 278
+			return refresh_redirect
+		elif(request.POST.get('mapRequestType', "") == "term_search"):
+			search_by_term(request.POST['term'], request)
+			refresh_redirect = HttpResponseRedirect('/mealsOnWheels/map/')
+			refresh_redirect.status_code = 278
+			return refresh_redirect
 		else:
-			print "POST"
 			key = request.POST['foodTruckKey']
 			rate = request.POST['rate']
 			print "key:" + key +"rate:" + rate
@@ -111,7 +134,6 @@ def render_map(request):
 				pub_date=datetime.datetime.today())
 			print str(myUser.review_set.get(foodtruck=myFood))
 			return HttpResponse(key)
-	print "Rendering with json_string: " + get_user_json(request).json_object
 	return render(request,'mealsOnWheels/map.html', {'json_string': get_user_json(request).json_object, 'location': get_user_location(request)})
 
 def getAve(foodtruck):

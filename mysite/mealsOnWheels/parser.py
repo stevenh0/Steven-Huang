@@ -13,6 +13,7 @@ from xml.sax.handler import feature_namespaces
 import traceback
 import urllib2
 import shutil
+from search import reset_all_users_json
 
 
 # Import data from City of Vancouver website using FTP module
@@ -180,6 +181,7 @@ def isValidTruck(worksheet, row_index):
 # The purpose of this is to clear all old data before importing new set
 
 def clearData():
+	reset_all_users_json()
 	trucks = FoodTruck.objects.all()
 	trucks.delete()
 	positions = Position.objects.all()

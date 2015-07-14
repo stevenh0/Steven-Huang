@@ -44,6 +44,8 @@ if (user_position != "None"){
 			}
 		}
 	});
+	
+
 
   }
 
@@ -53,11 +55,11 @@ if (user_position != "None"){
 	// Create the search box and link it to the UI element.
 	
 	$("#get-radius").hide();
-	$("#clear-search").hide();
 
 	var input = /** @type {HTMLInputElement} */(
 		  document.getElementById('pac-input'));
 	map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
 
 	var searchBox = new google.maps.places.SearchBox(
 		/** @type {HTMLInputElement} */(input));
@@ -120,9 +122,7 @@ if (user_position != "None"){
 			type: 'POST',
 			url: "/mealsOnWheels/map/",
 			data: position_data,
-			success: function(json){
-				// do nothing
-			}});
+			});
 	  });
   
 }
@@ -261,6 +261,10 @@ function getCookie(cname) {
 }
 
 $(document).ready(function() {
+	
+	
+
+	
 
     $('#my-fav').prepend(getCookie("favorite"));
     $("#remove-fav").click(function(){
@@ -282,8 +286,8 @@ $(document).ready(function() {
     });
 
 	
-		$("#clear-search").click(function(){
-		console.log("The handler got called");
+	$("#clear-search").click(function(){
+		console.log("POST: clear data");
 		var data = {'mapRequestType': 'clear_data'};
 		$.ajax({
 			type: 'POST',
@@ -294,6 +298,30 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+		$("#term-search").keyup(function(e){
+		if (e.keyCode == 13) {
+			var term = $(this).val();
+			console.log("POST search term: " + term);
+			var data = {'mapRequestType': 'term_search', 'term': term};
+			$.ajax({
+				type: 'POST',
+				url: "/mealsOnWheels/map/",
+				data: data,
+				success: function(json){
+				// do nothing
+			}});
+		}
+	});
+	
+	$(document).ajaxComplete(function(e, xhr, settings) {
+		console.log("We triggered an ajax event");
+		console.log("We got a code " + xhr.status);
+        if (xhr.status == 278) {
+			console.log("Redirect status code received");
+            window.location.href = xhr.getResponseHeader("Location").replace(/\?.*$/, "?next="+window.location.pathname);
+        }
+    });
 	
     // recommendation
     $('#recommend-button').click(function(){
@@ -309,7 +337,7 @@ $(document).ready(function() {
         }});
     })
 
-    $.getJSON("/mealsOnWheels/food_trucks", function(food_trucks_json) {
+		food_trucks_json =  json_string;
         $.each(food_trucks_json, function(key, data) {
             var latLng = new google.maps.LatLng(data.latitude, data.longitude);
 
@@ -361,7 +389,6 @@ $(document).ready(function() {
 				});
 
             });
-        });
 
 
     });
