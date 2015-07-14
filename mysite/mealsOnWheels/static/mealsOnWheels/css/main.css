@@ -2567,6 +2567,9 @@
 	padding: 0px;
 }
 
+#map-container {
+	margin-bottom: 0.5em;
+}
 
 /* Logo */
 
@@ -2666,6 +2669,7 @@
 #list-rate-header .list-rate-appended-extra {
 	color: #252122;
 	cursor: default;
+	margin-top: 1.5em;
 }
 
 table, th, td {
@@ -2690,18 +2694,12 @@ td {
 	float:right;
 }
 
-/* Favourite Food Trucks */
-
-#add-to-fav {
-	color: #0066CC;
-	cursor: pointer;
-	margin-top: 15px;
-}
+/* Recommendations */
 
 #recommend-button {
 	float: center;
 }
 
-#map-container {
-	margin-bottom: 0.5em;
+#recommend-answer {
+	display: inline;
 }
