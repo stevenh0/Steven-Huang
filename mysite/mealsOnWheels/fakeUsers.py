@@ -82,7 +82,7 @@ print freqs
 ## the vendors in cluster j by the
 ## users who like vendors in cluster i
 probRate = [[0.9,0.3,0.2,0.1], ## Asia cluster
-            [0.1,1.0,0.1,0.1], ## hot dogs
+            [0.1,0.7,0.1,0.1], ## hot dogs
             [0.0,0.0,0.8,0.3], ## sea food
             [0.3,0.3,0.3,0.3]  ## others
             ]
@@ -101,11 +101,14 @@ def randomRate(p,maxRate):
 def randomDay():
     return datetime.timedelta(days=randint(0,30))
 
+
+userClusterName = ["asian","dog","pirate","random"]
+
 np.random.seed(0)
 User.objects.all().delete()
 for iuser in range(0,Nuser):
     iusercluster = assignUserToCluster(iuser,Nuser,Nclust)
-    user = User(username="user" + str(iuser))
+    user = User(username="user_" + userClusterName[iusercluster] + "_"+str(iuser))
     user.set_password("user" + str(iuser))
     user.save()
     for food in FoodTruck.objects.all():
@@ -118,3 +121,7 @@ for iuser in range(0,Nuser):
         r.save()
 
 
+## bob is always there
+user = User(username="bob")
+user.set_password("hi")
+user.save()

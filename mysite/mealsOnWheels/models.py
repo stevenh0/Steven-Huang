@@ -20,6 +20,18 @@ class FoodTruck(models.Model):
 	position = models.ForeignKey(Position)
 	location = models.CharField('Truck Location', max_length=200)
 	location.null = True
+	
+	def getLat(self):
+		print "We're trying to get lat"
+		print str(self.position)
+		print str(self.position.lat)
+		return self.position.lat
+		
+	def getLon(self):
+		if self.position[0] is not None:
+			return self.position.lon[0]
+		else:
+			return None
 
 	def __str__(self):
 		return "Truck " + self.key + ": " + self.name
@@ -74,3 +86,6 @@ class Review(models.Model):
 
     def __str__(self):
         return str(self.foodtruck)+ " rate:" + str(self.rate)
+
+
+

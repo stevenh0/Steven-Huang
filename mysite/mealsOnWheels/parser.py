@@ -193,6 +193,7 @@ def updateJSONObject():
 		json.dumps(createJSONObject(trucks), outfile, indent=4)
 
 def createJSONObject(trucks):
+	print "createJSONObject was called"
 	response = []
 	for truck in trucks:
 		response.append({'key': truck.key, 'name': truck.name, 'description': truck.foodType, 'location': truck.location, 'latitude': truck.position.lat, 'longitude': truck.position.lon})

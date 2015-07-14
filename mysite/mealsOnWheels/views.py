@@ -11,7 +11,7 @@ from .forms import *
 from .models import *
 import hashlib, datetime, random
 from django.core.context_processors import csrf
-from search import get_user_json,  createJSONString, get_user_location
+from search import get_user_json,  createJSONString, get_user_location, search_by_radius
 
 
 ## HttpRequest object as the first argument
@@ -66,15 +66,21 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 @login_required
 def render_map(request):
+
 	print "render_map was called"
 	if request.method == 'POST':
 		if (request.POST.get('mapRequestType', '') == 'new_position'):
-			print "When sending the request, location = " + get_user_json(request).location
 			newposition = Position(lat=request.POST['lat'], lon=request.POST['lon'])
-			curr_user = request.user
-			ujo = UserJSONObject.objects.get(user=curr_user)
+			newposition.save()
+			ujo = get_user_json(request)
 			ujo.location = newposition
 			ujo.save()
+		elif (request.POST.get('mapRequestType', '') == 'radius_changed'):
+			print "We need to change the radius"
+			print "new_radius: " + request.POST['new_radius']
+			print "user_location: " + get_user_location(request)
+			search_by_radius(request.POST['new_radius'],get_user_location(request), request)
+			return render(request,'mealsOnWheels/map.html', {'json_string': get_user_json(request).json_object, 'location': get_user_location(request)})
 		else:
 			print "POST"
 			key = request.POST['foodTruckKey']
@@ -90,7 +96,8 @@ def render_map(request):
 				print "myFood--->" + str(myFood)
 			except:
 				print "There is no food truck corresponding to this key."+\
-					  "\nDid you perse all the food truck from admin page?"
+				"\nDid you perse all the food truck from admin page?"
+
 			myReviews = myUser.review_set.filter(foodtruck=myFood)
 			if myReviews.count()==1:
 				myReview = myReviews[0]
@@ -100,11 +107,22 @@ def render_map(request):
 			else:
 				print "this is my first review"
 				myUser.review_set.create(
-					foodtruck=myFood,rate=rate,
-					pub_date=datetime.datetime.today())
+				foodtruck=myFood,rate=rate,
+				pub_date=datetime.datetime.today())
 			print str(myUser.review_set.get(foodtruck=myFood))
-			return HttpResponse("success")
+			return HttpResponse(key)
 	return render(request,'mealsOnWheels/map.html', {'json_string': get_user_json(request).json_object, 'location': get_user_location(request)})
+
+def getAve(foodtruck):
+    ave = 0;
+    N = foodtruck.review_set.all().count()
+    if N > 0:
+        for review in foodtruck.review_set.all():
+            ave += review.rate
+        out = str(round(ave/(N*1.0),3))
+    else:
+        out = "NA"
+    return out
 
 import json
 @csrf_exempt
@@ -114,16 +132,28 @@ def filterVendor(request):
     ## send only the latest 5 reviews.
     reviews = foodtruck.review_set.order_by('-pub_date')[:5]
     dict = convertReviewsToJSON(reviews)
+    dict.append({"additional":1,"average":getAve(foodtruck)})
     js= json.dumps(dict)
     return HttpResponse(js,
                         content_type = "application/json")
 
-
+@csrf_exempt
+def showMoreVendor(request):
+    print "within showMoreVendor"
+    key = request.POST['foodTruckKey']
+    foodtruck = FoodTruck.objects.get(key=key)
+    ## send all user's reviews
+    reviews = foodtruck.review_set.order_by('-pub_date')
+    dict = convertReviewsToJSON(reviews)
+    js= json.dumps(dict)
+    return HttpResponse(js,
+                        content_type = "application/json")
 
 def convertReviewsToJSON(reviews):
     output = []
     for review in reviews:
         dict = {}
+        dict["additional"] = 0
         dict["user"] = review.user.username
         dict["pub_date"] = str(review.pub_date)
         dict["rate"] = review.rate
@@ -246,3 +276,9 @@ def change_profile_settings(request):
     return render(request,
             'mealsOnWheels/profile.html',
             {'user_form': user_form, 'settings_changed': settings_changed} )
+
+
+
+def recommender(request):
+    myUser = request.user
+    assignUser2Cluster(myUser,dat_foodkey,centers);

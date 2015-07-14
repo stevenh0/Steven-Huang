@@ -92,16 +92,16 @@ google.maps.event.addListener(searchBox, 'places_changed', function() {
 
 // http://stackoverflow.com/questions/24152420/pass-dynamic-javascript-variable-to-django-python
 function sendFoodVendorToDjango(key,rate){
-    $(".invalidRate").remove();
-    $(".listRateAppended").remove();
+    $(".remove").remove();
     if (checkRateValid(rate)){
         var data = {'mapRequestType': 'rate', 'foodTruckKey': key,'rate':rate};
         $.post("/mealsOnWheels/map/", data,
             function(response){// Do Nothing
+            filterFoodVendor(key)
             });
     }else{
-        $("#listRateHeader").prepend(
-        "<div style='color:blue' class='invalidRate'>Rating must be an integer between 0 - 10</div>");
+        $("#list-rate").prepend(
+        "<div style='color:blue' class='remove'>Rating must be an integer between 0 - 10</div>");
     }
 }
 
@@ -120,6 +120,39 @@ function checkRateValid(rate){
 }
 
 
+var tableTitle = "<tr><th>Date</th><th>User</th><th>Rating</th></tr>"
+function userRatingStyling(element){
+    return "<tr>" +
+    "<td>" + element.pub_date + "</td>"+
+    "<td>" + element.user + "</td>"+
+    "<td>"+ element.rate + "</td>"+"</tr>";
+}
+
+function showMoreFoodVendor(key){
+
+    var data = {'foodTruckKey': key};
+    $.ajax({
+            type: "POST",
+            url: "/mealsOnWheels/showMoreVendor/",
+            dateType: 'json',
+            data: data,
+            success:function(json){
+            // Before appending, delete all the previously appended information
+            $(".remove").remove();
+            if (json.length === 0){
+            $("#list-rate-header").append("<div class='list-rate-appended-extra remove'>Nothing more to show!</div>");
+            }else{
+             $("#list-rate-header").append(
+             "<table class='list-rate-appended-extra remove'>"+tableTitle)
+                // each user's review is printed.
+                $.each(json, function(index, element) {
+                 $('.list-rate-appended-extra').append(
+                    userRatingStyling(element) );
+                 });
+             $("#list-rate-header").append("</table>")
+            }
+    }});
+}
 
 function filterFoodVendor(key){
     var data = {'mapRequestType':'rate', 'foodTruckKey': key};
@@ -129,21 +162,72 @@ function filterFoodVendor(key){
             dateType: 'json',
             data: data,
             success:function(json){
-            // Before appending, delete all the previously appended information
-            $(".listRateAppended").remove();
+
             if (json.length === 0){
-            $("#listRate").append("<div class='listRateAppended'>No one has reviewed yet!</div>");
+            $("#list-rate").append("<div class='list-rate-appended remove'>No one has reviewed yet!</div>");
             }else{
                 // each user's review is printed.
+                tableCaption = "<span class='remove'>This vendor is currently rated as:</span>"
+                $("#list-rate").append(tableCaption + "<table class='list-rate-appended remove'>"+tableTitle)
                 $.each(json, function(index, element) {
-                    $("#listRate").append("<div class='listRateAppended'>User: " + element.user + "</br>Rating: " +
-                    element.rate +"</br>Date: "+ element.pub_date+"</br></div>");
+                    if (element.additional === 0){
+                         $('.list-rate-appended').append(userRatingStyling(element) );
+                    }else{
+                    if (element.average !== "NA"){
+
+                        s1 = "<p id='rate-ave' class='remove'>" + element.average
+                        s2 = "<span style='font-size:40%;'>rating</span> </p>"
+                         $( "#selected-food-truck-details h3" )
+					    .append(s1 + s2);
+					    }
+                    }
+                    $("#list-rate-header").append("</table>")
                  });
             }
     }});
 }
 
+
+
+function setFav(favName){
+
+    var c = getCookie("favorite");
+    if(c.indexOf(favName) == -1){
+        document.cookie = "favorite=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+        setCookie("favorite", c+"<br>"+favName, 365);
+
+    }
+
+}
+
+function setCookie(cname,cvalue,exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = cname+"="+cvalue+"; "+expires;
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 $(document).ready(function() {
+
+    $('#my-fav').prepend(getCookie("favorite"));
+    $("#remove-fav").click(function(){
+        document.cookie = "favorite=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+        $('#my-fav').html("");
+    });
+
 
     $('.image-popup-vertical-fit').magnificPopup({
         type:'image',
@@ -161,6 +245,19 @@ $(document).ready(function() {
 		console.log("We should be creating a user position")
 	}
 
+    // recommendation
+    $('#recommend-button').click(function(){
+            $.ajax({
+            type: "POST",
+            url: "/mealsOnWheels/recommender/",
+            dateType: 'json',
+            success:function(json){
+            $(".recommend-answer").html(
+            "You might like "+json.name+" at "+json.location
+            )
+        }});
+    })
+
     $.getJSON("/mealsOnWheels/food_trucks", function(food_trucks_json) {
 		console.log( json_string );
 		console.log(user_position);
@@ -175,6 +272,7 @@ $(document).ready(function() {
                 });
 
                 marker.setMap(map);
+
                 var infowindow = new google.maps.InfoWindow({
 					content: data.name
 					});
@@ -183,9 +281,7 @@ $(document).ready(function() {
 					infowindow.open(map,marker);
 
 					$( "#selected-food-truck-details p" )
-					.html( data.description + "<br>" + data.location );
-					$( "#selected-food-truck-details p" )
-					.html( data.location );
+					.html("<b>" + data.description + "</b><br>" + data.location);
 					$( "#selected-food-truck-details h3" )
 					.html( data.name );
                     $( "#instafeed")
@@ -193,17 +289,25 @@ $(document).ready(function() {
 					run(data.name);
 
                     // ~~~ filtering ~~~
-                    $(".listRateAppended").remove();
-                    $("#rateh1")
-                    .html(function(){document.getElementById("rateh1").style.visibility="visible"});
-                    $("#button").unbind('click').click(function(){
-                        var rate = $('#rateinput').val();
+                    $(".remove").remove();
+                    $("#truck-rating")
+                    .html(function(){document.getElementById("truck-rating").style.display="inline-block"});
+                    $("#rate-button").unbind('click').click(function(){
+                        var rate = $('#rate-input').val();
                         sendFoodVendorToDjango(key=data.key,rate=rate);
-                        $('#rateinput').val("");
+                        $('#rate-input').val("");
                         })
-                    $("#listRateHeader").unbind('click').click(function(){
-                        filterFoodVendor(key=data.key);
-                        });
+                    filterFoodVendor(key=data.key);
+                    $("#list-rate-header").unbind('click').click(function(){
+                        showMoreFoodVendor(key=data.key);
+                    });
+
+                    //  ~~~favorite selection
+                    $("#add-to-fav").unbind('click').click(function(){
+                        console.log(data.name);
+                        setFav(data.name);
+                        $('#my-fav').html(getCookie("favorite"));
+                    });
 
 
 				});
