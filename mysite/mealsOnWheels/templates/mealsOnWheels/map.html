@@ -8,23 +8,21 @@
 			<div id="map-row" class="9u 12u(mobile)">
 
 				<!-- Content -->
-				<article class="box post">
+				<article id="map-container" class="box post">
 					<input id="pac-input" class="controls" type="text" placeholder="Enter your location">
 					<div id="map-canvas"></div>
+					<div id="truck-rating">
+						<input type="textbox" name="rating" value="Enter a rating of 0 - 10" id="rate-input" onclick="this.value='';"></input>
+						<button id="rate-button">Rate</button>
+						<button id="add-to-fav"><i class="fa fa-star"></i> Add to favourite trucks</button>
+						<div id="list-rate"></div>
+						<div id="list-rate-header">See all users' ratings &raquo;</div>
+
+					</div>
 				</article>
 				<article class="box post">
 					<button id="recommend-button">Get Vendor Recommendation</button>
-					&nbsp;<p id="recommend-answer",style="display:inline"> Here is something we think you will like!</p>
-				</article>
-				<article class="box post">
-					<h1 id="rateh1">
-						&nbsp;<input type="textbox" name="rating" value="rate?" id="rateinput"></input>
-						&nbsp;<button id="button">Rate Now</button>
-						&nbsp;<button id="myfav">Set as favorite</button>
-						<div id = "listRate"></div>
-						<div id = "listRateHeader">See more others' rating</div>
-
-					</h1>
+					<p id="recommend-answer">&nbsp; Here is something we think you will like!</p>
 				</article>
 			</div>
 			<div id="food-truck-details-container" class="3u 12u(mobile)">

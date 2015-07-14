@@ -2567,6 +2567,9 @@
 	padding: 0px;
 }
 
+#map-container {
+	margin-bottom: 0.5em;
+}
 
 /* Logo */
 
@@ -2608,15 +2611,17 @@
 	margin-bottom: 0.5em;
 }
 
-#rateh1{
-	visibility:hidden;
-	margin-top: -1em;
+/* Food Truck Rating */
+
+#truck-rating {
+	display: none;
+	margin-top: 1em;
 	margin-bottom: -0.5em;
 	color: #252122;
 	font-weight: 100;
 }
 
-#rateinput{
+#rate-input {
 	font-family: 'Source Sans Pro';
 	font-weight: 100;
 	color: red;
@@ -2628,35 +2633,32 @@
 	border-radius: 8px;
 	border: solid 1px #dddddd;
 	background: #fff;
-	width: 70px;
+	width: 160px;
 	height: 47px;
 	display: inline;
-
 }
-#button{
+
+#rate-button {
     display: inline-block;
-	background-color:#cc0000;
-	font-family:arial;
-	font-weight:bold;
-	color:#ffffff;
+	background-color: #CC0000;
+	font-family: arial;
+	font-weight: bold;
+	color: #FFFFFF;
 	border-radius: 5px;
-	text-align:center;
-	margin-top:2px;
+	text-align: center;
+	margin-top: 2px;
 }
 
-#listRate{
-	visibility:visible;
+#list-rate {
+	visibility: visible;
 	color: #252122;
 	font-weight: 100;
-}
-
-#listRateHeader {
-	color: #0066CC;
-	cursor: pointer;
 	margin-top: 15px;
 }
 
-#listRate {
+#list-rate-header {
+	color: #0066CC;
+	cursor: pointer;
 	margin-top: 15px;
 }
 
@@ -2664,40 +2666,40 @@
 	margin-bottom: 10px;
 }
 
-#listRateHeader .listRateAppendedExtra{
+#list-rate-header .list-rate-appended-extra {
 	color: #252122;
 	cursor: default;
+	margin-top: 1.5em;
 }
-
-
 
 table, th, td {
-    border: 1px solid #d9d9d9;
-    bordercolor: #adadad;
+    border: 1px solid #D9D9D9;
+    border-color: #ADADAD;
 	border-collapse: collapse;
 }
+
 th {
     text-align: left;
+    padding-left: 10px;
 }
-td {
-    padding: 1px;
-    }
 
-#rateAve {
-	color:#ff0080;
-	display:inline-block;
+td {
+    padding: 1px 1px 1px 10px;
+}
+
+#rate-ave {
+	color: #FF0080;
+	display: inline-block;
 	font-size:150%;
 	float:right;
 }
 
-/* Favourite Food Trucks */
+/* Recommendations */
 
-#myfav {
-	color: #0066CC;
-	cursor: pointer;
-	margin-top: 15px;
+#recommend-button {
+	float: center;
 }
 
-#recommend-button{
-	float: center;
+#recommend-answer {
+	display: inline;
 }

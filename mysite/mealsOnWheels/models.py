@@ -20,6 +20,18 @@ class FoodTruck(models.Model):
 	position = models.ForeignKey(Position)
 	location = models.CharField('Truck Location', max_length=200)
 	location.null = True
+	
+	def getLat(self):
+		print "We're trying to get lat"
+		print str(self.position)
+		print str(self.position.lat)
+		return self.position.lat
+		
+	def getLon(self):
+		if self.position[0] is not None:
+			return self.position.lon[0]
+		else:
+			return None
 
 	def __str__(self):
 		return "Truck " + self.key + ": " + self.name
@@ -35,10 +47,10 @@ class LastImportDate(models.Model):
 from django.contrib.auth.models import User
 
 class UserJSONObject(models.Model):
-    user = models.OneToOneField(User)
-    json_object = models.TextField()
-    location = models.OneToOneField(Position)
-    location.null = True
+	user = models.OneToOneField(User)
+	json_object = models.TextField()
+	location = models.OneToOneField(Position)
+	location.null = True
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
