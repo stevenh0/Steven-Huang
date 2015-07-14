@@ -75,6 +75,16 @@ google.maps.event.addListener(searchBox, 'places_changed', function() {
       bounds.extend(place.geometry.location);
     }
     map.fitBounds(bounds);
+	
+	console.log(places[0].geometry.location.toString())
+	var position_data = {'mapRequestType': 'new_position', 'lat': places[0].geometry.location.lat(), 'lon': places[0].geometry.location.lng()};
+	$.ajax({
+		type: 'POST',
+		url: "/mealsOnWheels/map/",
+		data: position_data,
+		success: function(json){
+			// do nothing
+		}});
   });
     // Bias the SearchBox results towards places that are within the bounds of the
   // current map's viewport.
@@ -85,7 +95,7 @@ function sendFoodVendorToDjango(key,rate){
     $(".invalidRate").remove();
     $(".listRateAppended").remove();
     if (checkRateValid(rate)){
-        var data = {'foodTruckKey': key,'rate':rate};
+        var data = {'mapRequestType': 'rate', 'foodTruckKey': key,'rate':rate};
         $.post("/mealsOnWheels/map/", data,
             function(response){// Do Nothing
             });
@@ -112,7 +122,7 @@ function checkRateValid(rate){
 
 
 function filterFoodVendor(key){
-    var data = {'foodTruckKey': key};
+    var data = {'mapRequestType':'rate', 'foodTruckKey': key};
     $.ajax({
             type: "POST",
             url: "/mealsOnWheels/filterVendor/",
@@ -146,10 +156,15 @@ $(document).ready(function() {
 
 
     });
+	
+	if (user_position != "") {
+		console.log("We should be creating a user position")
+	}
 
     $.getJSON("/mealsOnWheels/food_trucks", function(food_trucks_json) {
 		console.log( json_string );
-		//food_trucks_json = $.parseJSON( "{{ %json_string% }}" );
+		console.log(user_position);
+		food_trucks_json = json_string;
         $.each(food_trucks_json, function(key, data) {
             var latLng = new google.maps.LatLng(data.latitude, data.longitude);
 
