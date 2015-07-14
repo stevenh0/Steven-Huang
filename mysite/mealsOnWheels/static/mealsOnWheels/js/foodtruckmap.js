@@ -157,7 +157,7 @@ function filterFoodVendor(key){
             $("#listRate").append("<div class='listRateAppended remove'>No one has reviewed yet!</div>");
             }else{
                 // each user's review is printed.
-                tableCaption = "<a class='remove'>This vendor is recently rated as..</a>"
+                tableCaption = "<span class='remove'>This vendor is currently rated as:</span>"
                 $("#listRate").append(tableCaption + "<table class='listRateAppended remove'>"+tableTitle)
                 $.each(json, function(index, element) {
                     if (element.additional === 0){
@@ -275,8 +275,8 @@ $(document).ready(function() {
 
                     // ~~~ filtering ~~~
                     $(".remove").remove();
-                    $("#rateh1")
-                    .html(function(){document.getElementById("rateh1").style.visibility="visible"});
+                    $("#truck-rating")
+                    .html(function(){document.getElementById("truck-rating").style.display="inline-block"});
                     $("#button").unbind('click').click(function(){
                         var rate = $('#rateinput').val();
                         sendFoodVendorToDjango(key=data.key,rate=rate);
