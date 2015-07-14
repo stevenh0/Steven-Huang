@@ -4,6 +4,8 @@ var downtownVancouver = new google.maps.LatLng(49.28,-123.12);
 
 
 function initialize() {
+			console.log(json_string);
+		console.log(user_position);
   var mapOptions = {
     zoom: 14,
     center: downtownVancouver,
@@ -240,11 +242,6 @@ $(document).ready(function() {
 
 
     });
-	
-    var user_position="None"
-    if (user_position != "") {
-    		console.log("We should be creating a user position")
-    	}
 
     // recommendation
     $('#recommend-button').click(function(){
