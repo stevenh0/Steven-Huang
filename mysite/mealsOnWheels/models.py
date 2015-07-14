@@ -35,10 +35,10 @@ class LastImportDate(models.Model):
 from django.contrib.auth.models import User
 
 class UserJSONObject(models.Model):
-    user = models.OneToOneField(User)
-    json_object = models.TextField()
-    location = models.OneToOneField(Position)
-    location.null = True
+	user = models.OneToOneField(User)
+	json_object = models.TextField()
+	location = models.OneToOneField(Position)
+	location.null = True
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)

@@ -189,9 +189,8 @@ def clearData():
 
 def updateJSONObject():
 	trucks = FoodTruck.objects.all()
-	createJSONObject(trucks)
 	with open('mealsOnWheels/templates/mealsOnWheels/food_trucks.json', 'w') as outfile:
-		json.dump(createJSONObject(trucks), outfile, indent=4)
+		json.dumps(createJSONObject(trucks), outfile, indent=4)
 
 def createJSONObject(trucks):
 	response = []

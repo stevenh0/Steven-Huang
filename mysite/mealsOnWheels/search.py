@@ -1,6 +1,9 @@
 from models import FoodTruck, Position, UserJSONObject
 import numpy as np
 from django.contrib.auth.models import User
+import json
+from json import dumps
+from parser import createJSONObject
 
 def search_by_radius(radius, position, request):
 	all_trucks = FoodTruck.objects.all()
@@ -14,17 +17,27 @@ def search_by_radius(radius, position, request):
 	user_json.save()
 	
 def createJSONString(trucks):
-	response = "["
-	for truck in trucks:
-		response += "{'key': " + truck.key + ", 'name': " +truck.name + ", 'description': " + truck.foodType + ", 'latitude': " + str(truck.position.lat) + ", 'longitude': " + str(truck.position.lon) + "}"
-	response += "]"
-	return response
+	dastr = json.dumps(createJSONObject(trucks))
+	return dastr
 
 def get_user_json(request):
 	curr_user = request.user
 	try:
 		val = UserJSONObject.objects.get(user=curr_user)
+		print "Our thing has a value of " + str(val.pk)
 	except UserJSONObject.DoesNotExist:
 		val	= UserJSONObject(json_object=createJSONString(FoodTruck.objects.all()), user=curr_user)
-		val.save()
+		print "Our thing has a value of " + str(val.pk)
+		val.save(force_insert=True)
+	val	= UserJSONObject(json_object=createJSONString(FoodTruck.objects.all()), user=curr_user)
+	val.save(force_update=True)
 	return val
+
+def get_user_location(request):
+	curr_user = request.user
+	try:
+		val = UserJSONObject.objects.get(user=curr_user)
+		loc = Position.objects.get(id=val.location)
+		return str(loc)
+	except:
+		return None
