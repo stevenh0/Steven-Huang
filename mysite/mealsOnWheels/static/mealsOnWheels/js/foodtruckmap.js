@@ -12,80 +12,111 @@ function initialize() {
 
 map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-// https://developers.google.com/maps/documentation/javascript/markers
-// https://developers.google.com/maps/documentation/javascript/examples/places-searchbox
-// Create the search box and link it to the UI element.
 
-var input = /** @type {HTMLInputElement} */(
-      document.getElementById('pac-input'));
-map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+// If the user has a position, add it to the map and ask for a search radius instead
 
-var searchBox = new google.maps.places.SearchBox(
-    /** @type {HTMLInputElement} */(input));
-
-var markers = [];
-  // Listen for the event fired when the user selects an item from the
-  // pick list. Retrieve the matching places for that item.
-google.maps.event.addListener(searchBox, 'places_changed', function() {
-    var places = searchBox.getPlaces();
-    for (var i = 0, marker; marker = markers[i]; i++) {
-      marker.setMap(null);
-    }
-    if (places.length == 0) {
-      return;
-    }
-
-    // For each place, get the icon, place name, and location.
-    markers = [];
-
-    // Zoom in/out to show both the new location and the food vendors
-
-    var bounds = new google.maps.LatLngBounds();
-    bounds.extend(downtownVancouver);
-    for (var i = 0, place; place = places[i]; i++) {
-      var image = {
-         url: place.icon,
-         size: new google.maps.Size(71, 71),
-         origin: new google.maps.Point(0, 0),
-         anchor: new google.maps.Point(17, 34),
-         scaledSize: new google.maps.Size(25, 25)
-      };
-
-      // Create a marker for each place.
-      var marker = new google.maps.Marker({
-         map: map,
-         icon: image,
-         title: place.name,
-         position: place.geometry.location,
-         click: true,
-         draggable: false,
-         animation: google.maps.Animation.BOUNCE// DROP
-      });
-
-    markers.push(marker);
-
-
-    markers[i].addListener('click',function(){
-         var infowindow = new google.maps.InfoWindow({
-           content: this.title
-         });
-         infowindow.open(map,this);
-    });
-
-      bounds.extend(place.geometry.location);
-    }
-    map.fitBounds(bounds);
+if (user_position != "None"){
+	$("input#pac-input.controls").hide();
+	var sarr = user_position.split(",");
+	var ulat = sarr[0];
+	var ulon = sarr[1];
+	var myLatlng = new google.maps.LatLng(ulat, ulon);
+	var userPos = new google.maps.Marker({
+    position: myLatlng,
+    map: map, });
 	
-	console.log(places[0].geometry.location.toString())
-	var position_data = {'mapRequestType': 'new_position', 'lat': places[0].geometry.location.lat(), 'lon': places[0].geometry.location.lng()};
-	$.ajax({
-		type: 'POST',
-		url: "/mealsOnWheels/map/",
-		data: position_data,
-		success: function(json){
-			// do nothing
-		}});
-  });
+	$("#get-radius").keyup(function(e){
+		if (e.keyCode == 13) {
+			var rad = $(this).val();
+			var data = {'mapRequestType': 'radius_changed', 'new_radius': rad};
+			console.log("Here's what we're giving them as the new radius: " + rad)
+			$.ajax({
+				type: 'POST',
+				url: "/mealsOnWheels/map/",
+				data: data,
+				success: function(json){
+				// do nothing
+			}});
+		}
+	});
+  }
+
+ else {
+	// https://developers.google.com/maps/documentation/javascript/markers
+	// https://developers.google.com/maps/documentation/javascript/examples/places-searchbox
+	// Create the search box and link it to the UI element.
+
+	var input = /** @type {HTMLInputElement} */(
+		  document.getElementById('pac-input'));
+	map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+	var searchBox = new google.maps.places.SearchBox(
+		/** @type {HTMLInputElement} */(input));
+
+	var markers = [];
+	  // Listen for the event fired when the user selects an item from the
+	  // pick list. Retrieve the matching places for that item.
+	google.maps.event.addListener(searchBox, 'places_changed', function() {
+		var places = searchBox.getPlaces();
+		for (var i = 0, marker; marker = markers[i]; i++) {
+		  marker.setMap(null);
+		}
+		if (places.length == 0) {
+		  return;
+		}
+
+		// For each place, get the icon, place name, and location.
+		markers = [];
+
+		// Zoom in/out to show both the new location and the food vendors
+
+		var bounds = new google.maps.LatLngBounds();
+		bounds.extend(downtownVancouver);
+		for (var i = 0, place; place = places[i]; i++) {
+		  var image = {
+			 url: place.icon,
+			 size: new google.maps.Size(71, 71),
+			 origin: new google.maps.Point(0, 0),
+			 anchor: new google.maps.Point(17, 34),
+			 scaledSize: new google.maps.Size(25, 25)
+		  };
+
+		  // Create a marker for each place.
+		  var marker = new google.maps.Marker({
+			 map: map,
+			 icon: image,
+			 title: place.name,
+			 position: place.geometry.location,
+			 click: true,
+			 draggable: false,
+			 animation: google.maps.Animation.BOUNCE// DROP
+		  });
+
+		markers.push(marker);
+
+
+		markers[i].addListener('click',function(){
+			 var infowindow = new google.maps.InfoWindow({
+			   content: this.title
+			 });
+			 infowindow.open(map,this);
+		});
+
+		  bounds.extend(place.geometry.location);
+		}
+		map.fitBounds(bounds);
+		
+		var position_data = {'mapRequestType': 'new_position', 'lat': places[0].geometry.location.lat(), 'lon': places[0].geometry.location.lng()};
+		$.ajax({
+			type: 'POST',
+			url: "/mealsOnWheels/map/",
+			data: position_data,
+			success: function(json){
+				// do nothing
+			}});
+	  });
+  
+}
     // Bias the SearchBox results towards places that are within the bounds of the
   // current map's viewport.
 
@@ -241,10 +272,6 @@ $(document).ready(function() {
 
     });
 	
-	if (user_position != "") {
-		console.log("We should be creating a user position")
-	}
-
     // recommendation
     $('#recommend-button').click(function(){
             $.ajax({
@@ -259,8 +286,6 @@ $(document).ready(function() {
     })
 
     $.getJSON("/mealsOnWheels/food_trucks", function(food_trucks_json) {
-		console.log( json_string );
-		console.log(user_position);
 		food_trucks_json = json_string;
         $.each(food_trucks_json, function(key, data) {
             var latLng = new google.maps.LatLng(data.latitude, data.longitude);
