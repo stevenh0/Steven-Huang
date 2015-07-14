@@ -41,3 +41,35 @@ class FoodTruckAdmin(admin.ModelAdmin):
 admin.site.register(FoodTruck, FoodTruckAdmin)
 admin.site.register(Position)
 
+
+
+
+
+
+
+from mealsOnWheels.fakeUsers import generateFakeUser
+def generateUser(modeladmin, request, queryset):
+	generateFakeUser()
+
+from django.contrib import messages
+from mealsOnWheels.recommender import runKmeans
+def classifyUser(modeladmin, request, queryset):
+	try:
+		runKmeans(4)
+	except:
+		messages.error(request, "This functionality is currently not supported")
+
+generateUser.short_description = "Generate bob and 100 users (Asian-food lovers, seafood lovers, " \
+								 "hotdogs lovers and those with no preference)"
+classifyUser.short_description = "Classify these users into four clusters of similar rating behaviors"
+
+
+from django.contrib.auth.models import User
+class UserAdmin(admin.ModelAdmin):
+	list_display = ['name','email','is_stuff']
+	actions = [generateUser,classifyUser]
+
+
+UserAdmin.list_display = ('username','email', 'is_active', 'date_joined', 'is_staff')
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)

@@ -1,758 +1,866 @@
 [
     {
-        "latitude": 49.28690264286454, 
-        "longitude": -123.1175335017254, 
         "name": "Via Tevere Pizzeria", 
+        "longitude": -123.1175335017254, 
+        "location": "C1 Authorised Parking Meter - West Side of 400 Burrard St", 
         "key": "C1", 
+        "latitude": 49.28690264286454, 
         "description": "Pizza"
     }, 
     {
-        "latitude": 49.2822094865348, 
-        "longitude": -123.12068490321592, 
         "name": "Mum's Grilled Cheese Truck", 
+        "longitude": -123.12068490321592, 
+        "location": "C10 Authorised Parking Meter -West Side of 700 Howe St", 
         "key": "C10", 
+        "latitude": 49.2822094865348, 
         "description": "Sandwiches and Soups"
     }, 
     {
-        "latitude": 49.285658, 
-        "longitude": -123.11975, 
         "name": "Holy Perogy", 
+        "longitude": -123.11975, 
+        "location": "", 
         "key": "C11", 
+        "latitude": 49.285658, 
         "description": "Ukranian"
     }, 
     {
-        "latitude": 49.287612530414, 
-        "longitude": -123.11577344716818, 
         "name": "Ze Bite", 
+        "longitude": -123.11577344716818, 
+        "location": "C12 Authorised Parking Meter - North Side of W Cordova St - East of Burrard St", 
         "key": "C12", 
+        "latitude": 49.287612530414, 
         "description": "French Cuisine"
     }, 
     {
-        "latitude": 49.28236783477679, 
-        "longitude": -123.12044362670954, 
         "name": "Pig on the Street", 
+        "longitude": -123.12044362670954, 
+        "location": "C13 Authorised Parking Meter - West Side of 700 Howe St - Mid Block", 
         "key": "C13", 
+        "latitude": 49.28236783477679, 
         "description": "British Sandwiches"
     }, 
     {
-        "latitude": 49.28519368232076, 
-        "longitude": -123.12209311314828, 
         "name": "Kaboom Box", 
+        "longitude": -123.12209311314828, 
+        "location": "C15 Authorised Parking Meter - North Side of 1000 W Georgia St", 
         "key": "C15", 
+        "latitude": 49.28519368232076, 
         "description": "Seafood"
     }, 
     {
-        "latitude": 49.28659154824775, 
-        "longitude": -123.12561890857016, 
         "name": "Le Tigre", 
+        "longitude": -123.12561890857016, 
+        "location": "C17 Authorised Parking Meter - North Side of Alberni St - East of Bute St", 
         "key": "C17", 
+        "latitude": 49.28659154824775, 
         "description": "Chinese Cuisine"
     }, 
     {
-        "latitude": 49.28801643178871, 
-        "longitude": -123.1195096631475, 
         "name": "The Reef", 
+        "longitude": -123.1195096631475, 
+        "location": "C19 Authorised Parking Meter - East Side of Thurlow St - North of W Hastings St", 
         "key": "C19", 
+        "latitude": 49.28801643178871, 
         "description": "Caribbean"
     }, 
     {
-        "latitude": 49.27994092007618, 
-        "longitude": -123.11601117552756, 
         "name": "Holy Perogy", 
+        "longitude": -123.11601117552756, 
+        "location": "C20 Authorised Parking Meter - East Side of 700 Homer St - Mid Block", 
         "key": "C20", 
+        "latitude": 49.27994092007618, 
         "description": "Ukranian Cuisine"
     }, 
     {
-        "latitude": 49.285361, 
-        "longitude": -123.120163, 
         "name": "Mr. Shawarma", 
+        "longitude": -123.120163, 
+        "location": "C3 Authorised Parking Meter - North Side of 1000 Melville St", 
         "key": "C3", 
+        "latitude": 49.285361, 
         "description": "Philly Cheese Steak"
     }, 
     {
-        "latitude": 49.286031, 
-        "longitude": -123.119002, 
         "name": "Tacofino", 
+        "longitude": -123.119002, 
+        "location": "C4 Authorised Parking Meter West Side 500 Burrard St", 
         "key": "C4", 
+        "latitude": 49.286031, 
         "description": "Seafood"
     }, 
     {
-        "latitude": 49.282301179211224, 
-        "longitude": -123.12052931715515, 
         "name": "Tacofino", 
+        "longitude": -123.12052931715515, 
+        "location": "C5 Authorised Parking Meter North West corner of Howe St and Robson St", 
         "key": "C5", 
+        "latitude": 49.282301179211224, 
         "description": "Tacos"
     }, 
     {
-        "latitude": 49.28370604810314, 
-        "longitude": -123.10657841169915, 
         "name": "The Juice Truck", 
+        "longitude": -123.10657841169915, 
+        "location": "C6 Authorised Parking Meter West Side of 200 block of Abbott St", 
         "key": "C6", 
+        "latitude": 49.28370604810314, 
         "description": "Juice and Smoothies"
     }, 
     {
-        "latitude": 49.28309670689708, 
-        "longitude": -123.12291869137634, 
         "name": "Roaming Dragon", 
+        "longitude": -123.12291869137634, 
+        "location": "C7 Authorised Parking Meter South East corner of Burrard St and Robson St", 
         "key": "C7", 
+        "latitude": 49.28309670689708, 
         "description": "Pan Asian"
     }, 
     {
-        "latitude": 49.282054529421465, 
-        "longitude": -123.124511374389, 
         "name": "Gourmet Syndicate", 
+        "longitude": -123.124511374389, 
+        "location": "C8 Authorised Parking Meter South East corner of Burrard St at Smithe St", 
         "key": "C8", 
+        "latitude": 49.282054529421465, 
         "description": "Comfort Food"
     }, 
     {
-        "latitude": 49.288672, 
-        "longitude": -123.118453, 
         "name": "Feastro - The Rolling Bistro", 
+        "longitude": -123.118453, 
+        "location": "C9 Authorised Parking Meter - Thurlow St at W Cordova St", 
         "key": "C9", 
+        "latitude": 49.288672, 
         "description": "Seafood"
     }, 
     {
-        "latitude": 49.278746328918174, 
-        "longitude": -123.11204005099913, 
         "name": "Food Cart", 
+        "longitude": -123.11204005099913, 
+        "location": "East Side of 600 Beatty St - 6 Metres North of West Georgia St", 
         "key": "DT01", 
+        "latitude": 49.278746328918174, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.27988970046588, 
-        "longitude": -123.11025892979792, 
         "name": "Yolk's", 
+        "longitude": -123.11025892979792, 
+        "location": "East Side of 500 Beatty St - 6 Metres North of Dunsmuir St", 
         "key": "DT02", 
+        "latitude": 49.27988970046588, 
         "description": "Breakfast Foods"
     }, 
     {
-        "latitude": 49.28024563710951, 
-        "longitude": -123.09951714080184, 
         "name": "YVS Nuts", 
+        "longitude": -123.09951714080184, 
+        "location": "East Side of 500 Main St - 7 Metres South of E Pender St", 
         "key": "DT03", 
+        "latitude": 49.28024563710951, 
         "description": "Chestnuts"
     }, 
     {
-        "latitude": 49.280786232602374, 
-        "longitude": -123.11519454358516, 
         "name": "Food Cart", 
+        "longitude": -123.11519454358516, 
+        "location": "West Side of 600 Homer St - 6 Metres North of West Georgia St", 
         "key": "DT04", 
+        "latitude": 49.280786232602374, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.28100889084568, 
-        "longitude": -123.12268482725707, 
         "name": "Soho Road Naan Kebab", 
+        "longitude": -123.12268482725707, 
+        "location": "South Side of 800 Smithe St - 6 metres West of Howe St", 
         "key": "DT08", 
+        "latitude": 49.28100889084568, 
         "description": "Indian Cuisine"
     }, 
     {
-        "latitude": 49.27879305375433, 
+        "name": "Food Cart", 
         "longitude": -123.10800807932696, 
-        "name": "Food Cart", 
+        "location": "Expo Boulevard - 20 Metres West of Abbott St", 
         "key": "DT10", 
+        "latitude": 49.27879305375433, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.28325402089673, 
-        "longitude": -123.12255343685923, 
         "name": "Food Cart", 
+        "longitude": -123.12255343685923, 
+        "location": "North Side of 900 Robson St - 6 Metres East of Burrard St", 
         "key": "DT13", 
+        "latitude": 49.28325402089673, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.286508, 
-        "longitude": -123.118219, 
         "name": "Street Meet", 
+        "longitude": -123.118219, 
+        "location": "West Side of 500 Burrard St - Authorised Parking Meter", 
         "key": "DT24", 
+        "latitude": 49.286508, 
         "description": "Mediterranean"
     }, 
     {
-        "latitude": 49.2818452, 
-        "longitude": -123.109719, 
         "name": "Eat Sexy", 
+        "longitude": -123.109719, 
+        "location": "Westside 400 Cambie St", 
         "key": "SFV136", 
+        "latitude": 49.2818452, 
         "description": "Healthy Fusion"
     }, 
     {
-        "latitude": 49.278516502728614, 
-        "longitude": -123.10750394460166, 
         "name": "JJs Trucketeria", 
+        "longitude": -123.10750394460166, 
+        "location": "Abbott and Expo St.", 
         "key": "SFV137", 
+        "latitude": 49.278516502728614, 
         "description": "Healthy Philippino Fusion"
     }, 
     {
-        "latitude": 49.26221792360224, 
-        "longitude": -123.06883296771709, 
         "name": "Taqueria and Salsa Bar", 
+        "longitude": -123.06883296771709, 
+        "location": "South Side of 1700 E Broadway", 
         "key": "SFV138", 
+        "latitude": 49.26221792360224, 
         "description": "Tacos and Fresh Salsas"
     }, 
     {
-        "latitude": 49.26621336835557, 
-        "longitude": -123.11584219635436, 
         "name": "Bike Caffe", 
+        "longitude": -123.11584219635436, 
+        "location": "Olympic Village Skytrain Station", 
         "key": "SFV139", 
+        "latitude": 49.26621336835557, 
         "description": "Sustainable Coffee and Gluten Free Baked Goods"
     }, 
     {
-        "latitude": 49.26164585253635, 
-        "longitude": -123.125503130909, 
         "name": "Falafel Plus", 
+        "longitude": -123.125503130909, 
+        "location": "West Side of 2700 Laurel St - South of W 10th Ave", 
         "key": "OD04", 
+        "latitude": 49.26164585253635, 
         "description": "Israeli Kosher"
     }, 
     {
-        "latitude": 49.27979725823685, 
-        "longitude": -123.11419427939744, 
         "name": "Food Cart", 
+        "longitude": -123.11419427939744, 
+        "location": "South Side of 200 West Georgia St - 8 Metres East of Hamilton St", 
         "key": "DT15", 
+        "latitude": 49.27979725823685, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.284218, 
-        "longitude": -123.117633, 
         "name": "Mogu", 
+        "longitude": -123.117633, 
+        "location": "West Side of Howe St - South of Dunsmuir St", 
         "key": "DT16", 
+        "latitude": 49.284218, 
         "description": "Japanese Cuisine"
     }, 
     {
-        "latitude": 49.282328603420986, 
+        "name": "Food Cart", 
         "longitude": -123.11811035195568, 
-        "name": "Food Cart", 
+        "location": "South Side of 600 West Georgia St - 6 Metres East of Granville St", 
         "key": "DT17", 
+        "latitude": 49.282328603420986, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.28592169014328, 
-        "longitude": -123.1124489605454, 
         "name": "Japadog", 
+        "longitude": -123.1124489605454, 
+        "location": "North Side of 600 West Cordova St - 6 Metres East of Granville St", 
         "key": "DT19", 
+        "latitude": 49.28592169014328, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.27475022955824, 
-        "longitude": -123.12277984810888, 
         "name": "Food Cart", 
+        "longitude": -123.12277984810888, 
+        "location": "South Side of 300 Davie St - 6 Metres East of Hamilton St", 
         "key": "DT21", 
+        "latitude": 49.27475022955824, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.28214816324165, 
-        "longitude": -123.12092233081832, 
         "name": "YVS Nuts", 
+        "longitude": -123.12092233081832, 
+        "location": "North Side of 800 Robson St - 6 Metres West of Howe St", 
         "key": "DT22", 
+        "latitude": 49.28214816324165, 
         "description": "Chestnuts"
     }, 
     {
-        "latitude": 49.28394479949632, 
-        "longitude": -123.12360967021417, 
         "name": "Food Cart", 
+        "longitude": -123.12360967021417, 
+        "location": "North Side of 1000 Robson St - 79 Metres West of Burrard St", 
         "key": "DT23", 
+        "latitude": 49.28394479949632, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.286363, 
-        "longitude": -123.117884, 
         "name": "Japadog", 
+        "longitude": -123.117884, 
+        "location": "East Side of 500 Burrard St - 6 Metres South of West Pender St", 
         "key": "DT26", 
+        "latitude": 49.286363, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.28555823357022, 
-        "longitude": -123.1226424828526, 
         "name": "Vij's Railway Express", 
+        "longitude": -123.1226424828526, 
+        "location": "North Side of 1000 West Georgia St - East of Thurlow St", 
         "key": "DT28", 
+        "latitude": 49.28555823357022, 
         "description": "Indian"
     }, 
     {
-        "latitude": 49.28452211700081, 
-        "longitude": -123.1151752316692, 
         "name": "Japadog", 
+        "longitude": -123.1151752316692, 
+        "location": "West Side of 500 Granville St - 10 Metres South of West Pender St", 
         "key": "DT31", 
+        "latitude": 49.28452211700081, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.285173911567355, 
-        "longitude": -123.11135883275192, 
         "name": "Tikka Dog", 
+        "longitude": -123.11135883275192, 
+        "location": "North Side of 500 W Cordova St - 59 Metres West of Richards St", 
         "key": "DT32", 
+        "latitude": 49.285173911567355, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.2792959311252, 
+        "name": "Food Cart", 
         "longitude": -123.12913008444916, 
-        "name": "Food Cart", 
+        "location": "West Side of 1100 Burrard St - 10 Metres North of Davie St", 
         "key": "DT35", 
+        "latitude": 49.2792959311252, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.28348879208104, 
+        "name": "Food Cart", 
         "longitude": -123.12273185695268, 
-        "name": "Food Cart", 
+        "location": "West Side of 700 Burrard St - 15 Metres North of Robson St", 
         "key": "DT37", 
+        "latitude": 49.28348879208104, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.28346803350979, 
+        "name": "Food Cart", 
         "longitude": -123.11986322016324, 
-        "name": "Food Cart", 
+        "location": "South Side of 800 W Georgia St - 55 Metres West of Howe St", 
         "key": "DT38", 
+        "latitude": 49.28346803350979, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.28227531512919, 
-        "longitude": -123.12130787222152, 
         "name": "Food Cart", 
+        "longitude": -123.12130787222152, 
+        "location": "South Side of 800 Robson St  -12 Metres West of Howe St", 
         "key": "DT39", 
+        "latitude": 49.28227531512919, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.281547013791304, 
-        "longitude": -123.11993465156525, 
         "name": "Cazba Express", 
+        "longitude": -123.11993465156525, 
+        "location": "North Side of 700 Robson St - 12 Metres West of Granville St", 
         "key": "DT40", 
+        "latitude": 49.281547013791304, 
         "description": "Persian Cuisine"
     }, 
     {
-        "latitude": 49.283071122228634, 
-        "longitude": -123.1226439382671, 
         "name": "Van Dog", 
+        "longitude": -123.1226439382671, 
+        "location": "South Side of 900 Robson St - 6 Metres East of Burrard St", 
         "key": "DT41", 
+        "latitude": 49.283071122228634, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.28275336465734, 
-        "longitude": -123.12213578572536, 
         "name": "The Burger Bus", 
+        "longitude": -123.12213578572536, 
+        "location": "South Side of 900 Robson St - 16 Metres West of Hornby St", 
         "key": "DT42", 
+        "latitude": 49.28275336465734, 
         "description": "Burgers and Hot Dogs"
     }, 
     {
-        "latitude": 49.27285016091744, 
-        "longitude": -123.11950985120052, 
         "name": "Food Cart", 
+        "longitude": -123.11950985120052, 
+        "location": "Foot of Davie St - 2 Metres South of Marinaside Cres.", 
         "key": "DT45", 
+        "latitude": 49.27285016091744, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.28282100506257, 
-        "longitude": -123.12189816002406, 
         "name": "Super Baguette", 
+        "longitude": -123.12189816002406, 
+        "location": "North Side of 900 Robson St  - 9 Metres West of Hornby St", 
         "key": "DT46", 
+        "latitude": 49.28282100506257, 
         "description": "Sandwiches"
     }, 
     {
-        "latitude": 49.27630166165087, 
-        "longitude": -123.12464204136084, 
         "name": "Street Hots", 
+        "longitude": -123.12464204136084, 
+        "location": "North Side of Davie St - East of Seymour St", 
         "key": "DT47", 
+        "latitude": 49.27630166165087, 
         "description": "Hot Dogs and Burgers"
     }, 
     {
-        "latitude": 49.277427325294, 
-        "longitude": -123.11406937413356, 
         "name": "Food Cart", 
+        "longitude": -123.11406937413356, 
+        "location": "East Side of 800 Beatty St - 6 Metres South of Robson St", 
         "key": "DT48", 
+        "latitude": 49.277427325294, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.281778171228304, 
-        "longitude": -123.12029177094333, 
         "name": "Eat Chicken Wraps", 
+        "longitude": -123.12029177094333, 
+        "location": "North Side of 700 Robson St - 49 Metres West of Granville St", 
         "key": "DT49", 
+        "latitude": 49.281778171228304, 
         "description": "Wraps and Sandwiches"
     }, 
     {
-        "latitude": 49.28805734516633, 
-        "longitude": -123.1194447705396, 
         "name": "Food Cart", 
+        "longitude": -123.1194447705396, 
+        "location": "East Side of 300 Thurlow St - 10 Metres North of West Hastings St", 
         "key": "DT50", 
+        "latitude": 49.28805734516633, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.28563950240101, 
-        "longitude": -123.12275012894352, 
         "name": "Roaming Dragon", 
+        "longitude": -123.12275012894352, 
+        "location": "North Side of 1000 W Georgia St - East of Thurlow St", 
         "key": "DT51", 
+        "latitude": 49.28563950240101, 
         "description": "Pan Asian"
     }, 
     {
-        "latitude": 49.28241992683972, 
-        "longitude": -123.12436367091637, 
         "name": "Japadog", 
+        "longitude": -123.12436367091637, 
+        "location": "West Side of 800 Burrard St - 2.5 Metres North of Smithe St", 
         "key": "DT52", 
+        "latitude": 49.28241992683972, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.28024880083491, 
-        "longitude": -123.11363979154372, 
         "name": "Aussie Pie Guy", 
+        "longitude": -123.11363979154372, 
+        "location": "East Side of 600 Hamilton St", 
         "key": "DT53", 
+        "latitude": 49.28024880083491, 
         "description": "Australian Pies"
     }, 
     {
-        "latitude": 49.2872354621354, 
-        "longitude": -123.112870852909, 
         "name": "Dim Sum Express", 
+        "longitude": -123.112870852909, 
+        "location": "East Side of 200 Howe St - 100 metres North of W Cordova St", 
         "key": "DT54", 
+        "latitude": 49.2872354621354, 
         "description": "Dim Sum"
     }, 
     {
-        "latitude": 49.2810211603278, 
-        "longitude": -123.116069961697, 
         "name": "Ursu Korean BBQ", 
+        "longitude": -123.116069961697, 
+        "location": "South Side of 400 W Georgia St - 12 metres East of Richards St", 
         "key": "DT55", 
+        "latitude": 49.2810211603278, 
         "description": "Tacos"
     }, 
     {
-        "latitude": 49.29108214530322, 
-        "longitude": -123.1236823222957, 
         "name": "Sea Dogs", 
+        "longitude": -123.1236823222957, 
+        "location": "Coal Harbour Seawall  - 200 Metres Northeast of Broughton St", 
         "key": "DT56", 
+        "latitude": 49.29108214530322, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.2865282200574, 
-        "longitude": -123.113567537336, 
         "name": "Arturo's Mexico To Go", 
+        "longitude": -123.113567537336, 
+        "location": "North Side of 700 W Cordova St - 14 metres East of Howe St", 
         "key": "DT57", 
+        "latitude": 49.2865282200574, 
         "description": "Mexican Cuisine"
     }, 
     {
-        "latitude": 49.2835087650275, 
-        "longitude": -123.120309650843, 
         "name": "Re-Up BBQ", 
+        "longitude": -123.120309650843, 
+        "location": "East Side of 700 Hornby St - 22 metres South of W Georgia St", 
         "key": "DT59", 
+        "latitude": 49.2835087650275, 
         "description": "Pulled Pork"
     }, 
     {
-        "latitude": 49.2869160302425, 
-        "longitude": -123.116722505087, 
         "name": "Fresh Local Wild", 
+        "longitude": -123.116722505087, 
+        "location": "South Side of 900 W Hastings St - 10 metres East of Burrard St", 
         "key": "DT61", 
+        "latitude": 49.2869160302425, 
         "description": "Seafood"
     }, 
     {
-        "latitude": 49.2793549159399, 
-        "longitude": -123.129001647356, 
         "name": "It's all About Grill", 
+        "longitude": -123.129001647356, 
+        "location": "West Side of 1100 Burrard St 10 metres North of Davie St", 
         "key": "DT63", 
+        "latitude": 49.2793549159399, 
         "description": "BBQ"
     }, 
     {
-        "latitude": 49.283289602204704, 
-        "longitude": -123.11961142553106, 
         "name": "Mangali Kiss", 
+        "longitude": -123.11961142553106, 
+        "location": "South Side of 800 W Georgia St - 30 metres West of Howe St", 
         "key": "DT64", 
+        "latitude": 49.283289602204704, 
         "description": "Middle Eastern Cuisine"
     }, 
     {
-        "latitude": 49.2849051031527, 
-        "longitude": -123.11858109410647, 
         "name": "Soho Road Naan Kebab", 
+        "longitude": -123.11858109410647, 
+        "location": "South West Corner of Hornby St and Dunsmuir St", 
         "key": "DT70", 
+        "latitude": 49.2849051031527, 
         "description": "Indian Cuisine"
     }, 
     {
-        "latitude": 49.2912416908619, 
-        "longitude": -123.1352712038464, 
         "name": "Didi's Greek", 
+        "longitude": -123.1352712038464, 
+        "location": "South  Side of 1700 Robson St - 10 metres East of Denman St", 
         "key": "DT71", 
+        "latitude": 49.2912416908619, 
         "description": "Greek Cuisine"
     }, 
     {
-        "latitude": 49.273835888687216, 
-        "longitude": -123.12151962565076, 
         "name": "The Hut", 
+        "longitude": -123.12151962565076, 
+        "location": "East Side of 1200 Pacific Boulevard - 10 metres South of Davie St", 
         "key": "DT72", 
+        "latitude": 49.273835888687216, 
         "description": "Vegan and Vegetarian"
     }, 
     {
-        "latitude": 49.28231470800806, 
-        "longitude": -123.12138845737134, 
         "name": "Re-Up BBQ", 
+        "longitude": -123.12138845737134, 
+        "location": "South Side of 800 Robson St- 38 metres East of Hornby St", 
         "key": "DT74", 
+        "latitude": 49.28231470800806, 
         "description": "BBQ"
     }, 
     {
-        "latitude": 49.28238628595691, 
-        "longitude": -123.12149164020556, 
         "name": "Finest at Sea", 
+        "longitude": -123.12149164020556, 
+        "location": "South Side of 800 Robson St  - 28 metres East of Hornby St", 
         "key": "DT75", 
+        "latitude": 49.28238628595691, 
         "description": "Seafood"
     }, 
     {
-        "latitude": 49.287595652888335, 
-        "longitude": -123.14252869876462, 
         "name": "Food Cart", 
+        "longitude": -123.14252869876462, 
+        "location": "South Side of 1800 Beach Ave  - 91 Metres West of Denman St", 
         "key": "EB01", 
+        "latitude": 49.287595652888335, 
         "description": "Ice Cream"
     }, 
     {
-        "latitude": 49.2870673501744, 
-        "longitude": -123.14247629522772, 
         "name": "YVS Nuts", 
+        "longitude": -123.14247629522772, 
+        "location": "South Side of 1800 Beach Ave  - 27 Metres West of Denman St", 
         "key": "EB02", 
+        "latitude": 49.2870673501744, 
         "description": "Chestnuts"
     }, 
     {
-        "latitude": 49.2896827395781, 
-        "longitude": -123.144697763958, 
         "name": "Lemon Sea", 
+        "longitude": -123.144697763958, 
+        "location": "South Side of 2000 Beach Av - 30 metres West of Chilco St", 
         "key": "EB03", 
+        "latitude": 49.2896827395781, 
         "description": "Lemonade and Crepes"
     }, 
     {
-        "latitude": 49.284492517329994, 
+        "name": "Food Cart", 
         "longitude": -123.14292612306838, 
-        "name": "Food Cart", 
+        "location": "South Side of 1700 Beach Ave - East Side of Bidwell St", 
         "key": "EB04", 
+        "latitude": 49.284492517329994, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.28872848815815, 
+        "name": "Food Cart", 
         "longitude": -123.14322944443896, 
-        "name": "Food Cart", 
+        "location": "South Side of 1900 Beach Ave - 29 Metres West of Gilford St", 
         "key": "EB05", 
+        "latitude": 49.28872848815815, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.28763933976995, 
-        "longitude": -123.14252564489976, 
         "name": "Food Cart", 
+        "longitude": -123.14252564489976, 
+        "location": "South Side of 1800 Beach Ave - 95 Metres West of Denman St", 
         "key": "EB07", 
+        "latitude": 49.28763933976995, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.28298256382112, 
-        "longitude": -123.11725259788288, 
         "name": "Big Dogs Hot Eats", 
+        "longitude": -123.11725259788288, 
+        "location": "East Side of 600 Granville St - 73 Metres North of West Georgia St", 
         "key": "GM02", 
+        "latitude": 49.28298256382112, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.282937628093535, 
-        "longitude": -123.11731398579384, 
         "name": "Meals United Foods and Juices", 
+        "longitude": -123.11731398579384, 
+        "location": "East Side of 600 Granville St - 65 Metres North of West Georgia St", 
         "key": "GM04", 
+        "latitude": 49.282937628093535, 
         "description": "Sandwiches and Juices"
     }, 
     {
-        "latitude": 49.280517857830574, 
+        "name": "Van Dog", 
         "longitude": -123.12095189679768, 
-        "name": "Van Dog", 
+        "location": "East Side of 800 Granville St - 30 Metres North of Smithe St", 
         "key": "GM05", 
+        "latitude": 49.280517857830574, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.2797455146803, 
-        "longitude": -123.12211955831523, 
         "name": "Van Dog", 
+        "longitude": -123.12211955831523, 
+        "location": "East Side of 900 Granville St - 75 Metres South of Smithe St", 
         "key": "GM11", 
+        "latitude": 49.2797455146803, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.28236261472792, 
-        "longitude": -123.11859152411768, 
         "name": "Kaboom Box", 
+        "longitude": -123.11859152411768, 
+        "location": "West Side of 700 Granville St - 36 Metres North of Robson St", 
         "key": "GM13", 
+        "latitude": 49.28236261472792, 
         "description": "Seafood"
     }, 
     {
-        "latitude": 49.28380729932701, 
-        "longitude": -123.11599759301828, 
         "name": "Emelles Westside Wheels", 
+        "longitude": -123.11599759301828, 
+        "location": "East Side of 500 Granville St - 10 Metres North of Dunsmuir St", 
         "key": "GM17", 
+        "latitude": 49.28380729932701, 
         "description": "Sandwiches"
     }, 
     {
-        "latitude": 49.28247014854778, 
-        "longitude": -123.11842684413448, 
         "name": "Food Cart", 
+        "longitude": -123.11842684413448, 
+        "location": "West Side of 700 Granville St - 6 Metres South of West Georgia St", 
         "key": "GM18", 
+        "latitude": 49.28247014854778, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.2828190132516, 
-        "longitude": -123.11746613169, 
         "name": "Nu Greek", 
+        "longitude": -123.11746613169, 
+        "location": "East Side of 600 Granville St - 20 Metres North of W Georgia St", 
         "key": "GM20", 
+        "latitude": 49.2828190132516, 
         "description": "Greek Cuisine"
     }, 
     {
-        "latitude": 49.28257214042149, 
-        "longitude": -123.11850128811996, 
         "name": "Soho Road Naan Kebab", 
+        "longitude": -123.11850128811996, 
+        "location": "South Side of 700 W Georgia St - West of Granville St", 
         "key": "GM21", 
+        "latitude": 49.28257214042149, 
         "description": "Indian"
     }, 
     {
-        "latitude": 49.28441219567875, 
+        "name": "Food Cart", 
         "longitude": -123.10905704600552, 
-        "name": "Food Cart", 
+        "location": "North Side of 300 Water St - 17 Metres West of Cambie St", 
         "key": "GT07", 
+        "latitude": 49.28441219567875, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.28397573199147, 
+        "name": "Food Cart", 
         "longitude": -123.10654502000824, 
-        "name": "Food Cart", 
+        "location": "North Side of 100 Water St  - West of Abbott St", 
         "key": "GTBIA1", 
+        "latitude": 49.28397573199147, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.26221604765834, 
+        "name": "Food Cart", 
         "longitude": -123.06907274118689, 
-        "name": "Food Cart", 
+        "location": "South Side of 1700 East Broadway - 37 Metres East of Commercial Dr", 
         "key": "OD05", 
+        "latitude": 49.26221604765834, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.272994251636874, 
+        "name": "Food Cart", 
         "longitude": -123.10034066046238, 
-        "name": "Food Cart", 
+        "location": "North Side 100 Terminal Ave - 6 Metres West of Main St", 
         "key": "OD08", 
+        "latitude": 49.272994251636874, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.26338454901434, 
+        "name": "Food Cart", 
         "longitude": -123.13042014515196, 
-        "name": "Food Cart", 
+        "location": "South Side of 1100 West Broadway - East of Alder St", 
         "key": "OD09", 
+        "latitude": 49.26338454901434, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.263581276260126, 
+        "name": "Food Cart", 
         "longitude": -123.14405563355967, 
-        "name": "Food Cart", 
+        "location": "South Side of 1700 West Broadway - 40 Metres West of Pine St", 
         "key": "OD10", 
+        "latitude": 49.263581276260126, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.26532594610485, 
+        "name": "Food Cart", 
         "longitude": -123.11454695793456, 
-        "name": "Food Cart", 
+        "location": "East Side of 2200 Cambie St - 35 Metres South of W 6th Ave", 
         "key": "OD12", 
+        "latitude": 49.26532594610485, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.263363557970386, 
-        "longitude": -123.11871514861326, 
         "name": "Food Cart", 
+        "longitude": -123.11871514861326, 
+        "location": "North Side of 600 W Broadway - 85 Metres West of Ash St", 
         "key": "OD14", 
+        "latitude": 49.263363557970386, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.2263667505506, 
-        "longitude": -123.116220118484, 
         "name": "Fasttrac Fusion", 
+        "longitude": -123.116220118484, 
+        "location": "East Side of 6400 Cambie St - 20 metres North of W 49th Ave", 
         "key": "OD16", 
+        "latitude": 49.2263667505506, 
         "description": "Asian Fusion"
     }, 
     {
-        "latitude": 49.26259305217993, 
-        "longitude": -123.13902045795513, 
         "name": "Num Num", 
+        "longitude": -123.13902045795513, 
+        "location": "South Side of 1500 W 10th Ave - Authorised Parking Meter", 
         "key": "OD17", 
+        "latitude": 49.26259305217993, 
         "description": "Vietnamese"
     }, 
     {
-        "latitude": 49.25847467604195, 
-        "longitude": -123.10156914869134, 
         "name": "Food Cart", 
+        "longitude": -123.10156914869134, 
+        "location": "West Side of 2900 Main St - 20 Metres North of E 14th Ave", 
         "key": "OD18", 
+        "latitude": 49.25847467604195, 
         "description": "Hot Dogs"
     }, 
     {
-        "latitude": 49.2730044236793, 
-        "longitude": -123.099812569902, 
         "name": "Taser Sandwiches", 
+        "longitude": -123.099812569902, 
+        "location": "East side of 1300 Main St - 10 metres North of Terminal Ave", 
         "key": "OD19", 
+        "latitude": 49.2730044236793, 
         "description": "Sandwiches"
     }, 
     {
-        "latitude": 49.28441126158648, 
-        "longitude": -123.12473138232424, 
         "name": "YVS Nuts", 
+        "longitude": -123.12473138232424, 
+        "location": "South Side of 1000 Robson Street - 7 Metres East of Thurlow Street", 
         "key": "RSBIA1", 
+        "latitude": 49.28441126158648, 
         "description": "Chestnuts"
     }, 
     {
-        "latitude": 49.28765632855352, 
-        "longitude": -123.14224584674524, 
         "name": "San Juan Family Farm", 
+        "longitude": -123.14224584674524, 
+        "location": "1800 Davie Street", 
         "key": "SFV140", 
+        "latitude": 49.28765632855352, 
         "description": "Fruit Shakes,  Smoothies and Juices"
     }, 
     {
-        "latitude": 49.272915, 
-        "longitude": -123.125623, 
         "name": "Super Thai", 
+        "longitude": -123.125623, 
+        "location": "Eastside 1300 Pacific Boulevard", 
         "key": "SFV142", 
+        "latitude": 49.272915, 
         "description": "Thai Food"
     }, 
     {
-        "latitude": 49.28243866353015, 
-        "longitude": -123.12034522834664, 
         "name": "Feastro The Rolling Bistro", 
+        "longitude": -123.12034522834664, 
+        "location": "Authorised Parking Location - West Side of 700 Howe St", 
         "key": "C16", 
+        "latitude": 49.28243866353015, 
         "description": "West Coast Fare"
     }, 
     {
-        "latitude": 49.282584448484194, 
-        "longitude": -123.12148094657034, 
         "name": "Mr. Shawarma", 
+        "longitude": -123.12148094657034, 
+        "location": "North Side of 800 Robson St - East of Hornby St", 
         "key": "DT58", 
+        "latitude": 49.282584448484194, 
         "description": "Middle Eastern"
     }, 
     {
-        "latitude": 49.28056305751446, 
-        "longitude": -123.1189655974576, 
         "name": "Guanaco Truck", 
+        "longitude": -123.1189655974576, 
+        "location": "Authroised Parking Meter - East Side of 800 Seymour St", 
         "key": "C14", 
+        "latitude": 49.28056305751446, 
         "description": "El Salvadorian Cuisine"
     }, 
     {
-        "latitude": 49.28030385721309, 
-        "longitude": -123.11354886234705, 
         "name": "Reel Mac and Cheese", 
+        "longitude": -123.11354886234705, 
+        "location": "East Side of 600 Hamilton St", 
         "key": "DT73", 
+        "latitude": 49.28030385721309, 
         "description": "Homemade Macaroni and Cheese"
     }, 
     {
-        "latitude": 49.28039276391294, 
-        "longitude": -123.11342872499375, 
         "name": "Dougie Luv Diner Truck", 
+        "longitude": -123.11342872499375, 
+        "location": "East Side of 600 Hamilton St", 
         "key": "DT67", 
+        "latitude": 49.28039276391294, 
         "description": "Diner Food"
     }, 
     {
-        "latitude": 49.27988742271094, 
-        "longitude": -123.11450600103366, 
         "name": "Patisserie Lebeau", 
+        "longitude": -123.11450600103366, 
+        "location": "West Side of 700 Hamilton St", 
         "key": "DT66", 
+        "latitude": 49.27988742271094, 
         "description": "Belgian Waffles"
     }, 
     {
-        "latitude": 49.280544061059274, 
-        "longitude": -123.11323955185875, 
         "name": "Fat Duck Mobile Eatery", 
+        "longitude": -123.11323955185875, 
+        "location": "East Side of 600 Hamilton St", 
         "key": "DT77", 
+        "latitude": 49.280544061059274, 
         "description": "Comfort Foods"
     }, 
     {
-        "latitude": 49.280447345516016, 
-        "longitude": -123.11333019534716, 
         "name": "Culver City Salads", 
+        "longitude": -123.11333019534716, 
+        "location": "East Side of 600 Hamilton St", 
         "key": "DT65", 
+        "latitude": 49.280447345516016, 
         "description": "Salads"
     }, 
     {
-        "latitude": 49.28006681559667, 
-        "longitude": -123.11391361866788, 
         "name": "Chou Chou Crepes", 
+        "longitude": -123.11391361866788, 
+        "location": "East Side of 600 Hamilton St", 
         "key": "DT78", 
+        "latitude": 49.28006681559667, 
         "description": "French Crepes"
     }
 ]
