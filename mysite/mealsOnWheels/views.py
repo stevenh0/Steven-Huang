@@ -111,6 +111,7 @@ def render_map(request):
 				pub_date=datetime.datetime.today())
 			print str(myUser.review_set.get(foodtruck=myFood))
 			return HttpResponse(key)
+	print "Rendering with json_string: " + get_user_json(request).json_object
 	return render(request,'mealsOnWheels/map.html', {'json_string': get_user_json(request).json_object, 'location': get_user_location(request)})
 
 def getAve(foodtruck):
@@ -278,7 +279,15 @@ def change_profile_settings(request):
             {'user_form': user_form, 'settings_changed': settings_changed} )
 
 
-
+from mealsOnWheels.recommender import vendorToRecommend,assignUser2Cluster
+@csrf_exempt
 def recommender(request):
+    print "within recommender"
     myUser = request.user
-    assignUser2Cluster(myUser,dat_foodkey,centers);
+    au2c = assignUser2Cluster(myUser)
+    iclust = au2c['cluster']
+    print "cluster is assigned" + str(iclust)
+    v2r = vendorToRecommend(iclust)
+    js = json.dumps(v2r)
+    return HttpResponse(js,
+                        content_type = "application/json")

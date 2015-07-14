@@ -1,6 +1,5 @@
 __author__ = 'yumikondo'
 
-## recommender.py
 
 import numpy as np
 from sklearn.cluster import MiniBatchKMeans, KMeans
@@ -8,9 +7,6 @@ from mealsOnWheels.models import FoodTruck
 from django.contrib.auth.models import User
 import datetime
 
-K = 4
-n_init = 100
-k_means = KMeans(init='k-means++', n_clusters=K, n_init=n_init)
 
 ## TODO: What if there are lots of NAs?
 
@@ -45,46 +41,69 @@ def foodTruckArray():
             "pub_date" : datetime.datetime.today()}
 
 
-
-fta = foodTruckArray()
-dat = fta["dat"]
-dat_foodkey = fta["dat_foodkey"]
-
-k_means.fit(dat)
-## cluster assignment
-label = k_means.labels_
-centers = k_means.cluster_centers_
-
-user = User.objects.get(username="user_aian_1")
-assignUser2Cluster(user,dat_foodkey,centers)
-
-def vendorToRecommend(iclust,centers,fta):
+def runKmeans(K):
+    n_init = 100
+    fta = foodTruckArray()
     dat = fta["dat"]
     dat_foodkey = fta["dat_foodkey"]
-    center_i = centers[iclust]
+    np.savetxt("recommender_meanRate.txt",np.mean(dat, axis=0),delimiter=",")
+    k_means = KMeans(init='k-means++', n_clusters=K, n_init=n_init)
+    k_means.fit(dat)
+    ## cluster assignment
+    centers = k_means.cluster_centers_
+
+    np.savetxt("recommender_centers.txt", centers, delimiter=",")
+    np.savetxt("recommender_foodkey.txt", dat_foodkey,  delimiter=",",fmt="%s")
+
+
+def vendorToRecommend(iclust):
+    centers = np.loadtxt("recommender_centers.txt",delimiter=',')
+    dat_foodkey = np.loadtxt("recommender_foodkey.txt",delimiter=',',dtype=np.str)
+    if iclust == -1:
+        ## no cluster specification choose the vendor that has the highest avaerage rate
+        meanRate = np.loadtxt("recommender_meanRate.txt",delimiter=",")
+        center_i = meanRate
+    else:
+        center_i = centers[iclust]
     bestVendori = np.argmax(center_i)
     bestVendorKey = dat_foodkey[bestVendori]
     bestVendorAveRate = center_i[bestVendori]
-    return {"key":bestVendorKey,"aveRate" : bestVendorAveRate}
+
+    foodtruck = FoodTruck.objects.get(key=bestVendorKey)
+
+    return {"name":foodtruck.name,
+            "location":foodtruck.location,
+            "key":foodtruck.key,
+            "aveRate" : bestVendorAveRate}
 
 
-def assignUser2Cluster(user,dat_foodkey,centers):
+def assignUser2Cluster(user):
     ## compute squared Euclidean distances between this user's review rate
     ## and the cluster centers.
     ## pick the cluster which the smallest Euclidean distance
     ## as the cluster of this user.
-    myReviews = user.review_set.all()
-    K = centers.shape[0]
-    dist_each_term = np.ndarray(shape=K)
-    if myReviews.count()>0:
-        for myReview in myReviews:
-            ## food truck key of my review
-            ifood = dat_foodkey.index(myReview.foodtruck.key)
+    try:
+        centers = np.loadtxt("recommender_centers.txt",delimiter=',')
+        dat_foodkey = np.loadtxt("recommender_foodkey.txt",delimiter=',',dtype=np.str)
+        myReviews = user.review_set.all()
+        K = centers.shape[0]
+        dist_each_term = np.ndarray(shape=K)
+        if myReviews.count()>0:
+            for myReview in myReviews:
+                ## food truck key of my review
+                ifood = dat_foodkey.index(myReview.foodtruck.key)
+                for ik in range(0,K):
+                    dist_each_term[ik] += (centers[ik,ifood] - myReview.rate)**2
+            myClust = dist_each_term.argmin()
+        else:
+            myClust = -1
             for ik in range(0,K):
-                dist_each_term[ik] += (centers[ik,ifood] - myReview.rate)**2
-        myClust = dist_each_term.argmin()
-    else:
+                dist_each_term[ik] = -1
+    except:
         myClust = -1
         for ik in range(0,K):
             dist_each_term[ik] = -1
+
     return {"cluster" : myClust, "dist_each_term" : dist_each_term}
+
+

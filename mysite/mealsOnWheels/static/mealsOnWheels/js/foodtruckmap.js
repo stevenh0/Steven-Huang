@@ -4,6 +4,8 @@ var downtownVancouver = new google.maps.LatLng(49.28,-123.12);
 
 
 function initialize() {
+			console.log(json_string);
+		console.log(user_position);
   var mapOptions = {
     zoom: 14,
     center: downtownVancouver,
@@ -25,9 +27,11 @@ if (user_position != "None"){
     position: myLatlng,
     map: map, });
 	
+
 	$("#get-radius").keyup(function(e){
 		if (e.keyCode == 13) {
 			var rad = $(this).val();
+			if (!isNaN(rad) && parseFloat(rad) < 100 && parseFloat(rad) > 0){
 			var data = {'mapRequestType': 'radius_changed', 'new_radius': rad};
 			console.log("Here's what we're giving them as the new radius: " + rad)
 			$.ajax({
@@ -37,14 +41,19 @@ if (user_position != "None"){
 				success: function(json){
 				// do nothing
 			}});
+			}
 		}
 	});
+
   }
 
  else {
 	// https://developers.google.com/maps/documentation/javascript/markers
 	// https://developers.google.com/maps/documentation/javascript/examples/places-searchbox
 	// Create the search box and link it to the UI element.
+	
+	$("#get-radius").hide();
+	$("#clear-search").hide();
 
 	var input = /** @type {HTMLInputElement} */(
 		  document.getElementById('pac-input'));
@@ -271,6 +280,20 @@ $(document).ready(function() {
 
 
     });
+
+	
+		$("#clear-search").click(function(){
+		console.log("The handler got called");
+		var data = {'mapRequestType': 'clear_data'};
+		$.ajax({
+			type: 'POST',
+			url: "/mealsOnWheels/map/",
+			data: data,
+			success: function(json){
+				// do nothing
+			}
+		});
+	});
 	
     // recommendation
     $('#recommend-button').click(function(){
@@ -279,14 +302,14 @@ $(document).ready(function() {
             url: "/mealsOnWheels/recommender/",
             dateType: 'json',
             success:function(json){
-            $(".recommend-answer").html(
-            "You might like "+json.name+" at "+json.location
+            console.log("I am here!"+json.name)
+            $("#recommend-answer").html(
+            "You might like <p class='recommended-vendor'>"+json.name+"</p> at "+json.location
             )
         }});
     })
 
     $.getJSON("/mealsOnWheels/food_trucks", function(food_trucks_json) {
-		food_trucks_json = json_string;
         $.each(food_trucks_json, function(key, data) {
             var latLng = new google.maps.LatLng(data.latitude, data.longitude);
 
