@@ -241,9 +241,10 @@ $(document).ready(function() {
 
     });
 	
-	if (user_position != "") {
-		console.log("We should be creating a user position")
-	}
+    var user_position="None"
+    if (user_position != "") {
+    		console.log("We should be creating a user position")
+    	}
 
     // recommendation
     $('#recommend-button').click(function(){
@@ -252,8 +253,9 @@ $(document).ready(function() {
             url: "/mealsOnWheels/recommender/",
             dateType: 'json',
             success:function(json){
-            $(".recommend-answer").html(
-            "You might like "+json.name+" at "+json.location
+            console.log("I am here!"+json.name)
+            $("#recommend-answer").html(
+            "You might like <p class='recommended-vendor'>"+json.name+"</p> at "+json.location
             )
         }});
     })
@@ -261,7 +263,7 @@ $(document).ready(function() {
     $.getJSON("/mealsOnWheels/food_trucks", function(food_trucks_json) {
 		console.log( json_string );
 		console.log(user_position);
-		food_trucks_json = json_string;
+		//food_trucks_json = json_string;
         $.each(food_trucks_json, function(key, data) {
             var latLng = new google.maps.LatLng(data.latitude, data.longitude);
 

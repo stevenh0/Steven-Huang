@@ -2703,3 +2703,9 @@ td {
 #recommend-answer {
 	display: inline;
 }
+
+.recommended-vendor{
+font-size:170%;
+display:inline;
+color:#ff8000;
+}

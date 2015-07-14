@@ -6,7 +6,7 @@ import datetime
 import xlrd
 import numpy as np
 from mealsOnWheels.parser import importData, clearData
-from mealsOnWheels.models import FoodTruck, Review
+from mealsOnWheels.models import FoodTruck, Review,UserJSONObject
 from collections import Counter
 from random import randint
 
@@ -111,17 +111,20 @@ for iuser in range(0,Nuser):
     user = User(username="user_" + userClusterName[iusercluster] + "_"+str(iuser))
     user.set_password("user" + str(iuser))
     user.save()
+    print "iuser" + str(iuser) + " iusercluster:" + str(iusercluster)
     for food in FoodTruck.objects.all():
         ifoodcluster = clusterFood[fkey.index(food.key)]
         p = probRate[iusercluster][ifoodcluster]
         rate = randomRate(p,maxRate)
         pub_date=datetime.datetime.today() - randomDay()
         r = Review(foodtruck=food,rate=rate,user=user, pub_date=pub_date)
-        print "iuser" + str(iuser) + " iusercluster:" + str(iusercluster) + " ifoodcluster:" + str(ifoodcluster) + " rate:"+ str(rate) + "foodname:"+str(food.name)
+        ##print "iuser" + str(iuser) + " iusercluster:" + str(iusercluster) + " ifoodcluster:" + str(ifoodcluster) + " rate:"+ str(rate) + "foodname:"+str(food.name)
         r.save()
 
 
 ## bob is always there
 user = User(username="bob")
 user.set_password("hi")
+user.is_superuser = True
+user.is_staff = True
 user.save()

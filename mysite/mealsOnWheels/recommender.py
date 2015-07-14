@@ -1,6 +1,5 @@
 __author__ = 'yumikondo'
 
-## recommender.py
 
 import numpy as np
 from sklearn.cluster import MiniBatchKMeans, KMeans
@@ -44,13 +43,15 @@ def foodTruckArray():
 
 def runKmeans(K):
     n_init = 100
-    k_means = KMeans(init='k-means++', n_clusters=K, n_init=n_init)
     fta = foodTruckArray()
     dat = fta["dat"]
     dat_foodkey = fta["dat_foodkey"]
+    np.savetxt("recommender_meanRate.txt",np.mean(dat, axis=0),delimiter=",")
+    k_means = KMeans(init='k-means++', n_clusters=K, n_init=n_init)
     k_means.fit(dat)
     ## cluster assignment
     centers = k_means.cluster_centers_
+
     np.savetxt("recommender_centers.txt", centers, delimiter=",")
     np.savetxt("recommender_foodkey.txt", dat_foodkey,  delimiter=",",fmt="%s")
 
@@ -58,11 +59,22 @@ def runKmeans(K):
 def vendorToRecommend(iclust):
     centers = np.loadtxt("recommender_centers.txt",delimiter=',')
     dat_foodkey = np.loadtxt("recommender_foodkey.txt",delimiter=',',dtype=np.str)
-    center_i = centers[iclust]
+    if iclust == -1:
+        ## no cluster specification choose the vendor that has the highest avaerage rate
+        meanRate = np.loadtxt("recommender_meanRate.txt",delimiter=",")
+        center_i = meanRate
+    else:
+        center_i = centers[iclust]
     bestVendori = np.argmax(center_i)
     bestVendorKey = dat_foodkey[bestVendori]
     bestVendorAveRate = center_i[bestVendori]
-    return {"key":bestVendorKey,"aveRate" : bestVendorAveRate}
+
+    foodtruck = FoodTruck.objects.get(key=bestVendorKey)
+
+    return {"name":foodtruck.name,
+            "location":foodtruck.location,
+            "key":foodtruck.key,
+            "aveRate" : bestVendorAveRate}
 
 
 def assignUser2Cluster(user):
@@ -95,5 +107,3 @@ def assignUser2Cluster(user):
     return {"cluster" : myClust, "dist_each_term" : dist_each_term}
 
 
-## user = User.objects.get(username="user_aian_1")
-## assignUser2Cluster(user,dat_foodkey,centers)
