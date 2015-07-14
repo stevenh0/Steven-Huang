@@ -49,3 +49,6 @@ def get_user_location(request):
 		return str(val.location.lat) + "," + str(val.location.lon)
 	else:
 		return None
+
+def reset_all_users_json():
+	all_entries = UserJSONObject.objects.all().delete()

@@ -111,6 +111,7 @@ def render_map(request):
 				pub_date=datetime.datetime.today())
 			print str(myUser.review_set.get(foodtruck=myFood))
 			return HttpResponse(key)
+	print "Rendering with json_string: " + get_user_json(request).json_object
 	return render(request,'mealsOnWheels/map.html', {'json_string': get_user_json(request).json_object, 'location': get_user_location(request)})
 
 def getAve(foodtruck):
