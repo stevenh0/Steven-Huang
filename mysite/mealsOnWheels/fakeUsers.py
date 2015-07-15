@@ -5,6 +5,7 @@
 from django.contrib.auth.models import User
 import datetime
 import xlrd
+import random
 import numpy as np
 from mealsOnWheels.parser import importData, clearData
 from mealsOnWheels.models import FoodTruck, Review
@@ -50,7 +51,7 @@ def generateFakeUser():
 
     ## classify the vendors into 4 clusters:
     keywordSet = [
-        ["thai","india","japa","asia","chine","korea","vietna"],  ## Asia
+        ["thai","india","japa","asia","chine","korea","vietna","philip"],  ## Asia
         ["dogs"], ## hot dogs
         ["sea","pacific","mediter"]  ## sea food
         ] ## other
@@ -91,9 +92,9 @@ def generateFakeUser():
     ## the vendors in cluster j by the
     ## users who like vendors in cluster i
     probRate = [[0.9,0.3,0.2,0.1], ## Asia cluster
-                [0.1,0.7,0.1,0.1], ## hot dogs
-                [0.1,0.1,0.8,0.3], ## sea food
-                [0.3,0.3,0.3,0.3]  ## others
+                [0.2,0.7,0.3,0.2], ## hot dogs
+                [0.2,0.2,0.8,0.3], ## sea food
+                [0.4,0.4,0.4,0.4]  ## others
                 ]
 
     userClusterName = ["asian","dog","pirate","random"]
@@ -102,7 +103,8 @@ def generateFakeUser():
     for iuser in range(0,Nuser):
         iusercluster = assignUserToCluster(iuser,Nuser,Nclust)
         username = "user_" + userClusterName[iusercluster] + "_"+str(iuser)
-        if User.objects.filter(username=username).count() == 0:
+
+        if needDefineUser(username):
             user = User(username=username)
             user.set_password("user" + str(iuser))
             user.save()
@@ -111,9 +113,12 @@ def generateFakeUser():
                 ifoodcluster = clusterFood[fkey.index(food.key)]
                 p = probRate[iusercluster][ifoodcluster]
                 rate = randomRate(p,maxRate)
+                if random.random() < 0.1: ## With probability 10% no review
+                    continue
                 pub_date=datetime.datetime.today() - randomDay()
                 r = Review(foodtruck=food,rate=rate,user=user, pub_date=pub_date)
-                ##print "iuser" + str(iuser) + " iusercluster:" + str(iusercluster) + " ifoodcluster:" + str(ifoodcluster) + " rate:"+ str(rate) + "foodname:"+str(food.name)
+                ##print "iuser" + str(iuser) + " iusercluster:" + str(iusercluster) +
+                ## " ifoodcluster:" + str(ifoodcluster) + " rate:"+ str(rate) + "foodname:"+str(food.name)
                 r.save()
 
     if User.objects.filter(username="bob").count() == 0:
@@ -123,3 +128,17 @@ def generateFakeUser():
         user.is_superuser = True
         user.is_staff = True
         user.save()
+
+
+def needDefineUser(username):
+    ## If user is undefined or the user is defined with no review
+    ##  we will define this user
+    user = User.objects.filter(username=username)
+    if user.count() == 0:
+        return True
+    if user[0].review_set.count()==0:
+        temp = user[0] ## delete the current users
+        temp.delete()
+        return True
+    else:
+        return False

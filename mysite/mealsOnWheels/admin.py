@@ -52,10 +52,10 @@ def generateUser(modeladmin, request, queryset):
 	generateFakeUser()
 
 from django.contrib import messages
-from mealsOnWheels.recommender import runKmeans
+from mealsOnWheels.recommender import runClustering
 def classifyUser(modeladmin, request, queryset):
 	try:
-		runKmeans(4)
+		runClustering()
 	except:
 		messages.error(request, "This functionality is currently not supported")
 

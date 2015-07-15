@@ -286,8 +286,8 @@ def recommender(request):
     myUser = request.user
     au2c = assignUser2Cluster(myUser)
     iclust = au2c['cluster']
-    print "cluster is assigned" + str(iclust)
-    v2r = vendorToRecommend(iclust)
+    print "user is assigned to " + str(iclust) + "th cluster"
+    v2r = vendorToRecommend(iclust,myUser)
     js = json.dumps(v2r)
     return HttpResponse(js,
                         content_type = "application/json")
