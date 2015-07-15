@@ -13,11 +13,12 @@ from xml.sax.handler import feature_namespaces
 import traceback
 import urllib2
 import shutil
+from search import reset_all_users_json
 
 
 # Import data from City of Vancouver website using FTP module
 
-def importData(out=False):
+def importData():
 	try:
 		filedst = open('testThisFile.xls', 'w')
 		req = urllib2.Request("ftp://webftp.vancouver.ca/OpenData/xls/new_food_vendor_locations.xls")
@@ -37,6 +38,7 @@ def importData(out=False):
 	# Initialize counters for parsing through file
 
 	num_rows = worksheet.nrows - 1
+	num_cols = worksheet.ncols - 1
 	curr_row = 0
 
 	# Parse through file and save to database
@@ -45,8 +47,6 @@ def importData(out=False):
 		curr_row += 1
 		saveRowAsTruck(worksheet, curr_row)
 
-	if out:
-		return worksheet
 
 
 class HandleFoodTrucks(xml.sax.handler.ContentHandler):
@@ -88,39 +88,25 @@ class HandleFoodTrucks(xml.sax.handler.ContentHandler):
 def importKMZData():
 	try:
 		filedst = open('testThisFile.kmz', 'w')
-		print "importKMZData()pass1"
 		req = urllib2.Request("http://data.vancouver.ca/download/kml/food_vendor_pilot.kmz")
-		print "importKMZData()pass2"
 		filesrc = urllib2.urlopen(req)
-		print "importKMZData()pass3"
 		shutil.copyfileobj(filesrc, filedst)
-		print "importKMZData()pass4"
 		filedst.close()
 		filesrc.close()
 		
-		with open('testThisFile.kmz', 'rb') as MyZip:
-			print "ANYA HERE ARE THE FUCKING MAGIC NUMBERS FUCK: " + MyZip.read(4)
-			
-		print "IS THIS A FUCKING ZIPFILE? " + str(is_zipfile('testThisFile.kmz'))
 		
 		kmz = ZipFile('testThisFile.kmz', 'r')
-		print "Zipped!"
 		kml = kmz.open('street_food_vendors.kml', 'r')
-		print "opened!"
+		
 		# Parse like the wind!!!
 		parser = make_parser()
-		print "parsed!"
 		parser.setFeature(feature_namespaces, 0)
-		print "feature namespace!"
 		dh = HandleFoodTrucks()
-		print "HandleFoodTrucks()"
 		parser.setContentHandler(dh)
-		print "parser.setContentHandler(dh)"
 		parser.parse(kml)
 		return 0
 	except:
 		print "mealsOnWheels :: KML file could not be read. Switching to local file."
-		traceback.print_exc()
 		return 1
 
 # This method imports test data instead for testing purposes
@@ -181,6 +167,7 @@ def isValidTruck(worksheet, row_index):
 # The purpose of this is to clear all old data before importing new set
 
 def clearData():
+	reset_all_users_json()
 	trucks = FoodTruck.objects.all()
 	trucks.delete()
 	positions = Position.objects.all()
