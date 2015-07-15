@@ -169,8 +169,6 @@ function filterFoodVendor(key){
             $("#list-rate").append("<div class='list-rate-appended remove'>No one has reviewed yet!</div>");
             }else{
                 // each user's review is printed.
-                tableCaption = "<span class='remove'>This vendor is currently rated as:</span>"
-                $("#list-rate").append(tableCaption + "<table class='list-rate-appended remove'>"+tableTitle)
                 $.each(json, function(index, element) {
                     if (element.additional === 0){
                          $('.list-rate-appended').append(userRatingStyling(element) );
@@ -250,10 +248,11 @@ $(document).ready(function() {
             url: "/mealsOnWheels/recommender/",
             dateType: 'json',
             success:function(json){
-            console.log("I am here!"+json.name)
+            console.log("I am here!"+json.name);
             $("#recommend-answer").html(
             "You might like <p class='recommended-vendor'>"+json.name+"</p> at "+json.location
-            )
+            );
+            $("#recommend-button").html(function(){document.getElementById("recommend-button").style.display="none"});
         }});
     })
 
@@ -287,21 +286,22 @@ $(document).ready(function() {
                     .html ( "" );
 					run(data.name);
 
-                    // ~~~ filtering ~~~
+                    // Food truck rating
                     $(".remove").remove();
-                    $("#truck-rating")
-                    .html(function(){document.getElementById("truck-rating").style.display="inline-block"});
+                    $("#truck-rating").html(function(){document.getElementById("truck-rating").style.display="inline-block"});
                     $("#rate-button").unbind('click').click(function(){
                         var rate = $('#rate-input').val();
                         sendFoodVendorToDjango(key=data.key,rate=rate);
                         $('#rate-input').val("");
+                        $("#list-rate").append("Thank you for your rating!");
                         })
                     filterFoodVendor(key=data.key);
                     $("#list-rate-header").unbind('click').click(function(){
                         showMoreFoodVendor(key=data.key);
+                        $(".list-rate-appended").html(function(){document.getElementsByClassName("list-rate-appended").style.display="inline-block"});
                     });
 
-                    //  ~~~favorite selection
+                    // Select favourite food truck
                     $("#add-to-fav").unbind('click').click(function(){
                         console.log(data.name);
                         setFav(data.name);

@@ -2672,6 +2672,10 @@
 	margin-top: 1.5em;
 }
 
+.list-rate-appended {
+	display: none;
+}
+
 table, th, td {
     border: 1px solid #D9D9D9;
     border-color: #ADADAD;
@@ -2704,8 +2708,8 @@ td {
 	display: inline;
 }
 
-.recommended-vendor{
-font-size:170%;
-display:inline;
-color:#ff8000;
+.recommended-vendor {
+	font-size: 22px;
+	display: inline;
+	color: #FF8000;
 }
