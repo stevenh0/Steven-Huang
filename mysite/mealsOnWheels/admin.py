@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import FoodTruck, Position, LastImportDate,Review
 from parser import importData, clearData, testImportData, updateJSONObject
+from search import reset_all_users_json
 import datetime
 
 lastImportDate = LastImportDate.objects.get(id=1)
@@ -43,7 +44,8 @@ admin.site.register(Position)
 
 
 
-
+def reset_json(modeladmin, request, queryset):
+	reset_all_users_json()
 
 
 
@@ -72,7 +74,7 @@ class ReviewInline(admin.TabularInline):
 
 class UserAdmin(admin.ModelAdmin):
 	list_display = ['name','email','is_stuff']
-	actions = [generateUser,classifyUser]
+	actions = [generateUser,classifyUser,reset_json]
 	inlines = [ReviewInline]
 
 
