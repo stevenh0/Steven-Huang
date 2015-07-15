@@ -10,14 +10,14 @@ function initialize() {
     zoom: 14,
     center: downtownVancouver,
     mapTypeId:google.maps.MapTypeId.ROADMAP
-  }
+    }
 
-map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
 
 // If the user has a position, add it to the map and ask for a search radius instead
 
-if (user_position != "None"){
+if (user_position != "None") {
 	$("input#pac-input.controls").hide();
 	var sarr = user_position.split(",");
 	var ulat = sarr[0];
