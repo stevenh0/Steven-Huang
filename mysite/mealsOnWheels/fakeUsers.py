@@ -32,12 +32,10 @@ def generateFakeUser():
     Nuser = 100
     ## create FoodTruck objects
     clearData()
-    importData()
+    worksheet = importData(out=True)
     ## User.objects.all().delete()
     print "no user?" + str(User.objects.all().count()) == 0
 
-    workbook = xlrd.open_workbook('testThisFile.xls')
-    worksheet = workbook.sheet_by_name('Query_vendor_food')
     Nvendor = worksheet.nrows
 
     fname = []

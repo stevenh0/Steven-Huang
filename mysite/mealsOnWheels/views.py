@@ -18,16 +18,16 @@ from search import get_user_json,  createJSONString, get_user_location, search_b
 def index(request):
     return render(request,'mealsOnWheels/index.html',{})
 
-def importData():
-    ftp = FTP('webftp.vancouver.ca')
-    ftp.login()
-    ftp.cwd('OpenData/xls')
-    filename = 'new_food_vendor_locations.xls'
-    ftp.retrbinary('RETR %s' % filename, open('myLovelyNewFile.xls', 'w').write)
-    ftp.quit()
-    workbook = xlrd.open_workbook('myLovelyNewFile.xls')
-    worksheet = workbook.sheet_by_name('Query_vendor_food')
-    return worksheet
+# def importData():
+#     ftp = FTP('webftp.vancouver.ca')
+#     ftp.login()
+#     ftp.cwd('OpenData/xls')
+#     filename = 'new_food_vendor_locations.xls'
+#     ftp.retrbinary('RETR %s' % filename, open('myLovelyNewFile.xls', 'w').write)
+#     ftp.quit()
+#     workbook = xlrd.open_workbook('myLovelyNewFile.xls')
+#     worksheet = workbook.sheet_by_name('Query_vendor_food')
+#     return worksheet
 
 def user_login(request):
     ## If the request is a HTTP POST, try to pull out the relevant infomation
