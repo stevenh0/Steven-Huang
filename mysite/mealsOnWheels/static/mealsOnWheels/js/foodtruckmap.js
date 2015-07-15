@@ -293,7 +293,7 @@ $(document).ready(function() {
                         var rate = $('#rate-input').val();
                         sendFoodVendorToDjango(key=data.key,rate=rate);
                         $('#rate-input').val("");
-                        $("#list-rate").append("Thank you for your rating!");
+                        $("#list-rate").append("<i><span style='color: green'>Thank you for your rating!</i></style>");
                         })
                     filterFoodVendor(key=data.key);
                     $("#list-rate-header").unbind('click').click(function(){

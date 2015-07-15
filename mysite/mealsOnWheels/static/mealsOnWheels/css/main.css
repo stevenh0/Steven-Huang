@@ -2704,12 +2704,12 @@ td {
 	float: center;
 }
 
-#recommend-answer {
-	display: inline;
-}
-
 .recommended-vendor {
 	font-size: 22px;
 	display: inline;
 	color: #FF8000;
+}
+
+.recommendation-description {
+	font-size: 15px;
 }
