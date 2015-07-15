@@ -2715,3 +2715,15 @@ td {
 #recommend-answer {
 	margin-top: 0.7em;
 }
+
+/* Food Truck Search/Filtering */
+
+#term-search {
+	margin-top: 0.3em;
+	width: 250px;
+}
+
+#clear-search {
+	margin-bottom: 0.3em;
+	padding: 0.2em 0.5em 0.2em 0.5em;
+}
