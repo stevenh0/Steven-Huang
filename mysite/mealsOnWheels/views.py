@@ -304,12 +304,12 @@ def change_profile_settings(request):
 from mealsOnWheels.recommender import vendorToRecommend,assignUser2Cluster
 @csrf_exempt
 def recommender(request):
-    print "within recommender"
+    print "within view.recommender"
     myUser = request.user
     au2c = assignUser2Cluster(myUser)
     iclust = au2c['cluster']
-    print "cluster is assigned" + str(iclust)
-    v2r = vendorToRecommend(iclust)
+    print str(iclust) + "cluster is assigned"
+    v2r = vendorToRecommend(iclust,myUser)
     js = json.dumps(v2r)
     return HttpResponse(js,
                         content_type = "application/json")
