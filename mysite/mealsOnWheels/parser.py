@@ -35,7 +35,6 @@ def importData(out=False):
 	worksheet = workbook.sheet_by_name('Query_vendor_food')
 
 	# Initialize counters for parsing through file
-
 	num_rows = worksheet.nrows - 1
 	curr_row = 0
 

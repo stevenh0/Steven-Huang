@@ -85,7 +85,6 @@ def generateFakeUser():
 
     freqs = Counter(clusterFood)
     print freqs
-
     ## probRate[i,j] * 10 represents the mean rate of the
     ## the vendors in cluster j by the
     ## users who like vendors in cluster i
