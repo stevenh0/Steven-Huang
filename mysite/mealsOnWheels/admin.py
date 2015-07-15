@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import FoodTruck, Position, LastImportDate
+from .models import FoodTruck, Position, LastImportDate,Review
 from parser import importData, clearData, testImportData, updateJSONObject
 import datetime
 
@@ -41,3 +41,41 @@ class FoodTruckAdmin(admin.ModelAdmin):
 admin.site.register(FoodTruck, FoodTruckAdmin)
 admin.site.register(Position)
 
+
+
+
+
+
+
+from mealsOnWheels.fakeUsers import generateFakeUser
+def generateUser(modeladmin, request, queryset):
+	generateFakeUser()
+
+from django.contrib import messages
+from mealsOnWheels.recommender import runClustering
+def classifyUser(modeladmin, request, queryset):
+	try:
+		runClustering()
+	except:
+		messages.error(request, "This functionality is currently not supported")
+
+generateUser.short_description = "Generate bob and 100 users (Asian-food lovers, seafood lovers, " \
+								 "hotdogs lovers and those with no preference)"
+classifyUser.short_description = "Classify these users into four clusters of similar rating behaviors"
+
+
+from django.contrib.auth.models import User
+class ReviewInline(admin.TabularInline):
+    model = Review
+    extra = 5
+
+
+class UserAdmin(admin.ModelAdmin):
+	list_display = ['name','email','is_stuff']
+	actions = [generateUser,classifyUser]
+	inlines = [ReviewInline]
+
+
+UserAdmin.list_display = ('username','email', 'is_active', 'date_joined', 'is_staff')
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)

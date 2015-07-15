@@ -2672,6 +2672,8 @@
 	margin-top: 1.5em;
 }
 
+
+
 table, th, td {
     border: 1px solid #D9D9D9;
     border-color: #ADADAD;
@@ -2700,12 +2702,16 @@ td {
 	float: center;
 }
 
-#recommend-answer {
+.recommended-vendor {
+	font-size: 22px;
 	display: inline;
+	color: #FF8000;
 }
 
-.recommended-vendor{
-font-size:170%;
-display:inline;
-color:#ff8000;
+.recommendation-description {
+	font-size: 15px;
+}
+
+#recommend-answer {
+	margin-top: 0.7em;
 }

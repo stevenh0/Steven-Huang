@@ -18,16 +18,16 @@ from search import get_user_json,  createJSONString, get_user_location, search_b
 def index(request):
     return render(request,'mealsOnWheels/index.html',{})
 
-def importData():
-    ftp = FTP('webftp.vancouver.ca')
-    ftp.login()
-    ftp.cwd('OpenData/xls')
-    filename = 'new_food_vendor_locations.xls'
-    ftp.retrbinary('RETR %s' % filename, open('myLovelyNewFile.xls', 'w').write)
-    ftp.quit()
-    workbook = xlrd.open_workbook('myLovelyNewFile.xls')
-    worksheet = workbook.sheet_by_name('Query_vendor_food')
-    return worksheet
+# def importData():
+#     ftp = FTP('webftp.vancouver.ca')
+#     ftp.login()
+#     ftp.cwd('OpenData/xls')
+#     filename = 'new_food_vendor_locations.xls'
+#     ftp.retrbinary('RETR %s' % filename, open('myLovelyNewFile.xls', 'w').write)
+#     ftp.quit()
+#     workbook = xlrd.open_workbook('myLovelyNewFile.xls')
+#     worksheet = workbook.sheet_by_name('Query_vendor_food')
+#     return worksheet
 
 def user_login(request):
     ## If the request is a HTTP POST, try to pull out the relevant infomation
@@ -286,8 +286,8 @@ def recommender(request):
     myUser = request.user
     au2c = assignUser2Cluster(myUser)
     iclust = au2c['cluster']
-    print "cluster is assigned" + str(iclust)
-    v2r = vendorToRecommend(iclust)
+    print "user is assigned to " + str(iclust) + "th cluster"
+    v2r = vendorToRecommend(iclust,myUser)
     js = json.dumps(v2r)
     return HttpResponse(js,
                         content_type = "application/json")
