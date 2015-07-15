@@ -119,7 +119,7 @@ def vendorToRecommend(iclust,user):
         bestVendori = random.randint(0,Ntruck-1)
         foodtruck = foodtrucks[bestVendori]
 
-
+    print "name" + foodtruck.name + "location" + foodtruck.location + "key" +foodtruck.key
     return {"name":foodtruck.name,
             "location":foodtruck.location,
             "key":foodtruck.key}
@@ -155,7 +155,6 @@ def assignUser2Cluster(user):
     except:
         message = "Go admin and perform clustering algorithm to get better recommendation"
         myClust = -1
-        print "got here"
     print message
     return {"cluster" : myClust, "message":message}
 
