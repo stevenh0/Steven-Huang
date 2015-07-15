@@ -101,8 +101,9 @@ function sendFoodVendorToDjango(key,rate){
             function(response){// Do Nothing
             filterFoodVendor(key)
             });
+        $("#list-rate").html("<i><span style='color: green'>Thank you for your rating!</i></style>");
     }else{
-        $("#list-rate").prepend(
+        $("#list-rate").html(
         "<div style='color:blue' class='remove'>Rating must be an integer between 0 - 10</div>");
     }
 }
@@ -252,7 +253,7 @@ $(document).ready(function() {
             $("#recommend-answer").html(
             "You might like <p class='recommended-vendor'>"+json.name+"</p> at "+json.location
             );
-            $("#recommend-button").html(function(){document.getElementById("recommend-button").style.display="none"});
+            //$("#recommend-button").html(function(){document.getElementById("recommend-button").style.display="none"});
         }});
     })
 
@@ -294,7 +295,6 @@ $(document).ready(function() {
                         var rate = $('#rate-input').val();
                         sendFoodVendorToDjango(key=data.key,rate=rate);
                         $('#rate-input').val("");
-                        $("#list-rate").html("<i><span style='color: green'>Thank you for your rating!</i></style>");
                         })
                     filterFoodVendor(key=data.key);
                     $("#list-rate-header").unbind('click').click(function(){
