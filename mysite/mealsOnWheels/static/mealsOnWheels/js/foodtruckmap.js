@@ -285,6 +285,7 @@ $(document).ready(function() {
                     $( "#instafeed")
                     .html ( "" );
 					run(data.name);
+					$("#list-rate").html("");
 
                     // Food truck rating
                     $(".remove").remove();
@@ -293,7 +294,7 @@ $(document).ready(function() {
                         var rate = $('#rate-input').val();
                         sendFoodVendorToDjango(key=data.key,rate=rate);
                         $('#rate-input').val("");
-                        $("#list-rate").append("<i><span style='color: green'>Thank you for your rating!</i></style>");
+                        $("#list-rate").html("<i><span style='color: green'>Thank you for your rating!</i></style>");
                         })
                     filterFoodVendor(key=data.key);
                     $("#list-rate-header").unbind('click').click(function(){
