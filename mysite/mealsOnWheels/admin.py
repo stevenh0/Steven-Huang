@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import FoodTruck, Position, LastImportDate
+from .models import FoodTruck, Position, LastImportDate,Review
 from parser import importData, clearData, testImportData, updateJSONObject
 import datetime
 
@@ -65,9 +65,15 @@ classifyUser.short_description = "Classify these users into four clusters of sim
 
 
 from django.contrib.auth.models import User
+class ReviewInline(admin.TabularInline):
+    model = Review
+    extra = 5
+
+
 class UserAdmin(admin.ModelAdmin):
 	list_display = ['name','email','is_stuff']
 	actions = [generateUser,classifyUser]
+	inlines = [ReviewInline]
 
 
 UserAdmin.list_display = ('username','email', 'is_active', 'date_joined', 'is_staff')

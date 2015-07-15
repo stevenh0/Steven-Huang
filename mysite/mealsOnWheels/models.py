@@ -73,7 +73,7 @@ class Integer010Field(models.IntegerField):
    def formfield(self, **kwargs):
        defaults = {'min_value': self.min_value, 'max_value':self.max_value}
        defaults.update(kwargs)
-       return super(IntegerRangeField, self).formfield(**defaults)
+       return super(Integer010Field, self).formfield(**defaults)
 
 class Review(models.Model):
     user = models.ForeignKey(User) ## a user has many reviews
