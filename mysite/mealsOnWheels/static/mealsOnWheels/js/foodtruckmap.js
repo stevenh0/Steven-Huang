@@ -4,8 +4,8 @@ var downtownVancouver = new google.maps.LatLng(49.28,-123.12);
 
 
 function initialize() {
-			console.log(json_string);
-		console.log(user_position);
+		//console.log(json_string);
+		//console.log(user_position);
   var mapOptions = {
     zoom: 14,
     center: downtownVancouver,
@@ -144,14 +144,16 @@ if (user_position != "None"){
 // http://stackoverflow.com/questions/24152420/pass-dynamic-javascript-variable-to-django-python
 function sendFoodVendorToDjango(key,rate){
     $(".remove").remove();
+    $(".remove-ave-rate").remove();
     if (checkRateValid(rate)){
         var data = {'mapRequestType': 'rate', 'foodTruckKey': key,'rate':rate};
         $.post("/mealsOnWheels/map/", data,
             function(response){// Do Nothing
             filterFoodVendor(key)
             });
+        $("#list-rate").html("<i><span style='color: green' class='remove'>Thank you for your rating!</i></style></br>");
     }else{
-        $("#list-rate").prepend(
+        $("#list-rate").html(
         "<div style='color:blue' class='remove'>Rating must be an integer between 0 - 10</div>");
     }
 }
@@ -226,7 +228,7 @@ function filterFoodVendor(key){
                     }else{
                     if (element.average !== "NA"){
 
-                        s1 = "<p id='rate-ave' class='remove'>" + element.average
+                        s1 = "<p id='rate-ave' class='remove-ave-rate'>" + element.average
                         s2 = "<span style='font-size:40%;'>rating</span> </p>"
                          $( "#selected-food-truck-details h3" )
 					    .append(s1 + s2);
@@ -377,6 +379,7 @@ $(document).ready(function() {
 
                     // ~~~ filtering ~~~
                     $(".remove").remove();
+                    $(".remove-ave-rate").remove()
                     $("#truck-rating")
                     .html(function(){document.getElementById("truck-rating").style.display="inline-block"});
                     $("#rate-button").unbind('click').click(function(){
