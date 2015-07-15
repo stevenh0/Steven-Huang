@@ -23,9 +23,19 @@ if (user_position != "None"){
 	var ulat = sarr[0];
 	var ulon = sarr[1];
 	var myLatlng = new google.maps.LatLng(ulat, ulon);
+	
+	map.setCenter(myLatlng);
+	map.setZoom(map.getZoom() - 1);
+	
+	var image = 'http://vignette1.wikia.nocookie.net/wildonesgame/images/0/0d/Tiger-Icon.png/revision/latest?cb=20111003230340';
+	
 	var userPos = new google.maps.Marker({
     position: myLatlng,
-    map: map, });
+    map: map,
+	icon:	image,
+	animation: google.maps.Animation.DROP});
+	
+	
 	
 
 	$("#get-radius").keyup(function(e){
@@ -44,6 +54,8 @@ if (user_position != "None"){
 			}
 		}
 	});
+	
+
 
   }
 
@@ -53,11 +65,11 @@ if (user_position != "None"){
 	// Create the search box and link it to the UI element.
 	
 	$("#get-radius").hide();
-	$("#clear-search").hide();
 
 	var input = /** @type {HTMLInputElement} */(
 		  document.getElementById('pac-input'));
 	map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
 
 	var searchBox = new google.maps.places.SearchBox(
 		/** @type {HTMLInputElement} */(input));
@@ -78,7 +90,7 @@ if (user_position != "None"){
 		markers = [];
 
 		// Zoom in/out to show both the new location and the food vendors
-
+		/*
 		var bounds = new google.maps.LatLngBounds();
 		bounds.extend(downtownVancouver);
 		for (var i = 0, place; place = places[i]; i++) {
@@ -114,15 +126,14 @@ if (user_position != "None"){
 		  bounds.extend(place.geometry.location);
 		}
 		map.fitBounds(bounds);
+		*/
 		
 		var position_data = {'mapRequestType': 'new_position', 'lat': places[0].geometry.location.lat(), 'lon': places[0].geometry.location.lng()};
 		$.ajax({
 			type: 'POST',
 			url: "/mealsOnWheels/map/",
 			data: position_data,
-			success: function(json){
-				// do nothing
-			}});
+			});
 	  });
   
 }
@@ -133,16 +144,14 @@ if (user_position != "None"){
 // http://stackoverflow.com/questions/24152420/pass-dynamic-javascript-variable-to-django-python
 function sendFoodVendorToDjango(key,rate){
     $(".remove").remove();
-    $(".remove-ave-rate").remove();
     if (checkRateValid(rate)){
         var data = {'mapRequestType': 'rate', 'foodTruckKey': key,'rate':rate};
         $.post("/mealsOnWheels/map/", data,
             function(response){// Do Nothing
             filterFoodVendor(key)
             });
-        $("#list-rate").html("<i><span style='color: green' class='remove'>Thank you for your rating!</i></style>");
     }else{
-        $("#list-rate").html(
+        $("#list-rate").prepend(
         "<div style='color:blue' class='remove'>Rating must be an integer between 0 - 10</div>");
     }
 }
@@ -182,7 +191,7 @@ function showMoreFoodVendor(key){
             // Before appending, delete all the previously appended information
             $(".remove").remove();
             if (json.length === 0){
-            $("#list-rate-header").append("<div class='list-rate-appended-extra remove'>No user ratings yet. Add a rating to this truck and become its first rater!</div>");
+            $("#list-rate-header").append("<div class='list-rate-appended-extra remove'>Nothing more to show!</div>");
             }else{
              $("#list-rate-header").append(
              "<table class='list-rate-appended-extra remove'>"+tableTitle)
@@ -208,18 +217,16 @@ function filterFoodVendor(key){
             if (json.length === 0){
             $("#list-rate").append("<div class='list-rate-appended remove'>No one has reviewed yet!</div>");
             }else{
-
-
--               $("#list-rate").append(
-                    "<table class='list-rate-appended remove'>"+tableTitle)
-                 // each user's review is printed.
+                // each user's review is printed.
+                tableCaption = "<span class='remove'>This vendor is currently rated as:</span>"
+                $("#list-rate").append(tableCaption + "<table class='list-rate-appended remove'>"+tableTitle)
                 $.each(json, function(index, element) {
                     if (element.additional === 0){
                          $('.list-rate-appended').append(userRatingStyling(element) );
                     }else{
                     if (element.average !== "NA"){
 
-                        s1 = "<p id='rate-ave' class='remove-ave-rate'>" + element.average
+                        s1 = "<p id='rate-ave' class='remove'>" + element.average
                         s2 = "<span style='font-size:40%;'>rating</span> </p>"
                          $( "#selected-food-truck-details h3" )
 					    .append(s1 + s2);
@@ -265,6 +272,10 @@ function getCookie(cname) {
 }
 
 $(document).ready(function() {
+	
+	
+
+	
 
     $('#my-fav').prepend(getCookie("favorite"));
     $("#remove-fav").click(function(){
@@ -286,8 +297,8 @@ $(document).ready(function() {
     });
 
 	
-		$("#clear-search").click(function(){
-		console.log("The handler got called");
+	$("#clear-search").click(function(){
+		console.log("POST: clear data");
 		var data = {'mapRequestType': 'clear_data'};
 		$.ajax({
 			type: 'POST',
@@ -299,6 +310,30 @@ $(document).ready(function() {
 		});
 	});
 	
+		$("#term-search").keyup(function(e){
+		if (e.keyCode == 13) {
+			var term = $(this).val();
+			console.log("POST search term: " + term);
+			var data = {'mapRequestType': 'term_search', 'term': term};
+			$.ajax({
+				type: 'POST',
+				url: "/mealsOnWheels/map/",
+				data: data,
+				success: function(json){
+				// do nothing
+			}});
+		}
+	});
+	
+	$(document).ajaxComplete(function(e, xhr, settings) {
+		console.log("We triggered an ajax event");
+		console.log("We got a code " + xhr.status);
+        if (xhr.status == 278) {
+			console.log("Redirect status code received");
+            window.location.href = xhr.getResponseHeader("Location").replace(/\?.*$/, "?next="+window.location.pathname);
+        }
+    });
+	
     // recommendation
     $('#recommend-button').click(function(){
             $.ajax({
@@ -306,15 +341,14 @@ $(document).ready(function() {
             url: "/mealsOnWheels/recommender/",
             dateType: 'json',
             success:function(json){
-            console.log("I am here!"+json.name);
+            console.log("I am here!"+json.name)
             $("#recommend-answer").html(
             "You might like <p class='recommended-vendor'>"+json.name+"</p> at "+json.location
-            );
-            //$("#recommend-button").html(function(){document.getElementById("recommend-button").style.display="none"});
+            )
         }});
     })
 
-    $.getJSON("/mealsOnWheels/food_trucks", function(food_trucks_json) {
+		food_trucks_json =  json_string;
         $.each(food_trucks_json, function(key, data) {
             var latLng = new google.maps.LatLng(data.latitude, data.longitude);
 
@@ -340,13 +374,11 @@ $(document).ready(function() {
                     $( "#instafeed")
                     .html ( "" );
 					run(data.name);
-					$("#list-rate").html("");
 
-                    // Food truck rating
+                    // ~~~ filtering ~~~
                     $(".remove").remove();
-                    $(".remove-ave-rate").remove()
-                    $("#truck-rating").html(function(){
-                    document.getElementById("truck-rating").style.display="inline-block"});
+                    $("#truck-rating")
+                    .html(function(){document.getElementById("truck-rating").style.display="inline-block"});
                     $("#rate-button").unbind('click').click(function(){
                         var rate = $('#rate-input').val();
                         sendFoodVendorToDjango(key=data.key,rate=rate);
@@ -355,12 +387,9 @@ $(document).ready(function() {
                     filterFoodVendor(key=data.key);
                     $("#list-rate-header").unbind('click').click(function(){
                         showMoreFoodVendor(key=data.key);
-                        //$(".list-rate-appended").html(
-                        //function(){
-                        //document.getElementsByClassName("list-rate-appended").style.display="inline-block"});
                     });
 
-                    // Select favourite food truck
+                    //  ~~~favorite selection
                     $("#add-to-fav").unbind('click').click(function(){
                         console.log(data.name);
                         setFav(data.name);
@@ -371,7 +400,6 @@ $(document).ready(function() {
 				});
 
             });
-        });
 
 
     });
