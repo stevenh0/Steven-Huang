@@ -2711,3 +2711,7 @@ td {
 .recommendation-description {
 	font-size: 15px;
 }
+
+#recommend-answer {
+	margin-top: 0.7em;
+}
