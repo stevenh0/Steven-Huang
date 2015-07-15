@@ -142,7 +142,7 @@ function showMoreFoodVendor(key){
             // Before appending, delete all the previously appended information
             $(".remove").remove();
             if (json.length === 0){
-            $("#list-rate-header").append("<div class='list-rate-appended-extra remove'>Nothing more to show!</div>");
+            $("#list-rate-header").append("<div class='list-rate-appended-extra remove'>No user ratings yet. Add a rating to this truck and become its first rater!</div>");
             }else{
              $("#list-rate-header").append(
              "<table class='list-rate-appended-extra remove'>"+tableTitle)
