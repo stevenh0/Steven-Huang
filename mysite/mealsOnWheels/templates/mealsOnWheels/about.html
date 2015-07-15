@@ -18,9 +18,11 @@
 				So what are you waiting for? Sign up today for an account and find some food trucks in Vancouver!
 			</p>
 
-			<header><h3>About Recommendation System</h3></header>
-
-			To provide good recommendations to users, our recommendation system first create clusters of users with similar rating habits using a hierarchical clustering with an average linkage.
+			<header>
+				<h3>About the Recommendation System</h3>
+			</header>
+			<p>
+			To provide good recommendations to users, our recommendation system first creates clusters of users with similar rating habits using a hierarchical clustering with an average linkage.
 
 			In any clustering procedure, we must define a metric to measure how dissimilar two users’ rates are, or a dissimilarity measure.
 			As users typically only rate some of the food vendors (and very rarely all), many ratings are “missing”.
@@ -33,11 +35,11 @@
 
 			where \(A\) contains feature index that are non missing by both \(i\) and \(i'\).
 			When \(A\) is empty, the dismiliarity measure is not identifiable.
-			Therefore, we only use the users with more than 80\% of vendor ratings to develop clusters.
+			Therefore, we only use the users with more than 80% of vendor ratings to develop clusters.
 
 			Once clusters are created, our recomendation system classifies a new user into the closest cluster center.
 			We recommend a food truck that has not been rated by this user, and has the highest rate among the users in the same cluster.
-
+			</p>
 			<header>
 				<h3>About the Creators</h3>
 			</header>
