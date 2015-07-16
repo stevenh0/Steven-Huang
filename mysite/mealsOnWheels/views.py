@@ -17,9 +17,9 @@ from search import get_user_json,  createJSONString, get_user_location, search_b
 ## HttpRequest object as the first argument
 def index(request):
     return render(request,'mealsOnWheels/index.html',{})
-	
-	
- 
+
+
+
 class AjaxRedirect(object):
 	def process_response(self, request, response):
 		if request.is_ajax():
@@ -194,14 +194,13 @@ def render_about(request):
 
 ## Send email reference
 ## http://www.mangooranges.com/2008/09/15/sending-email-via-gmail-in-django/
+from django.core.mail import send_mail
 def register_user(request):
     args = {}
     args.update(csrf(request))
-
     if request.method == 'POST':
         form = RegistrationForm(data=request.POST)
         args['form'] = form
-
         if form.is_valid():
             form.save() ## save the registration form (overriden in form.py)
             ## saved user is NOT ACTIVE YET
@@ -213,14 +212,19 @@ def register_user(request):
             salt = hashlib.sha1(str(random.random())).hexdigest()[:5]
             ## combined that 'salt' value with user's username
             ## to get final value of activation key that will be sent to user
+
             activation_key = hashlib.sha1(salt + email).hexdigest()
+
             ## set the date when the activation key will expire
             key_expires = datetime.datetime.today() + datetime.timedelta(days=1)
+
             #Get user by username
             user=User.objects.get(username=username)
+
             # Create and save a new userprofile which is connected to User that we have just created
             # we pass to it values of activation key and key expiration date.
             new_profile = UserProfile(user=user,activation_key=activation_key,key_expires=key_expires)
+
             new_profile.save()
 
             Subject = 'Account confirmation for Meals on Wheels'
@@ -228,9 +232,12 @@ def register_user(request):
             Body2 = 'To activate your account, click this link below within 24 hours: '
             Body3 = '\nhttp://127.0.0.1:8000/mealsOnWheels/confirm/%s' % (activation_key)
             Body4 = '\nhttp://djanguars.pythonanywhere.com/mealsOnWheels/confirm/%s' % (activation_key)
+
             email = EmailMessage(Subject, Body1+Body2+Body3 + Body4, to=[email])
             email.send()
-
+            ## send_mail(Subject, Body1+Body2+Body3+Body4, 'mealsonwheelsvancouver2015@google.com',
+            ##          [email], fail_silently=False)
+            print "7"
             return render(request,'mealsOnWheels/registration_step1.html',{})
         else:
             print form.errors

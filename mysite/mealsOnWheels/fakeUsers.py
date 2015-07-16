@@ -4,10 +4,9 @@
 
 from django.contrib.auth.models import User
 import datetime
-import xlrd
 import random
 import numpy as np
-from mealsOnWheels.parser import importData, clearData
+from mealsOnWheels.admin import getDatabase
 from mealsOnWheels.models import FoodTruck, Review
 from collections import Counter
 from random import randint
@@ -31,8 +30,7 @@ def generateFakeUser():
     ## the number of users to generate
     Nuser = 100
     ## create FoodTruck objects
-    clearData()
-    worksheet = importData(out=True)
+    worksheet = getDatabase(out=True)
     ## User.objects.all().delete()
     print "no user?" + str(User.objects.all().count()) == 0
 

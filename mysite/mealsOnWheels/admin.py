@@ -12,19 +12,27 @@ def printLastImportDate():
 	else:
 		return "Never"
 
-def updateDatabase(modeladmin, request, queryset):
+
+def getDatabase(out=False):
 	clearData()
-	importData()
+	reset_all_users_json()
+	worksheet = importData(out=out)
 	updateJSONObject()
 	lastImportDate.date = datetime.date.today()
 	lastImportDate.save()
 	updateDatabase.short_description = "Fetch new data from City of Vancouver (Last updated: " + printLastImportDate() + ")"
 	updateTestDatabase.short_description = "Fetch new data from test file (Last updated: " + printLastImportDate() + ")"
+	if out:
+		return worksheet
+
+def updateDatabase(modeladmin, request, queryset):
+	getDatabase()
 
 updateDatabase.short_description = "Fetch new data from City of Vancouver (Last updated: " + printLastImportDate() + ")"
 
 def updateTestDatabase(modeladmin, request, queryset):
 	clearData()
+	reset_all_users_json()
 	testImportData()
 	updateJSONObject()
 	lastImportDate.date = datetime.date.today()

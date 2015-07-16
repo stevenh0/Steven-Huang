@@ -12,6 +12,8 @@ propMissing = 0.4
 ## used in Kmeans input. foodTruckArray() requires a few second to run.
 ## K-means should not be run all the time!
 
+
+
 ## Assume that FoodTruck is already fetched
 ##missingRate = -1; ## missing value is imputed with -1
 def foodTruckArray():
@@ -96,6 +98,33 @@ def runClustering():
     np.savetxt("recommender_centers.txt", centers, delimiter=",")
 
 
+def getBestUnratedVendor(center_i,user,dat_foodkey):
+    lng = len(center_i)
+    while lng >0:
+        bestVendori = np.argmax(center_i)
+        bestVendorKey = dat_foodkey[bestVendori]
+        ft = FoodTruck.objects.get(key=bestVendorKey)
+        if user.review_set.filter(foodtruck = ft).count() == 0:
+            break
+        keep = range(0,lng) != bestVendori
+        center_i = center_i[keep]
+        dat_foodkey = dat_foodkey[keep]
+        lng = len(center_i)
+    if lng == 0: ## there is no vendor that has not been rated
+        foodtruck = getRandomVendor()
+    else:
+        foodtruck = FoodTruck.objects.get(key=bestVendorKey)
+    return foodtruck
+
+
+def getRandomVendor():
+    foodtrucks = FoodTruck.objects.all()
+    Ntruck = foodtrucks.count()
+    bestVendori = random.randint(0,Ntruck-1)
+    foodtruck = foodtrucks[bestVendori]
+    return foodtruck
+
+
 def vendorToRecommend(iclust,user):
     ## recommend the vendor that has high rate among the users in the same cluster
     ## and this user has not rated yet!
@@ -108,16 +137,14 @@ def vendorToRecommend(iclust,user):
             center_i = np.loadtxt("recommender_meanRate.txt",delimiter=",")
         else:
             center_i = centers[iclust,:]
-        bestVendori = np.argmax(center_i)
-        bestVendorKey = dat_foodkey[bestVendori]
-        ##bestVendorAveRate = center_i[bestVendori]
-        foodtruck = FoodTruck.objects.get(key=bestVendorKey)
+        foodtruck = getBestUnratedVendor(center_i,user,dat_foodkey)
+        ## bestVendori = np.argmax(center_i)
+        ## bestVendorKey = dat_foodkey[bestVendori]
+        ## bestVendorAveRate = center_i[bestVendori]
+        ## foodtruck = FoodTruck.objects.get(key=bestVendorKey)
     except:
         print "error occurs! randomly selected vendor is suggested as recommendation"
-        foodtrucks = FoodTruck.objects.all()
-        Ntruck = foodtrucks.count()
-        bestVendori = random.randint(0,Ntruck-1)
-        foodtruck = foodtrucks[bestVendori]
+        foodtruck = getRandomVendor()
 
     print "name" + foodtruck.name + "location" + foodtruck.location + "key" +foodtruck.key
     return {"name":foodtruck.name,
