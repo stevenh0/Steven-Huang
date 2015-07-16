@@ -217,7 +217,7 @@ def register_user(request):
             ## set the date when the activation key will expire
             key_expires = datetime.datetime.today() + datetime.timedelta(days=1)
             #Get user by username
-            user=User.objects.get(username=username)
+            user = User.objects.get(username=username)
             # Create and save a new userprofile which is connected to User that we have just created
             # we pass to it values of activation key and key expiration date.
             new_profile = UserProfile(user=user,activation_key=activation_key,key_expires=key_expires)
@@ -228,8 +228,11 @@ def register_user(request):
             Body2 = 'To activate your account, click this link below within 24 hours: '
             Body3 = '\nhttp://127.0.0.1:8000/mealsOnWheels/confirm/%s' % (activation_key)
             Body4 = '\nhttp://djanguars.pythonanywhere.com/mealsOnWheels/confirm/%s' % (activation_key)
-            email = EmailMessage(Subject, Body1+Body2+Body3 + Body4, to=[email])
-            email.send()
+            message = Body1 + Body2 + Body3 + Body4
+            sendEmail(email,message)
+
+            ## email = EmailMessage(Subject, message, to=[email])
+            ## email.send()
 
             return render(request,'mealsOnWheels/registration_step1.html',{})
         else:
@@ -242,6 +245,21 @@ def register_user(request):
         'mealsOnWheels/register.html',
         args
     )
+
+import smtplib
+def sendEmail(email,message):
+    ##user = "djanguars@gmail.com"
+    ## password = "cpsc310summer2015"
+    user = "mealsonwheelsvancouver2015@gmail.com"
+    password = "passwordformealsonwheels"
+    tolist = [email]
+    smtpserv = "smtp.gmail.com:587"
+    mailserver=smtplib.SMTP(smtpserv)
+    mailserver.starttls()
+    mailserver.login(user,password)
+    mailserver.sendmail(user,tolist,message)
+    mailserver.quit()
+
 
 def register_confirm(request, activation_key):
     # check if user is already logged in
