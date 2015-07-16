@@ -27,7 +27,7 @@ if (user_position != "None") {
 	map.setCenter(myLatlng);
 	map.setZoom(map.getZoom() - 1);
 	
-	var image = 'http://vignette1.wikia.nocookie.net/wildonesgame/images/0/0d/Tiger-Icon.png/revision/latest?cb=20111003230340';
+	var image = "/static/mealsOnWheels/images/homemarker.png";
 	
 	var userPos = new google.maps.Marker({
     position: myLatlng,
@@ -353,11 +353,13 @@ $(document).ready(function() {
 		food_trucks_json =  json_string;
         $.each(food_trucks_json, function(key, data) {
             var latLng = new google.maps.LatLng(data.latitude, data.longitude);
-
+			
+			var image = "/static/mealsOnWheels/images/truckmarker.png";
             // Creating a marker and putting it on the map
             var marker = new google.maps.Marker({
             position: latLng,
-            title: data.name
+            title: data.name,
+			icon: image
                 });
 
                 marker.setMap(map);
