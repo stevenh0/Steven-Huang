@@ -35,7 +35,12 @@ if (user_position != "None") {
 	icon:	image,
 	animation: google.maps.Animation.DROP});
 	
-	
+	userPos.addListener('click',function(){
+		var infowindow = new google.maps.InfoWindow({
+			  content: "latitude:" + ulat + "," + " longitude:" + ulon
+			});
+			infowindow.open(map,this);
+		});
 	
 
 	$("#get-radius").keyup(function(e){
@@ -128,7 +133,9 @@ if (user_position != "None") {
 		map.fitBounds(bounds);
 		*/
 		
-		var position_data = {'mapRequestType': 'new_position', 'lat': places[0].geometry.location.lat(), 'lon': places[0].geometry.location.lng()};
+		var position_data = {'mapRequestType': 'new_position',
+		                    'lat': places[0].geometry.location.lat(),
+		                    'lon': places[0].geometry.location.lng()};
 		$.ajax({
 			type: 'POST',
 			url: "/mealsOnWheels/map/",
