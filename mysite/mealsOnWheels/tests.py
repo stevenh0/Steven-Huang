@@ -5,17 +5,8 @@ from parser import testImportData, clearData
 from models import FoodTruck, Position
 from django.shortcuts import render, get_object_or_404
 import hashlib, datetime, random
-<<<<<<< HEAD
 from search import get_user_json
-
-# Create your tests here.
-
-# Test that page renders properly with all the appropriate fields
-
-# Test that only by entering the appropriate information into the fields will you be able to login
-=======
 from django.contrib.auth.models import User
->>>>>>> d8d6184e92311d476318c854bb06daf14241f0c4
 
 username = 'steven'
 email = 'stevenh0@hotmail.com'

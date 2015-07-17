@@ -2672,8 +2672,6 @@
 	margin-top: 1.5em;
 }
 
-
-
 table, th, td {
     border: 1px solid #D9D9D9;
     border-color: #ADADAD;
@@ -2719,10 +2717,32 @@ td {
 /* Food Truck Search/Filtering */
 
 #term-search {
-	margin-top: 0.3em;
+	width: 250px;
+	margin-top: 0.2em;
+	display: inline;
 }
 
 #clear-search {
 	margin-bottom: 0.3em;
 	padding: 0.2em 0.5em 0.2em 0.5em;
+	float: right;
+}
+
+#input-error {
+	display:inline; 
+	background-color:white; 
+	color: #d52349;
+	border: 3px solid #d52349;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+#get-radius {
+	width: 190px;
+	margin-top: 0.2em;
+	display: inline;
+}
+
+#pac-input {
+	display: inline;
 }
