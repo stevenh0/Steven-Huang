@@ -39,6 +39,7 @@ if (user_position != "None") {
 	
 
 	$("#get-radius").keyup(function(e){
+		
 		if (e.keyCode == 13) {
 			var rad = $(this).val();
 			if (!isNaN(rad) && parseFloat(rad) < 100 && parseFloat(rad) > 0){
@@ -89,52 +90,20 @@ if (user_position != "None") {
 		// For each place, get the icon, place name, and location.
 		markers = [];
 
-		// Zoom in/out to show both the new location and the food vendors
-		/*
-		var bounds = new google.maps.LatLngBounds();
-		bounds.extend(downtownVancouver);
-		for (var i = 0, place; place = places[i]; i++) {
-		  var image = {
-			 url: place.icon,
-			 size: new google.maps.Size(71, 71),
-			 origin: new google.maps.Point(0, 0),
-			 anchor: new google.maps.Point(17, 34),
-			 scaledSize: new google.maps.Size(25, 25)
-		  };
-
-		  // Create a marker for each place.
-		  var marker = new google.maps.Marker({
-			 map: map,
-			 icon: image,
-			 title: place.name,
-			 position: place.geometry.location,
-			 click: true,
-			 draggable: false,
-			 animation: google.maps.Animation.BOUNCE// DROP
-		  });
-
-		markers.push(marker);
-
-
-		markers[i].addListener('click',function(){
-			 var infowindow = new google.maps.InfoWindow({
-			   content: this.title
-			 });
-			 infowindow.open(map,this);
-		});
-
-		  bounds.extend(place.geometry.location);
-		}
-		map.fitBounds(bounds);
-		*/
+		var lat = places[0].geometry.location.lat();
+		var lon = places[0].geometry.location.lng();
 		
-		var position_data = {'mapRequestType': 'new_position', 'lat': places[0].geometry.location.lat(), 'lon': places[0].geometry.location.lng()};
+		if (lat < 49.38 && lat > 49.18 && lon < -122.96 && lon > -123.31) {
+		var position_data = {'mapRequestType': 'new_position', 'lat': lat, 'lon': lon};
 		$.ajax({
 			type: 'POST',
 			url: "/mealsOnWheels/map/",
 			data: position_data,
 			});
+			
+		}
 	  });
+	
   
 }
     // Bias the SearchBox results towards places that are within the bounds of the
@@ -315,21 +284,21 @@ $(document).ready(function() {
 		$("#term-search").keyup(function(e){
 		if (e.keyCode == 13) {
 			var term = $(this).val();
-			console.log("POST search term: " + term);
-			var data = {'mapRequestType': 'term_search', 'term': term};
-			$.ajax({
-				type: 'POST',
-				url: "/mealsOnWheels/map/",
-				data: data,
-				success: function(json){
-				// do nothing
-			}});
+			if (!(/[^a-zA-Z0-9]/.test(term))) {
+				var data = {'mapRequestType': 'term_search', 'term': term};
+				$.ajax({
+					type: 'POST',
+					url: "/mealsOnWheels/map/",
+					data: data,
+					success: function(json){
+					// do nothing
+				}});
+			}
 		}
 	});
 	
 	$(document).ajaxComplete(function(e, xhr, settings) {
-		console.log("We triggered an ajax event");
-		console.log("We got a code " + xhr.status);
+		
         if (xhr.status == 278) {
 			console.log("Redirect status code received");
             window.location.href = xhr.getResponseHeader("Location").replace(/\?.*$/, "?next="+window.location.pathname);
