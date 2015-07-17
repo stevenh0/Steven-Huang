@@ -10,7 +10,7 @@
 		<title>Meals on Wheels | {{ page }} </title>
 			<script type="text/javascript">
 		var json_string = {% autoescape off  %}{{ json_string }}{% endautoescape %};
-		var user_position = "{{ location }}";
+		var user_position = "{% autoescape off  %}{{ location }}{% endautoescape %}";
 		</script>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
