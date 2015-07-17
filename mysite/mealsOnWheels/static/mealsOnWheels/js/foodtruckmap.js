@@ -35,8 +35,12 @@ if (user_position != "None") {
 	icon:	image,
 	animation: google.maps.Animation.DROP});
 	
-	
-	
+	userPos.addListener('click',function(){
+		var infowindow = new google.maps.InfoWindow({
+			  content: "latitude:" + ulat + "," + " longitude:" + ulon
+			});
+			infowindow.open(map,this);
+		});
 
 	$("#get-radius").keyup(function(e){
 		
@@ -56,7 +60,10 @@ if (user_position != "None") {
 		}
 	});
 	
-
+    var bounds = new google.maps.LatLngBounds();
+    bounds.extend(myLatlng);
+	bounds.extend(downtownVancouver);
+    map.fitBounds(bounds);
 
   }
 

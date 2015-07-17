@@ -18,7 +18,7 @@ from search import reset_all_users_json
 
 # Import data from City of Vancouver website using FTP module
 
-def importData():
+def importData(out=False):
 	try:
 		filedst = open('testThisFile.xls', 'w')
 		req = urllib2.Request("ftp://webftp.vancouver.ca/OpenData/xls/new_food_vendor_locations.xls")
@@ -37,7 +37,6 @@ def importData():
 
 	# Initialize counters for parsing through file
 	num_rows = worksheet.nrows - 1
-	num_cols = worksheet.ncols - 1
 	curr_row = 0
 
 	# Parse through file and save to database
@@ -45,7 +44,8 @@ def importData():
 	while curr_row < num_rows:
 		curr_row += 1
 		saveRowAsTruck(worksheet, curr_row)
-
+	if out:
+		return worksheet
 
 
 class HandleFoodTrucks(xml.sax.handler.ContentHandler):
