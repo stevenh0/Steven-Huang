@@ -2719,11 +2719,16 @@ td {
 /* Food Truck Search/Filtering */
 
 #term-search {
-	margin-top: 0.3em;
 	width: 250px;
+	margin-top: 0.2em;
 }
 
 #clear-search {
 	margin-bottom: 0.3em;
 	padding: 0.2em 0.5em 0.2em 0.5em;
+}
+
+#get-radius {
+	width: 190px;
+	margin-top: 0.2em;
 }
