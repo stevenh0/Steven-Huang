@@ -2732,9 +2732,9 @@ td {
 	display:inline; 
 	background-color:white; 
 	color: #d52349;
-	border: 3px solid #d52349;
+	border: 2px solid #d52349;
 	border-radius: 5px;
-	padding: 10px;
+	padding: 0.3em;
 }
 
 #get-radius {
