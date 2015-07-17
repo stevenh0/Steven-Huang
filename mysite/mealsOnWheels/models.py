@@ -36,8 +36,6 @@ class FoodTruck(models.Model):
 	def __str__(self):
 		return "Truck " + self.key + ": " + self.name
 
-	def __eq__(self, other):
-		return self.key == other.key
 
 class LastImportDate(models.Model):
     date = models.DateTimeField()
