@@ -12,15 +12,11 @@
 				<p>Create a new account</p>
 			</header>
 			<p>
-			<form class="form-signup" action="{% url 'mealsOnWheels:register' %}" method = "post">
-			{% csrf_token %}
-			<!--Username: {{ form.username }}
-			Email: {{ form.email }}
-			Password: {{ form.password1 }}
-			Password: {{ form.password2 }}-->
-			{{form.as_p}}
-			<input type="submit" name="submit" value="Register" />
-			</form>
+				<form class="form-signup" action="{% url 'mealsOnWheels:register' %}" method = "post">
+					{% csrf_token %}
+					{{form.as_p}}
+					<input type="submit" name="submit" value="Register" />
+				</form>
 			</p>
 		</article>
 
