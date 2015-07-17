@@ -70,14 +70,14 @@ def classifyUser(modeladmin, request, queryset):
 		messages.error(request, "This functionality is currently not supported")
 
 generateUser.short_description = "Generate bob and 100 users (Asian-food lovers, seafood lovers, " \
-								 "hotdogs lovers and those with no preference)"
+									"hotdogs lovers and those with no preference)"
 classifyUser.short_description = "Classify these users into four clusters of similar rating behaviors"
 
 
 from django.contrib.auth.models import User
 class ReviewInline(admin.TabularInline):
-    model = Review
-    extra = 5
+	model = Review
+	extra = 5
 
 
 class UserAdmin(admin.ModelAdmin):

@@ -4,14 +4,15 @@ __author__ = 'yumikondo'
 import numpy as np
 from mealsOnWheels.models import FoodTruck
 from django.contrib.auth.models import User
-import datetime,random
+import datetime, random
+import scipy.cluster.hierarchy as hier
+import scipy.spatial.distance as dist
 
 propMissing = 0.4
 
-## create array Nuser by NfoodTruck containing rates so that the dat will be
+## Create array Nuser by NfoodTruck containing rates so that the dat will be
 ## used in Kmeans input. foodTruckArray() requires a few second to run.
 ## K-means should not be run all the time!
-
 
 
 ## Assume that FoodTruck is already fetched
@@ -51,7 +52,6 @@ def foodTruckArray():
             "dat_username" : dat_username,
             "pub_date" : datetime.datetime.today()}
 
-
 def getMissDist(x,y):
     return np.nanmean( (x - y)**2 )
 
@@ -67,10 +67,6 @@ def getMissDistMat(dat):
                 dist[ix,iy] = getMissDist(x,y)
                 dist[iy,ix] = dist[ix,iy]
     return dist
-
-import scipy.cluster.hierarchy as hier
-import scipy.spatial.distance as dist
-
 
 def getCenters(label,dat):
     ## compute the cluster centers
@@ -97,7 +93,6 @@ def runClustering():
     centers = getCenters(label=label,dat=dat)
     np.savetxt("recommender_centers.txt", centers, delimiter=",")
 
-
 def getBestUnratedVendor(center_i,user,dat_foodkey):
     lng = len(center_i)
     while lng >0:
@@ -116,7 +111,6 @@ def getBestUnratedVendor(center_i,user,dat_foodkey):
         foodtruck = FoodTruck.objects.get(key=bestVendorKey)
     return foodtruck
 
-
 def getRandomVendor():
     foodtrucks = FoodTruck.objects.all()
     Ntruck = foodtrucks.count()
@@ -124,11 +118,9 @@ def getRandomVendor():
     foodtruck = foodtrucks[bestVendori]
     return foodtruck
 
-
 def vendorToRecommend(iclust,user):
     ## recommend the vendor that has high rate among the users in the same cluster
     ## and this user has not rated yet!
-    print "hi"
     try:
         centers = np.loadtxt("recommender_centers.txt",delimiter=',')
         dat_foodkey = np.loadtxt("recommender_foodkey.txt",delimiter=',',dtype=np.str)
@@ -150,7 +142,6 @@ def vendorToRecommend(iclust,user):
     return {"name":foodtruck.name,
             "location":foodtruck.location,
             "key":foodtruck.key}
-
 
 def assignUser2Cluster(user):
     ## compute squared Euclidean distances between this user's review rate
@@ -184,5 +175,3 @@ def assignUser2Cluster(user):
         myClust = -1
     print message
     return {"cluster" : myClust, "message":message}
-
-

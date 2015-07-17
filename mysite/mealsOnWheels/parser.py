@@ -92,8 +92,7 @@ def importKMZData():
 		shutil.copyfileobj(filesrc, filedst)
 		filedst.close()
 		filesrc.close()
-		
-		
+
 		kmz = ZipFile('testThisFile.kmz', 'r')
 		kml = kmz.open('street_food_vendors.kml', 'r')
 		
@@ -125,8 +124,6 @@ def testImportData():
 		saveRowAsTruck(worksheet, curr_row)
 
 # Where the actual data saving is done
-# TODO: implement else case: figure out what functionality we want when an invalid truck is passed in, probably just does nothing but could throw exception/print to console etc.
-
 def saveRowAsTruck(worksheet, row_index):
 	if (isValidTruck(worksheet, row_index)):
 		flat = worksheet.cell_value(row_index, 6)
@@ -149,7 +146,6 @@ def saveRowAsTruck(worksheet, row_index):
 		t = FoodTruck(key=fkey, name=fname, foodType=fdescription, position=p, location=floc)
 		t.save()
 
-# TODO: Only provides partial functionality, need to finish implementing
 # This method should accept trucks with empty names or descriptions, but they must have one of the two, as well as a key and valid position
 
 def isValidTruck(worksheet, row_index):

@@ -44,8 +44,7 @@ def generateFakeUser():
         fdescription.append( worksheet.cell_value(row_index, 5) )
         fkey.append( worksheet.cell_value(row_index, 0))
 
-
-    ## classify the vendors into 4 clusters:
+    ## Classify the vendors into 4 clusters:
     keywordSet = [
         ["thai","india","japa","asia","chine","korea","vietna","philip"],  ## Asia
         ["dogs"], ## hot dogs

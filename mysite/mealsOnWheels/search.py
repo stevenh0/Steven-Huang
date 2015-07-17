@@ -23,7 +23,7 @@ def search_by_radius(radius, position, request):
 	new_json = createJSONString(search_results)
 	user_json.json_object = new_json
 	user_json.save()
-	
+
 def search_by_term(term, request):
 	all_trucks = FoodTruck.objects.all()
 	search_results = all_trucks.filter(Q(name__icontains=term) | Q(location__icontains=term) | Q(foodType__icontains=term))
@@ -31,8 +31,7 @@ def search_by_term(term, request):
 	new_json = createJSONString(search_results)
 	user_json.json_object = new_json
 	user_json.save()
-	
-	
+
 def createJSONString(trucks):
 	dastr = json.dumps(createJSONObject(trucks))
 	return dastr
@@ -69,7 +68,7 @@ def reset_user_data(request):
 	print "reset_user_data 2"
 	val.delete()
 	print "reset_user_data 3"
-	
+
 def createJSONObject(trucks):
 	response = []
 	for truck in trucks:

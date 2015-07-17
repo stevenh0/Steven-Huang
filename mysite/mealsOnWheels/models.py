@@ -6,11 +6,11 @@ from django.utils import timezone
 ## Definitions for Food Truck-related classes
 
 class Position(models.Model):
-    lat = models.FloatField()
-    lon = models.FloatField()
+	lat = models.FloatField()
+	lon = models.FloatField()
 
-    def __str__(self):
-        return "(" + str(self.lat) + "," + str(self.lon) + ")"
+	def __str__(self):
+		return "(" + str(self.lat) + "," + str(self.lon) + ")"
 
 class FoodTruck(models.Model):
 	key = models.CharField('Key',max_length=50,unique=True)
@@ -38,8 +38,8 @@ class FoodTruck(models.Model):
 
 
 class LastImportDate(models.Model):
-    date = models.DateTimeField()
-    date.null = True
+	date = models.DateTimeField()
+	date.null = True
 
 ## Needed for authentification
 from django.contrib.auth.models import User
@@ -51,39 +51,38 @@ class UserJSONObject(models.Model):
 	location.null = True
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User)
-    activation_key = models.CharField(max_length=40,blank=True)
-    key_expires = models.DateTimeField(default=timezone.now)
+	user = models.OneToOneField(User)
+	activation_key = models.CharField(max_length=40,blank=True)
+	key_expires = models.DateTimeField(default=timezone.now)
 
-    def __str__(self):
-        return self.user.username
+	def __str__(self):
+		return self.user.username
 
-    class Meta:
-        verbose_name_plural = 'User profiles'
+	class Meta:
+		verbose_name_plural = 'User profiles'
 
 #http://stackoverflow.com/questions/849142/how-to-limit-the-maximum-value-of-a-numeric-field-in-a-django-model
 class Integer010Field(models.IntegerField):
-   def __init__(self, verbose_name=None, name=None, **kwargs):
-       self.min_value = 0
-       self.max_value = 10
-       models.IntegerField.__init__(self, verbose_name, name, **kwargs)
+	def __init__(self, verbose_name=None, name=None, **kwargs):
+		self.min_value = 0
+		self.max_value = 10
+		models.IntegerField.__init__(self, verbose_name, name, **kwargs)
 
-   def formfield(self, **kwargs):
-       defaults = {'min_value': self.min_value, 'max_value':self.max_value}
-       defaults.update(kwargs)
-       return super(Integer010Field, self).formfield(**defaults)
+	def formfield(self, **kwargs):
+		defaults = {'min_value': self.min_value, 'max_value':self.max_value}
+		defaults.update(kwargs)
+		return super(Integer010Field, self).formfield(**defaults)
 
 class Review(models.Model):
-    user = models.ForeignKey(User) ## a user has many reviews
-    foodtruck = models.ForeignKey(FoodTruck) ## a food truck has many reviews
-    #rate = models.FloatField(blank=True)
-    rate = Integer010Field(
-       blank=True,
-       help_text="rate must be between 0 - 10")
-    pub_date = models.DateField()
+	user = models.ForeignKey(User) ## a user has many reviews
+	foodtruck = models.ForeignKey(FoodTruck) ## a food truck has many reviews
+	rate = Integer010Field(
+		blank=True,
+		help_text="rate must be between 0 - 10")
+	pub_date = models.DateField()
 
-    def __str__(self):
-        return str(self.foodtruck)+ " rate:" + str(self.rate)
+	def __str__(self):
+		return str(self.foodtruck)+ " rate:" + str(self.rate)
 
 
 
