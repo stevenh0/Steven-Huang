@@ -2734,6 +2734,7 @@ td {
 	border: 2px solid #D52349;
 	border-radius: 5px;
 	padding: 0.3em;
+	display: inline;
 }
 
 #get-radius {
