@@ -2729,10 +2729,9 @@ td {
 }
 
 #input-error {
-	display:inline; 
-	background-color:white; 
-	color: #d52349;
-	border: 2px solid #d52349;
+	background-color: white;
+	color: #D52349;
+	border: 2px solid #D52349;
 	border-radius: 5px;
 	padding: 0.3em;
 }
