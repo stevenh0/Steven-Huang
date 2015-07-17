@@ -2,7 +2,6 @@
 var map;
 var downtownVancouver = new google.maps.LatLng(49.28,-123.12);
 
-
 function initialize() {
     var mapOptions = {
         zoom: 14,
@@ -12,8 +11,7 @@ function initialize() {
 
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-
-// If the user has a position, add it to the map and ask for a search radius instead
+    // If the user has a position, add it to the map and ask for a search radius instead
     if (user_position != "None") {
         $("input#pac-input.controls").hide();
         var sarr = user_position.split(",");
@@ -60,55 +58,53 @@ function initialize() {
         bounds.extend(myLatlng);
         bounds.extend(downtownVancouver);
         map.fitBounds(bounds);
-  }
 
- else {
-	// https://developers.google.com/maps/documentation/javascript/markers
-	// https://developers.google.com/maps/documentation/javascript/examples/places-searchbox
-	// Create the search box and link it to the UI element.
+    } else {
 
-	$("#get-radius").hide();
+        // https://developers.google.com/maps/documentation/javascript/markers
+        // https://developers.google.com/maps/documentation/javascript/examples/places-searchbox
+        // Create the search box and link it to the UI element.
 
-	var input = /** @type {HTMLInputElement} */(
-		  document.getElementById('pac-input'));
-	map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        $("#get-radius").hide();
+
+        var input = /** @type {HTMLInputElement} */(
+              document.getElementById('pac-input'));
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
 
-	var searchBox = new google.maps.places.SearchBox(
-		/** @type {HTMLInputElement} */(input));
+        var searchBox = new google.maps.places.SearchBox(
+            /** @type {HTMLInputElement} */(input));
 
-	var markers = [];
-    // Listen for the event fired when the user selects an item from the
-    // pick list. Retrieve the matching places for that item.
-	google.maps.event.addListener(searchBox, 'places_changed', function() {
-		var places = searchBox.getPlaces();
-		for (var i = 0, marker; marker = markers[i]; i++) {
-		  marker.setMap(null);
-		}
-		if (places.length == 0) {
-		  return;
-		}
+        var markers = [];
+        // Listen for the event fired when the user selects an item from the
+        // pick list. Retrieve the matching places for that item.
+        google.maps.event.addListener(searchBox, 'places_changed', function() {
+            var places = searchBox.getPlaces();
+            for (var i = 0, marker; marker = markers[i]; i++) {
+              marker.setMap(null);
+            }
+            if (places.length == 0) {
+              return;
+            }
 
-		// For each place, get the icon, place name, and location.
-		markers = [];
+            // For each place, get the icon, place name, and location.
+            markers = [];
 
-		var lat = places[0].geometry.location.lat();
-		var lon = places[0].geometry.location.lng();
+            var lat = places[0].geometry.location.lat();
+            var lon = places[0].geometry.location.lng();
 
-		if (lat < 49.38 && lat > 49.18 && lon < -122.96 && lon > -123.31) {
-		var position_data = {'mapRequestType': 'new_position', 'lat': lat, 'lon': lon};
-		$.ajax({
-			type: 'POST',
-			url: "/mealsOnWheels/map/",
-			data: position_data,
-			});
-
-		}
-	  });
+            if (lat < 49.38 && lat > 49.18 && lon < -122.96 && lon > -123.31) {
+            var position_data = {'mapRequestType': 'new_position', 'lat': lat, 'lon': lon};
+            $.ajax({
+                type: 'POST',
+                url: "/mealsOnWheels/map/",
+                data: position_data,
+                });
+            }
+        });
     }
     // Bias the SearchBox results towards places that are within the bounds of the
-    // current map's viewport.
-
+    // current map's viewport
 
     // http://stackoverflow.com/questions/24152420/pass-dynamic-javascript-variable-to-django-python
     function sendFoodVendorToDjango(key,rate) {
@@ -141,7 +137,6 @@ function initialize() {
         return false;
     }
 
-
     var tableTitle = "<tr><th>Date</th><th>User</th><th>Rating</th></tr>"
     function userRatingStyling(element) {
         return "<tr>" +
@@ -151,7 +146,6 @@ function initialize() {
     }
 
     function showMoreFoodVendor(key) {
-
         var data = {'foodTruckKey': key};
         $.ajax({
             type: "POST",
@@ -168,9 +162,8 @@ function initialize() {
                 "<table class='list-rate-appended-extra remove'>"+tableTitle)
                 // Each user's review is printed
                 $.each(json, function(index, element) {
-                 $('.list-rate-appended-extra').append(
-                    userRatingStyling(element) );
-                 });
+                    $('.list-rate-appended-extra').append(userRatingStyling(element));
+                });
                 $("#list-rate-header").append("</table>");
             }
         }});
@@ -190,10 +183,10 @@ function initialize() {
             } else {
                 // Each user's review is printed
                 tableCaption = "<span class='remove'>This vendor is currently rated as:</span>"
-                $("#list-rate").append(tableCaption + "<table class='list-rate-appended remove'>"+tableTitle)
+                $("#list-rate").append(tableCaption + "<table class='list-rate-appended remove'>" + tableTitle);
                 $.each(json, function(index, element) {
                     if (element.additional === 0) {
-                         $('.list-rate-appended').append(userRatingStyling(element) );
+                         $('.list-rate-appended').append(userRatingStyling(element));
                     } else {
                         if (element.average !== "NA") {
                             s1 = "<p id='rate-ave' class='remove-ave-rate'>" + element.average
@@ -217,7 +210,7 @@ function initialize() {
 
     function setCookie(cname,cvalue,exdays) {
         var d = new Date();
-        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
         var expires = "expires=" + d.toGMTString();
         document.cookie = cname + "=" + cvalue + "; " + expires;
     }
@@ -298,7 +291,7 @@ function initialize() {
             success:function(json) {
                 console.log("I am here!"+json.name)
                 $("#recommend-answer").html(
-                "You might like <p class='recommended-vendor'>"+json.name+"</p> at "+json.location
+                "You might like <p class='recommended-vendor'>" + json.name + "</p> at " + json.location
             )}
         });
     })
@@ -326,19 +319,19 @@ function initialize() {
 
                 $( "#selected-food-truck-details p" ).html("<b>" + data.description + "</b><br>" + data.location);
                 $( "#selected-food-truck-details h3" ).html( data.name );
-                $( "#instafeed").html ( "" );
+                $( "#instafeed").html ("");
                 run(data.name);
 
                 // Filtering
                 $(".remove").remove();
-                $(".remove-ave-rate").remove()
+                $(".remove-ave-rate").remove();
                 $("#truck-rating")
                 .html(function(){document.getElementById("truck-rating").style.display="inline-block"});
                 $("#rate-button").unbind('click').click(function() {
                     var rate = $('#rate-input').val();
                     sendFoodVendorToDjango(key=data.key,rate=rate);
                     $('#rate-input').val("");
-                    })
+                });
                 filterFoodVendor(key=data.key);
                 $("#list-rate-header").unbind('click').click(function() {
                     showMoreFoodVendor(key=data.key);
