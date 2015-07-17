@@ -1,3 +1,3 @@
-# Djanguars
+# Meals on Wheels
 
-Run 'git pull' before you make any changes.
+http://djanguars.pythonanywhere.com/
